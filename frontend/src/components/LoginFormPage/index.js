@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import * as sessionActions from '../../store/session';
 
 import './LoginForm.css'
+import logo from '../static/images/noted-logo.png';
+import { AttentionSeeker } from "react-awesome-reveal";
 
 export default function LoginFormPage() {
     const dispatch = useDispatch();
@@ -12,29 +14,17 @@ export default function LoginFormPage() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [formValidations, setFormValidations] = useState([]);
     const [errors, setErrors] = useState([]);
+    const [errorsDisplay, setErrorsDisplay] = useState('none')
 
+    useEffect(() => {
+        if (errors.length > 0) setErrorsDisplay('block')
+        else setErrorsDisplay('none')
+    }, [errors])
 
     if (sessionUser) return (
         <Redirect to="/" />
     );
-
-
-
-    useEffect(() => {
-        const errors = [];
-
-        if (!email || email.length < 1) {
-            errors.push("Email must not be empty");
-        }
-
-        if (!password || password.length < 1) {
-            errors.push("Password must not be empty");
-        }
-
-        setFormValidations(errors)
-    }, [email, password])
 
 
     const handleSubmit = async (e) => {
@@ -54,10 +44,16 @@ export default function LoginFormPage() {
 
     return (
         <div className='login-container'>
+            <div className='img-container'>
+                <AttentionSeeker effect='rubberBand' triggerOnce>
+                    <img src={logo} />
+                </AttentionSeeker>
+            </div>
+
             <h1>Log In</h1>
 
             <form onSubmit={handleSubmit}>
-                <ul>
+                <ul style={{ display: { errorsDisplay } }}>
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
                 <input
@@ -68,6 +64,7 @@ export default function LoginFormPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    autocomplete='off'
                 />
 
                 <input
@@ -78,14 +75,15 @@ export default function LoginFormPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    autocomplete='off'
                 />
 
-                <button type='submit'>Submit</button>
+                <button className='submit-button' type='submit'>Submit</button>
             </form>
 
-            <div>
-                <button type='button'>Sign Up</button>
-                <button type='button'>Demo</button>
+            <div className='sign-in-and-demo-buttons'>
+                <button className='smaller-buttons' type='button'>Sign Up</button>
+                <button className='smaller-buttons' type='button'>Demo</button>
             </div>
         </div>
     );
