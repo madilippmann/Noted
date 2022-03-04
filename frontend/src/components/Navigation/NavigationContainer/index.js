@@ -29,7 +29,6 @@ const NavigationContainer = ({ type, dropdown }) => {
             {type === 'Notebooks' && <div className='nav-icon-container'><UilBook side='30' className='icon' /></div>}
             {type === 'Notes' && <div className='nav-icon-container'><UilFilePlusAlt side='30' className='icon' /></div>}
             {type === 'Tags' && <div className='nav-icon-container'><UilTagAlt side='30' className='icon' /></div>}
-            {type === 'Shared' && <div className='nav-icon-container'><UilUsersAlt side='30' className='icon' /></div>}
 
             <h4>{type}</h4>
         </div>

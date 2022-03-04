@@ -115,13 +115,7 @@ export default function Navigation() {
                 >
                     <NavigationContainer type='Tags' dropdown={true} />
                 </NavLink>
-                <NavLink
-                    className='main-nav-links'
-                    to='/shared'
-                    style={(isActive) => isActive ? { backgroundColor: `rgb(232, 220, 255)` } : { backgroundColor: `transparent` }}
-                >
-                    <NavigationContainer type='Shared' dropdown={true} />
-                </NavLink>
+
 
             </nav>
 

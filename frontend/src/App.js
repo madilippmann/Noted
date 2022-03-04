@@ -51,11 +51,6 @@ function App() {
           </Route>
         }
 
-        {sessionUser &&
-          <Route path='/shared'>
-            {/* <Shared /> */}
-          </Route>
-        }
 
         <Route >
           <Redirect path='/login' />
