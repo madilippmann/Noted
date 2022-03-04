@@ -4,16 +4,19 @@ import { Redirect, Link } from 'react-router-dom';
 
 import * as sessionActions from '../../store/session';
 
-import './LoginForm.css'
+import '../LoginFormPage/LoginForm.css'
 import logo from '../static/images/noted-logo.png';
 import { AttentionSeeker } from "react-awesome-reveal";
 
-export default function LoginFormPage() {
+export default function SignupFormPage() {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
 
     const [email, setEmail] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [errors, setErrors] = useState([]);
     const [errorsDisplay, setErrorsDisplay] = useState('none')
 
@@ -30,16 +33,21 @@ export default function LoginFormPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        setErrors([]);
+        if (password === confirmPassword) {
+            setErrors([]);
+            return dispatch(sessionActions.signup({
+                email,
+                firstName,
+                lastName,
+                password
+            })).catch(async (res) => {
+                const data = await res.json();
 
-        return dispatch(sessionActions.login({
-            credential: email,
-            password
-        })).catch(async (res) => {
-            const data = await res.json();
+                if (data && data.errors) setErrors(data.errors)
+            })
+        }
+        return setErrors(['Passwords must match']);
 
-            if (data && data.errors) setErrors(data.errors)
-        })
     }
 
     return (
@@ -68,6 +76,28 @@ export default function LoginFormPage() {
                 />
 
                 <input
+                    className='firstNameInput'
+                    name='firstName'
+                    type='text'
+                    placeholder='First name'
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                    autocomplete='off'
+                />
+
+                <input
+                    className='lastNameInput'
+                    name='lastName'
+                    type='text'
+                    placeholder='Last name'
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                    autocomplete='off'
+                />
+
+                <input
                     className='passwordInput'
                     name='password'
                     type='password'
@@ -78,14 +108,23 @@ export default function LoginFormPage() {
                     autocomplete='off'
                 />
 
+                <input
+                    className='confirmPasswordInput'
+                    name='confirmPassword'
+                    type='password'
+                    placeholder='Confirm password'
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                    autocomplete='off'
+                />
+
                 <button className='submit-button' type='submit'>Submit</button>
             </form>
 
-            <div className='sign-in-and-demo-buttons'>
-                <Link to='/signup'>
-                    <button className='smaller-buttons' type='button'>Sign Up</button>
-                </Link>
-                <button className='smaller-buttons' type='button'>Demo</button>
+
+            <div className='login-link'>
+                <Link to='/login'>Log In</Link>
             </div>
         </div>
     );
