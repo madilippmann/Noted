@@ -1,0 +1,64 @@
+.button-and-modal-container {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+.modal-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    background: rgba(255, 255, 255, 0.303);
+    border-radius: 15px;
+    padding: 10px;
+
+}
+
+button {
+    border: none;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+}
+
+button.info-button:hover {
+    box-shadow: none;
+}
+
+.white {
+    color: white;
+}
+
+.social-link {
+    color: rgba(255, 255, 255, 0.713);
+    margin-left: 5px;
+}
+
+.info-icon:hover {
+    opacity: 70%;
+}
+
+.social-link:hover {
+    opacity: 65%;
+}
+
+
+.social-links {
+    border-left: 2px solid rgba(255, 255, 255, 0.37);
+}
+
+.tech-stack {
+    display: flex;
+    align-items: center;
+    font-size: 40px;
+    color: rgba(0, 0, 0, 0.713)
+
+}
+
+.tech-stack * {
+    margin-right: 10px;
+}

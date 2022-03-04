@@ -58,7 +58,7 @@ export default function SignupFormPage() {
                 </AttentionSeeker>
             </div>
 
-            <h1>Log In</h1>
+            <h1>Sign Up</h1>
 
             <form onSubmit={handleSubmit}>
                 <ul style={{ display: { errorsDisplay } }}>
