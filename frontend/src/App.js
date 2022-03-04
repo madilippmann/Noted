@@ -30,24 +30,23 @@ function App() {
         <Route path='/signup'>
           <SignupFormPage />
         </Route>
-        <Route path='/'>
+        <Route exact path='/'>
           <Home />
         </Route>
         <Route path='/notebooks'>
-          <Navigation />
           {/* <Notebooks /> */}
         </Route>
         <Route path='/notes'>
-          <Navigation />
           {/* <Notes /> */}
         </Route>
         <Route path='/tags'>
-          <Navigation />
           {/* <Tags /> */}
         </Route>
         <Route path='/shared'>
-          <Navigation />
           {/* <Shared /> */}
+        </Route>
+        <Route >
+          Page Not Found
         </Route>
       </Switch>
       <InfoButton className='info' />

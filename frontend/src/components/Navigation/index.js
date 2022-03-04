@@ -69,7 +69,7 @@ export default function Navigation() {
                             </div>
 
                             <div className='name-and-email-container'>
-                                <h4>{sessionUser.firstName} {sessionUser.lastName}</h4>
+                                <h4 id='user-full-name'>{sessionUser.firstName} {sessionUser.lastName}</h4>
                                 <h5>{sessionUser.email}</h5>
                             </div>
                         </div>
@@ -97,19 +97,39 @@ export default function Navigation() {
             </div>
 
             <nav className='nav-bars-container'>
-                <NavLink to='/'>
+                <NavLink
+                    className='main-nav-links'
+                    exact to='/'
+                    style={(isActive) => isActive ? { backgroundColor: `rgba(92, 43, 197, 0.263)` } : { backgroundColor: `transparent` }}
+                >
                     <NavigationContainer className='home-nav' type='Home' dropdown={false} />
                 </NavLink>
-                <NavLink to='/notebooks'>
+                <NavLink
+                    className='main-nav-links'
+                    to='/notebooks'
+                    style={(isActive) => isActive ? { backgroundColor: `rgba(92, 43, 197, 0.263)` } : { backgroundColor: `transparent` }}
+                >
                     <NavigationContainer type='Notebooks' dropdown={true} />
                 </NavLink>
-                <NavLink to='/notes'>
+                <NavLink
+                    className='main-nav-links'
+                    to='/notes'
+                    style={(isActive) => isActive ? { backgroundColor: `rgba(92, 43, 197, 0.263)` } : { backgroundColor: `transparent` }}
+                >
                     <NavigationContainer type='Notes' dropdown={true} />
                 </NavLink>
-                <NavLink to='/tags'>
+                <NavLink
+                    className='main-nav-links'
+                    to='/tags'
+                    style={(isActive) => isActive ? { backgroundColor: `rgba(92, 43, 197, 0.263)` } : { backgroundColor: `transparent` }}
+                >
                     <NavigationContainer type='Tags' dropdown={true} />
                 </NavLink>
-                <NavLink to='/shared'>
+                <NavLink
+                    className='main-nav-links'
+                    to='/shared'
+                    style={(isActive) => isActive ? { backgroundColor: `rgba(92, 43, 197, 0.263)` } : { backgroundColor: `transparent` }}
+                >
                     <NavigationContainer type='Shared' dropdown={true} />
                 </NavLink>
 

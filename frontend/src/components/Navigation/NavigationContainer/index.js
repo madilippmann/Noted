@@ -19,7 +19,7 @@ const NavigationContainer = ({ type, dropdown }) => {
     return (
         <div className='nav-sidebar-container'>
             {dropdown &&
-                <div>
+                <div id='arrow-icon-container'>
                     <button onClick={toggleNav} className='arrow-right-button' type='button' >
                         <UilAngleRight className={`arrow-right-icon ${openNav}`} side='40' style={{ color: `${navArrowColor}` }} />
                     </button>
@@ -27,11 +27,11 @@ const NavigationContainer = ({ type, dropdown }) => {
 
             {!dropdown && <div className='filler'></div>}
 
-            {type === 'Home' && <div><UilHome side='30' className='icon' /></div>}
-            {type === 'Notebooks' && <div><UilBook side='30' className='icon' /></div>}
-            {type === 'Notes' && <div><UilFilePlusAlt side='30' className='icon' /></div>}
-            {type === 'Tags' && <div><UilTagAlt side='30' className='icon' /></div>}
-            {type === 'Shared' && <div><UilUsersAlt side='30' className='icon' /></div>}
+            {type === 'Home' && <div className='nav-icon-container'><UilHome side='30' className='icon' /></div>}
+            {type === 'Notebooks' && <div className='nav-icon-container'><UilBook side='30' className='icon' /></div>}
+            {type === 'Notes' && <div className='nav-icon-container'><UilFilePlusAlt side='30' className='icon' /></div>}
+            {type === 'Tags' && <div className='nav-icon-container'><UilTagAlt side='30' className='icon' /></div>}
+            {type === 'Shared' && <div className='nav-icon-container'><UilUsersAlt side='30' className='icon' /></div>}
 
             <h4>{type}</h4>
         </div>

@@ -46,7 +46,9 @@ button.ellipsis:hover {
     color:rgb(0, 174, 255);
 }
 
-
+#user-full-name {
+    padding: 0;
+}
 .user-bar-container {
     padding-top: 25px;
 }
@@ -107,6 +109,12 @@ h5, h4 {
     justify-content: flex-start;
 }
 
+/* .name-and-email-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+} */
+
 .name-and-email-container, .avatar-container {
     opacity: 90%;
 }
@@ -151,7 +159,24 @@ h5, h4 {
 
 }
 
+.nav-bars-container {
+    position: absolute;
+    left: 0px;
+    width: 250px;
+    /* right: -270px; */
+}
 
 .home-nav {
     margin-left: 30px;
+}
+
+
+/* NavLink.main-nav-links {
+    position: relative;
+    left: -10px;
+    right: 10px;
+} */
+
+.nav-bars-container NavLink:active {
+    background-color: rgba(202, 195, 250, 0.953);
 }

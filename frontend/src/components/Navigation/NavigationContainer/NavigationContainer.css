@@ -1,6 +1,8 @@
 .nav-sidebar-container {
     display: flex;
-    padding: 5px 0px;
+    /* padding: 5px 0px; */
+    align-items: center;
+    padding: 10px;
 
 }
 
@@ -10,13 +12,17 @@
 
 
 .filler {
-    width: 36px;
+    width: 24px;
+    height: 24px;
 }
 
 
-.arrow-right-button {
+.nav-sidebar-container > button.arrow-right-button {
     border: none;
     background-color: transparent;
+    padding: 0;
+    display: flex;
+    align-items: center;
 }
 
 
@@ -32,13 +38,24 @@ h4 {
 }
 
 
-.arrow-right-icon {
-
+.arrow-right-button {
+    display: flex;
+    align-items: center;
+    /* padding-left: 10px; */
 }
 
 
-
+.nav-icon-container {
+    display: flex;
+    align-items: center;
+}
 
 .arrow-right-icon.open {
     transform: rotate(90deg);
+}
+
+
+.arrow-icon-container {
+    display: flex;
+    align-items: center;
 }
