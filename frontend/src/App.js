@@ -33,18 +33,18 @@ function App() {
         <Route exact path='/'>
           <Home />
         </Route>
-        <Route path='/notebooks'>
-          {/* <Notebooks /> */}
+        {/* <Route path='/notebooks'>
+          <Notebooks />
         </Route>
         <Route path='/notes'>
-          {/* <Notes /> */}
+          <Notes />
         </Route>
         <Route path='/tags'>
-          {/* <Tags /> */}
+          <Tags />
         </Route>
         <Route path='/shared'>
-          {/* <Shared /> */}
-        </Route>
+          <Shared />
+        </Route> */}
         <Route >
           Page Not Found
         </Route>
