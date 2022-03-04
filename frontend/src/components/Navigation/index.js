@@ -19,11 +19,6 @@ export default function Navigation() {
 
     const [userDropdown, setUserDropdown] = useState(false);
 
-    useEffect(() => {
-        console.log('Navigation component loaded');
-    }, [])
-
-
 
     return (
         <div className='sidebar'>

@@ -9,10 +9,6 @@ export default function Home() {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
 
-    useEffect(() => {
-        console.log('SESSION USER: ', sessionUser);
-    }, [])
-
     if (!sessionUser) return (
         <Redirect to="/login" />
     );

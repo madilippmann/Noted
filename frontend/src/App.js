@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import InfoButton from "./components/InfoButton";
 
 import LoginFormPage from "./components/LoginFormPage";
@@ -33,20 +33,32 @@ function App() {
         <Route exact path='/'>
           <Home />
         </Route>
-        {/* <Route path='/notebooks'>
-          <Notebooks />
-        </Route>
-        <Route path='/notes'>
-          <Notes />
-        </Route>
-        <Route path='/tags'>
-          <Tags />
-        </Route>
-        <Route path='/shared'>
-          <Shared />
-        </Route> */}
+
+        {sessionUser &&
+          <Route path='/notebooks'>
+            {/* <Notebooks /> */}
+          </Route>
+        }
+
+        {sessionUser &&
+          <Route path='/notes'>
+            {/* <Notes /> */}
+          </Route>
+        }
+        {sessionUser &&
+          <Route path='/tags'>
+            {/* <Tags /> */}
+          </Route>
+        }
+
+        {sessionUser &&
+          <Route path='/shared'>
+            {/* <Shared /> */}
+          </Route>
+        }
+
         <Route >
-          Page Not Found
+          <Redirect path='/login' />
         </Route>
       </Switch>
       <InfoButton className='info' />

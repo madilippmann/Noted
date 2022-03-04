@@ -10,10 +10,8 @@ const NavigationContainer = ({ type, dropdown }) => {
         else setOpenNav('open');
     }
 
-
     useEffect(() => {
         setNavArrowColor(navArrowColor === '#bea3fa' ? '#5D2BC5' : '#bea3fa');
-        console.log(navArrowColor);
     }, [openNav])
 
     return (

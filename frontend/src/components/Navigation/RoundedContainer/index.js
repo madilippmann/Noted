@@ -5,9 +5,7 @@ import { useState, useEffect } from 'react';
 const RoundedContainer = ({ type }) => {
     const [searchInput, setSearchInput] = useState('');
 
-    useEffect(() => {
-        console.log(searchInput);
-    }, [searchInput])
+
 
     return (
         <div className='rounded-outer-container'>
