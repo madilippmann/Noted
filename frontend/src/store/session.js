@@ -13,7 +13,7 @@ export const removeUserSession = () => ({
 })
 
 
-// Thunk for setting user session
+// Thunk for logging user in
 export const login = ({ credential, password }) => async (dispatch) => {
     const res = await csrfFetch('/api/session', {
         method: 'POST',
@@ -25,7 +25,7 @@ export const login = ({ credential, password }) => async (dispatch) => {
     return res;
 }
 
-
+// Thunk for restoring user session
 export const restoreUser = () => async (dispatch) => {
     const response = await csrfFetch('/api/session');
     const data = await response.json();
@@ -35,7 +35,7 @@ export const restoreUser = () => async (dispatch) => {
     return response;
 };
 
-
+// Thunk for signing user up
 export const signup = (user) => async (dispatch) => {
     const { email, firstName, lastName, password } = user;
     const res = await csrfFetch('/api/users', {
@@ -48,7 +48,7 @@ export const signup = (user) => async (dispatch) => {
     return res;
 }
 
-
+// Thunk for logging user out
 export const logout = () => async (dispatch) => {
     const response = await csrfFetch('/api/session', {
         method: 'DELETE',
@@ -58,15 +58,6 @@ export const logout = () => async (dispatch) => {
 };
 
 const initialState = { user: null };
-// {
-//     user: {
-//       id,
-//       email,
-//       username,
-//       createdAt,
-//       updatedAt
-//     }
-//   }
 
 const sessionReducer = (state = initialState, action) => {
     let newState;
