@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import InfoButton from "./components/InfoButton";
 
 import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import Home from "./components/Home";
+import Navigation from "./components/Navigation";
 
 import * as sessionActions from "./store/session";
+
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const sessionUser = useSelector(state => state.session.user);
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
@@ -19,6 +22,7 @@ function App() {
 
   return isLoaded && (
     <>
+      {sessionUser && <Navigation />}
       <Switch>
         <Route path='/login'>
           <LoginFormPage />
@@ -28,6 +32,22 @@ function App() {
         </Route>
         <Route path='/'>
           <Home />
+        </Route>
+        <Route path='/notebooks'>
+          <Navigation />
+          {/* <Notebooks /> */}
+        </Route>
+        <Route path='/notes'>
+          <Navigation />
+          {/* <Notes /> */}
+        </Route>
+        <Route path='/tags'>
+          <Navigation />
+          {/* <Tags /> */}
+        </Route>
+        <Route path='/shared'>
+          <Navigation />
+          {/* <Shared /> */}
         </Route>
       </Switch>
       <InfoButton className='info' />

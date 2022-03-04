@@ -100,10 +100,18 @@ export default function Navigation() {
                 <NavLink to='/'>
                     <NavigationContainer className='home-nav' type='Home' dropdown={false} />
                 </NavLink>
-                <NavigationContainer type='Notebooks' dropdown={true} />
-                <NavigationContainer type='Notes' dropdown={true} />
-                <NavigationContainer type='Tags' dropdown={true} />
-                <NavigationContainer type='Shared' dropdown={true} />
+                <NavLink to='/notebooks'>
+                    <NavigationContainer type='Notebooks' dropdown={true} />
+                </NavLink>
+                <NavLink to='/notes'>
+                    <NavigationContainer type='Notes' dropdown={true} />
+                </NavLink>
+                <NavLink to='/tags'>
+                    <NavigationContainer type='Tags' dropdown={true} />
+                </NavLink>
+                <NavLink to='/shared'>
+                    <NavigationContainer type='Shared' dropdown={true} />
+                </NavLink>
 
             </nav>
 
