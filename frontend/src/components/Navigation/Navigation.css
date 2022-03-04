@@ -1,0 +1,157 @@
+.sidebar {
+    background-color: rgba(255, 255, 255, 0.967);
+    width: 250px;
+    height: 100%;
+    padding: 10px;
+
+}
+
+.img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    width: 175px;
+    height: 100%;
+}
+
+
+
+/* NEW  */
+
+
+.avatar-container {
+    padding-right: 5px;
+}
+.avatar-icon {
+    padding-top: 4px;
+
+}
+
+.ellipsis-icon {
+    padding-top: 7px;
+    display: flex;
+    align-items: center;
+}
+
+button.ellipsis {
+    border: none;
+    background-color: transparent;
+    color: black
+}
+
+button.ellipsis:hover {
+    color:rgb(0, 174, 255);
+}
+
+
+.user-bar-container {
+    padding-top: 25px;
+}
+
+.user-bar, .modal-user-info-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.user-bar > *, .modal-user-info-container > * {
+    padding: 5px;
+}
+
+
+.left-justified {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.user-full-name {
+    font-size: 15px;
+    color: #5D2BC5;
+}
+
+
+
+h5, h4 {
+    margin: 0;
+}
+
+
+/* USER MODAL */
+
+.user-modal {
+    color: white;
+    background-color: rgb(26, 8, 80);
+    border-radius: 10px;
+    padding: 5px;
+
+    z-index: 1000;
+    position:absolute;
+    width: 275px;
+    height: 135px;
+
+    box-shadow: 2px 4px 8px 1px rgba(26, 8, 80, 0.5);
+    opacity: 92%;
+}
+
+
+.modal-user-info-container {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.179);
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.name-and-email-container, .avatar-container {
+    opacity: 90%;
+}
+
+.name-and-email-container > h5, .settings-and-sign-out-container * {
+    opacity: 80%;
+}
+
+.check-container {
+    color: #5eee98;
+}
+
+.user-modal h5 {
+    font-size: 12px;
+}
+
+.user-modal h4 {
+    font-size: 14px;
+}
+
+
+.settings-and-sign-out-container {
+    padding: 10px;
+}
+
+.settings-and-sign-out-container * {
+    padding: 3px 0;
+    color: white;
+}
+
+.settings-and-sign-out-container *:hover {
+    padding: 3px 0;
+    color: white;
+    opacity: 50%;
+}
+
+
+.nav-bars-container, .search-and-create-bars-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+
+}
+
+
+.home-nav {
+    margin-left: 30px;
+}

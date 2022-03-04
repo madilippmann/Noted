@@ -43,49 +43,51 @@ export default function LoginFormPage() {
     }
 
     return (
-        <div className='login-container'>
-            <div className='img-container'>
-                <AttentionSeeker effect='rubberBand' triggerOnce>
-                    <img src={logo} />
-                </AttentionSeeker>
-            </div>
+        <div className='body'>
+            <div className='login-container'>
+                <div className='img-container'>
+                    <AttentionSeeker effect='rubberBand' triggerOnce>
+                        <img src={logo} />
+                    </AttentionSeeker>
+                </div>
 
-            <h1>Log In</h1>
+                <h1>Log In</h1>
 
-            <form onSubmit={handleSubmit}>
-                <ul style={{ display: { errorsDisplay } }}>
-                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                </ul>
-                <input
-                    className='emailInput'
-                    name='email'
-                    type='email'
-                    placeholder='Email'
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    autocomplete='off'
-                />
+                <form onSubmit={handleSubmit}>
+                    <ul style={{ display: { errorsDisplay } }}>
+                        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    </ul>
+                    <input
+                        className='emailInput'
+                        name='email'
+                        type='email'
+                        placeholder='Email'
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        autocomplete='off'
+                    />
 
-                <input
-                    className='passwordInput'
-                    name='password'
-                    type='password'
-                    placeholder='Password'
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    autocomplete='off'
-                />
+                    <input
+                        className='passwordInput'
+                        name='password'
+                        type='password'
+                        placeholder='Password'
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        autocomplete='off'
+                    />
 
-                <button className='submit-button' type='submit'>Submit</button>
-            </form>
+                    <button className='submit-button' type='submit'>Submit</button>
+                </form>
 
-            <div className='sign-in-and-demo-buttons'>
-                <Link to='/signup'>
-                    <button className='smaller-buttons' type='button'>Sign Up</button>
-                </Link>
-                <button className='smaller-buttons' type='button'>Demo</button>
+                <div className='sign-in-and-demo-buttons'>
+                    <Link to='/signup'>
+                        <button className='smaller-buttons' type='button'>Sign Up</button>
+                    </Link>
+                    <button className='smaller-buttons' type='button'>Demo</button>
+                </div>
             </div>
         </div>
     );

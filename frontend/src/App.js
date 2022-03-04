@@ -5,11 +5,14 @@ import InfoButton from "./components/InfoButton";
 
 import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
+import Home from "./components/Home";
+
 import * as sessionActions from "./store/session";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
@@ -17,11 +20,14 @@ function App() {
   return isLoaded && (
     <>
       <Switch>
-        <Route path="/login">
+        <Route path='/login'>
           <LoginFormPage />
         </Route>
-        <Route path="/signup">
+        <Route path='/signup'>
           <SignupFormPage />
+        </Route>
+        <Route path='/'>
+          <Home />
         </Route>
       </Switch>
       <InfoButton className='info' />

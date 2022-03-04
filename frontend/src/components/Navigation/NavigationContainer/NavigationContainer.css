@@ -1,0 +1,44 @@
+.nav-sidebar-container {
+    display: flex;
+    padding: 5px 0px;
+
+}
+
+.home-nav {
+    margin-left: 30px;
+}
+
+
+.filler {
+    width: 36px;
+}
+
+
+.arrow-right-button {
+    border: none;
+    background-color: transparent;
+}
+
+
+h4 {
+    padding-left: 10px;
+}
+
+
+.icon {
+    color: #bea3fa;
+
+    color: #5D2BC5;
+}
+
+
+.arrow-right-icon {
+
+}
+
+
+
+
+.arrow-right-icon.open {
+    transform: rotate(90deg);
+}

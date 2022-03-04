@@ -1,0 +1,17 @@
+#root {
+    width: 100%;
+    height: 100%;
+}
+
+.main {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+}
+
+
+.button-and-modal-container {
+    right: 10px;
+}

@@ -51,80 +51,82 @@ export default function SignupFormPage() {
     }
 
     return (
-        <div className='login-container'>
-            <div className='img-container'>
-                <AttentionSeeker effect='rubberBand' triggerOnce>
-                    <img src={logo} />
-                </AttentionSeeker>
-            </div>
+        <div className='body'>
+            <div className='login-container'>
+                <div className='img-container'>
+                    <AttentionSeeker effect='rubberBand' triggerOnce>
+                        <img src={logo} />
+                    </AttentionSeeker>
+                </div>
 
-            <h1>Sign Up</h1>
+                <h1>Sign Up</h1>
 
-            <form onSubmit={handleSubmit}>
-                <ul style={{ display: { errorsDisplay } }}>
-                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                </ul>
-                <input
-                    className='emailInput'
-                    name='email'
-                    type='email'
-                    placeholder='Email'
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    autocomplete='off'
-                />
+                <form onSubmit={handleSubmit}>
+                    <ul style={{ display: { errorsDisplay } }}>
+                        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    </ul>
+                    <input
+                        className='emailInput'
+                        name='email'
+                        type='email'
+                        placeholder='Email'
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        autocomplete='off'
+                    />
 
-                <input
-                    className='firstNameInput'
-                    name='firstName'
-                    type='text'
-                    placeholder='First name'
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    required
-                    autocomplete='off'
-                />
+                    <input
+                        className='firstNameInput'
+                        name='firstName'
+                        type='text'
+                        placeholder='First name'
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        required
+                        autocomplete='off'
+                    />
 
-                <input
-                    className='lastNameInput'
-                    name='lastName'
-                    type='text'
-                    placeholder='Last name'
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    required
-                    autocomplete='off'
-                />
+                    <input
+                        className='lastNameInput'
+                        name='lastName'
+                        type='text'
+                        placeholder='Last name'
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        required
+                        autocomplete='off'
+                    />
 
-                <input
-                    className='passwordInput'
-                    name='password'
-                    type='password'
-                    placeholder='Password'
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    autocomplete='off'
-                />
+                    <input
+                        className='passwordInput'
+                        name='password'
+                        type='password'
+                        placeholder='Password'
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        autocomplete='off'
+                    />
 
-                <input
-                    className='confirmPasswordInput'
-                    name='confirmPassword'
-                    type='password'
-                    placeholder='Confirm password'
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                    autocomplete='off'
-                />
+                    <input
+                        className='confirmPasswordInput'
+                        name='confirmPassword'
+                        type='password'
+                        placeholder='Confirm password'
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        required
+                        autocomplete='off'
+                    />
 
-                <button className='submit-button' type='submit'>Submit</button>
-            </form>
+                    <button className='submit-button' type='submit'>Submit</button>
+                </form>
 
 
-            <div className='login-link'>
-                <Link to='/login'>Log In</Link>
+                <div className='login-link'>
+                    <Link to='/login'>Log In</Link>
+                </div>
             </div>
         </div>
     );
