@@ -6,7 +6,6 @@ import * as sessionActions from '../../store/session';
 
 import './LoginForm.css'
 import logo from '../static/images/noted-logo.png';
-import { AttentionSeeker } from "react-awesome-reveal";
 
 export default function LoginFormPage() {
     const dispatch = useDispatch();
@@ -46,9 +45,7 @@ export default function LoginFormPage() {
         <div className='body'>
             <div className='login-container'>
                 <div className='img-container'>
-                    <AttentionSeeker effect='rubberBand' triggerOnce>
-                        <img src={logo} />
-                    </AttentionSeeker>
+                    <img src={logo} />
                 </div>
 
                 <h1>Log In</h1>

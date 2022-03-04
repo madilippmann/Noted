@@ -10,7 +10,6 @@ import * as sessionActions from '../../store/session';
 import './Navigation.css'
 import logo from '../static/images/noted-logo.png';
 
-import { AttentionSeeker, Fade } from "react-awesome-reveal";
 import { UilUserCircle, UilCheck, UilAngleDown, UilEllipsisH } from '@iconscout/react-unicons';
 
 export default function Navigation() {
@@ -23,9 +22,7 @@ export default function Navigation() {
     return (
         <div className='sidebar'>
             <div className='img-container'>
-                <AttentionSeeker effect='rubberBand' triggerOnce>
-                    <img className='logo' src={logo} />
-                </AttentionSeeker>
+                <img className='logo' src={logo} />
             </div>
 
 
@@ -52,35 +49,33 @@ export default function Navigation() {
                 </div>
 
 
-                {userDropdown && <Fade direction='in' onVisibilityChange>
-                    <div className='user-modal'>
-                        <div className='modal-user-info-container'>
-                            <div className='check-container'>
-                                <UilCheck size='20' />
-                            </div>
-
-                            <div className='avatar-container'>
-                                <UilUserCircle size='25' />
-                            </div>
-
-                            <div className='name-and-email-container'>
-                                <h4 id='user-full-name'>{sessionUser.firstName} {sessionUser.lastName}</h4>
-                                <h5>{sessionUser.email}</h5>
-                            </div>
+                {userDropdown && <div className='user-modal'>
+                    <div className='modal-user-info-container'>
+                        <div className='check-container'>
+                            <UilCheck size='20' />
                         </div>
 
-                        <div className='settings-and-sign-out-container'>
-                            <Link to={`users/${sessionUser.id}/settings`}>
-                                <div className='settings'>Account settings</div>
-                            </Link>
-                            {/*  */}
-                            <button type='button' onClick={() => dispatch(sessionActions.logout())} >
-                                <div className='settings'>Sign out {sessionUser.firstName} {sessionUser.lastName}</div>
-                            </button>
+                        <div className='avatar-container'>
+                            <UilUserCircle size='25' />
+                        </div>
 
+                        <div className='name-and-email-container'>
+                            <h4 id='user-full-name'>{sessionUser.firstName} {sessionUser.lastName}</h4>
+                            <h5>{sessionUser.email}</h5>
                         </div>
                     </div>
-                </Fade>}
+
+                    <div className='settings-and-sign-out-container'>
+                        <Link to={`users/${sessionUser.id}/settings`}>
+                            <div className='settings'>Account settings</div>
+                        </Link>
+                        {/*  */}
+                        <button type='button' onClick={() => dispatch(sessionActions.logout())} >
+                            <div className='settings'>Sign out {sessionUser.firstName} {sessionUser.lastName}</div>
+                        </button>
+
+                    </div>
+                </div>}
 
             </div>
 

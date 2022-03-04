@@ -6,7 +6,6 @@ import './InfoButton.css'
 import { SiHeroku, SiPostgresql, SiExpress, SiSequelize, SiNodedotjs, SiReact, SiRedux, SiHtml5, SiCss3 } from 'react-icons/si';
 
 
-import { Slide } from 'react-awesome-reveal'
 
 function InfoModal() {
     return (
@@ -45,9 +44,7 @@ export default function InfoButton() {
                 <UilInfoCircle className='info-icon' size='40' />
             </button>
             {modalVisibility &&
-                <Slide direction='left' onVisibilityChange>
-                    <InfoModal />
-                </Slide>
+                <InfoModal />
             }
         </div>
     );
