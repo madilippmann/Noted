@@ -6,7 +6,7 @@
 
 }
 
-.img-container {
+.sidebar-img-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -178,5 +178,8 @@ h5, h4 {
 } */
 
 .nav-bars-container NavLink:active {
-    background-color: rgba(202, 195, 250, 0.953);
+    background-color: rgb(232, 220, 255);
 }
+
+
+.main-nav-links:active {}

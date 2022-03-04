@@ -8,3 +8,9 @@
 .button-and-modal-container {
     right: 10px;
 }
+
+body {
+    background: rgb(123,67,244);
+    background: linear-gradient(135deg, rgb(105, 67, 244) 25%, rgb(210, 198, 252) 95%);
+
+}
