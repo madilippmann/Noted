@@ -4,9 +4,10 @@ const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth.j
 const { User } = require('../../db/models');
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
-
+const notesRouter = require('./notes.js')
 router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
+router.use(notesRouter);
 
 router.post('/test', function (req, res) {
     res.json({ requestBody: req.body });

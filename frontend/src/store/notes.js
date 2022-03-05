@@ -5,9 +5,9 @@ const ADD_NOTE = 'notes/ADD_NOTE';
 const DELETE_NOTE = 'notes/DELETE_NOTE';
 const UPDATE_NOTE = 'notes/UPDATE_NOTE';
 
-export const loadNotes = (userId) => ({
+export const loadNotes = (notes) => ({
     type: LOAD_NOTES,
-    userId
+    notes
 })
 
 export const addNote = (newNote) => ({
@@ -27,47 +27,43 @@ export const deleteNote = () => ({
 
 
 // Thunk for loading notes
-export const loadNotesThunk = () => async (dispatch) => {
-    const res = await csrfFetch('/api/notes')
+export const loadNotesThunk = (userId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/users/${userId}/notes`)
     const notes = await res.json();
-    dispatch(loadNotes(notes));
+    console.log('NOTES: ', notes.notes);
+    dispatch(loadNotes(notes.notes));
     return notes;
 
 }
 
 // Thunk for creating new note
-export const createNoteThunk = (note) => async (dispatch) => {
-    console.log("Note data BEFORE adding to DB: ", note);
-
-    const { title, content, userId } = note;
-    const res = await csrfFetch('/api/notes', {
+export const createNoteThunk = (userId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/users/${userId}/notes`, {
         method: 'POST',
-        body: JSON.stringify({ title, content, userId })
+        body: JSON.stringify({ userId })
     });
 
-    const data = await res.json()
-    console.log("Note data AFTER adding to DB: ", data);
-    dispatch(addNote(data))
-
+    const note = await res.json()
+    console.log("Note data AFTER adding to DB: ", note);
+    dispatch(addNote(note))
 }
 
 
-const initialState = { notes: {} };
+const initialState = { notes: [] };
 
 const notesReducer = (state = initialState, action) => {
     let newState;
     let newNotes;
     let TODO;
 
+    console.log('ENTERED REDUCER', Array.isArray(action.notes));
     switch (action.type) {
         case LOAD_NOTES:
             newState = { ...state }
-            newNotes = {}
             newNotes = action.notes.reduce((acc, note) => {
                 acc[note.id] = note
                 return acc;
             }, {})
-            // action.notes.forEach(note => newNotes[note.id] = note);
             newState.notes = newNotes
             return newState;
         case ADD_NOTE:
