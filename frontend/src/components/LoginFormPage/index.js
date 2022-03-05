@@ -4,6 +4,7 @@ import { Redirect, Link } from 'react-router-dom';
 
 import * as sessionActions from '../../store/session';
 
+import RubberBand from '../Animations/RubberBand';
 import './LoginForm.css'
 import logo from '../static/images/noted-logo.png';
 
@@ -49,7 +50,9 @@ export default function LoginFormPage() {
         <div className='body'>
             <div className='login-container'>
                 <div className='img-container'>
-                    <img src={logo} />
+                    <RubberBand>
+                        <img src={logo} />
+                    </RubberBand>
                 </div>
 
                 <h1>Log In</h1>
