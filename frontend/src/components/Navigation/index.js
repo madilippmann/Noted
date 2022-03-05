@@ -5,6 +5,7 @@ import { Redirect, Link, NavLink } from 'react-router-dom';
 import RoundedContainer from './RoundedContainer';
 import NavigationContainer from './NavigationContainer';
 import RubberBand from '../Animations/RubberBand';
+import Slide from '../Animations/Slide';
 
 import * as sessionActions from '../../store/session';
 
@@ -61,33 +62,37 @@ export default function Navigation() {
                 </div>
 
 
-                {userDropdown && <div className='user-modal'>
-                    <div className='modal-user-info-container'>
-                        <div className='check-container'>
-                            <UilCheck size='20' />
+                {userDropdown &&
+                    <Slide direction='down'>
+                        <div className='user-modal'>
+                            <div className='modal-user-info-container'>
+                                <div className='check-container'>
+                                    <UilCheck size='20' />
+                                </div>
+
+                                <div className='avatar-container'>
+                                    <UilUserCircle size='25' />
+                                </div>
+
+                                <div className='name-and-email-container'>
+                                    <h4 id='user-full-name'>{sessionUser.firstName} {sessionUser.lastName}</h4>
+                                    <h5>{sessionUser.email}</h5>
+                                </div>
+                            </div>
+
+                            <div className='settings-and-sign-out-container'>
+                                <Link to={`users/${sessionUser.id}/settings`}>
+                                    <div className='settings'>Account settings</div>
+                                </Link>
+                                {/*  */}
+                                <button type='button' onClick={() => dispatch(sessionActions.logout())} >
+                                    <div className='settings'>Sign out {sessionUser.firstName} {sessionUser.lastName}</div>
+                                </button>
+
+                            </div>
                         </div>
-
-                        <div className='avatar-container'>
-                            <UilUserCircle size='25' />
-                        </div>
-
-                        <div className='name-and-email-container'>
-                            <h4 id='user-full-name'>{sessionUser.firstName} {sessionUser.lastName}</h4>
-                            <h5>{sessionUser.email}</h5>
-                        </div>
-                    </div>
-
-                    <div className='settings-and-sign-out-container'>
-                        <Link to={`users/${sessionUser.id}/settings`}>
-                            <div className='settings'>Account settings</div>
-                        </Link>
-                        {/*  */}
-                        <button type='button' onClick={() => dispatch(sessionActions.logout())} >
-                            <div className='settings'>Sign out {sessionUser.firstName} {sessionUser.lastName}</div>
-                        </button>
-
-                    </div>
-                </div>}
+                    </Slide>
+                }
 
             </div>
 

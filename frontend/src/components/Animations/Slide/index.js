@@ -2,7 +2,7 @@ import styled, { keyframes } from 'styled-components';
 import { useState, useEffect } from 'react';
 
 
-export default function Slide({ children, direction, onVisibilityChange }) {
+export default function Slide({ children, direction = 'up', duration = .5, onVisibilityChange }) {
     const slideRight = keyframes`
         0% {
             transform: translateX(-500px);
@@ -50,7 +50,7 @@ export default function Slide({ children, direction, onVisibilityChange }) {
 
     const slideDown = keyframes`
         0% {
-            transform: translateY(-200px);
+            transform: translateY(-250px);
             opacity: 0;
         }
         50% {
@@ -106,18 +106,16 @@ export default function Slide({ children, direction, onVisibilityChange }) {
 
 
     const SlideAnimation = styled.div`
-        display: inline-block;
-        animation: ${slideDirection} .5s ease;
+        animation: ${slideDirection} ${duration}s ease;
     `;
 
 
     const [initialRender, setInitialRender] = useState(true)
 
     useEffect(() => {
-        console.log("BEFORE: ", initialRender);
         const load = setTimeout(() => {
             setInitialRender(false)
-        }, 2000)
+        }, duration * 1000)
         return () => clearTimeout(load)
     }, [])
 
