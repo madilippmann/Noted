@@ -4,6 +4,7 @@ import { Redirect, Link, NavLink } from 'react-router-dom';
 
 import RoundedContainer from './RoundedContainer';
 import NavigationContainer from './NavigationContainer';
+import RubberBand from '../Animations/RubberBand';
 
 import * as sessionActions from '../../store/session';
 
@@ -17,14 +18,25 @@ export default function Navigation() {
     const sessionUser = useSelector(state => state.session.user);
 
     const [userDropdown, setUserDropdown] = useState(false);
+    const [initialRender, setInitialRender] = useState(true)
 
+    useEffect(() => {
+        console.log("BEFORE: ", initialRender);
+        const load = setTimeout(() => {
+            setInitialRender(false)
+        }, 1500)
+        return () => clearTimeout(load)
+    }, [])
 
     return (
         <div className='sidebar'>
-            <div className='sidebar-img-container'>
-                <img className='logo' src={logo} />
-            </div>
 
+            <div className='sidebar-img-container'>
+                <RubberBand>
+                    <img className='logo' src={logo} />
+                </RubberBand>
+
+            </div>
 
             <div className='user-bar-container'>
                 <div className='user-bar'>

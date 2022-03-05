@@ -11,11 +11,14 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-left: 10px;
 
     background: rgba(255, 255, 255, 0.303);
     border-radius: 15px;
-    padding: 10px;
-    border: 1px solid rgba(223, 223, 223, 0.939)
+    padding: 7px;
+    border: 1px solid rgba(223, 223, 223, 0.939);
+    border: 1px solid rgba(223, 223, 223, 0.638);
+    background: rgba(255, 255, 255, 0.576);
 
 }
 
@@ -35,7 +38,8 @@ button.info-button:hover {
 }
 
 .social-link {
-    color: rgba(255, 255, 255, 0.713);
+    /* color: rgba(255, 255, 255, 0.713); */
+    color: rgb(70, 39, 194);
     margin-left: 5px;
 }
 
@@ -53,13 +57,19 @@ button.info-button:hover {
 
 
 .social-links {
+    display: flex;
+    align-items: center;
     border-left: 2px solid rgba(255, 255, 255, 0.37);
 }
 
+.social-links a {
+    display: flex;
+    align-items: center;
+}
 .tech-stack {
     display: flex;
     align-items: center;
-    font-size: 40px;
+    font-size: 30px;
     color: rgba(0, 0, 0, 0.713)
 
 }
