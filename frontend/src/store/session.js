@@ -25,6 +25,7 @@ export const login = ({ credential, password }) => async (dispatch) => {
     return res;
 }
 
+
 // Thunk for restoring user session
 export const restoreUser = () => async (dispatch) => {
     const response = await csrfFetch('/api/session');

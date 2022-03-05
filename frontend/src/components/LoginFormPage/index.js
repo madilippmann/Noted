@@ -25,6 +25,10 @@ export default function LoginFormPage() {
         <Redirect to="/" />
     );
 
+    const demoLogin = () => {
+        console.log('Clicked!')
+        dispatch(sessionActions.login({ credential: 'demo@user.io', password: 'password' }))
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -83,7 +87,7 @@ export default function LoginFormPage() {
                     <Link to='/signup'>
                         <button className='smaller-buttons' type='button'>Sign Up</button>
                     </Link>
-                    <button className='smaller-buttons' type='button'>Demo</button>
+                    <button onClick={demoLogin} className='smaller-buttons' type='button'>Demo</button>
                 </div>
             </div>
         </div>
