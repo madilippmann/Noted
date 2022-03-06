@@ -70,6 +70,8 @@ h1.notes-title {
 
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
+
 }
 
 .notes-container {
@@ -100,5 +102,6 @@ p.note-card-date {
 
 .add-card-title {
     font-size: 22px;
+    margin: 5px;
     text-shadow: 2px 2px #dadada;
 }

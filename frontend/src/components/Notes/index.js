@@ -54,7 +54,7 @@ export default function Notes() {
     const sessionUser = useSelector(state => state.session.user);
     const rawNotes = useSelector(state => state.notes.notes);
 
-    const notes = []
+    let notes = []
 
     Object.entries(rawNotes).map(rawNote => {
         let note = {}
@@ -65,6 +65,18 @@ export default function Notes() {
         note.updatedAt = formattedDate(rawNote[1].updatedAt)
         notes.push(note)
     })
+
+    notes = sortByUpdatedAt(notes)
+
+    function sortByUpdatedAt(notes) {
+        return notes.sort((a, b) => {
+            const dateA = Date.parse(a.updatedAt);
+            const dateB = Date.parse(b.updatedAt);
+            if (dateB > dateA) return 1
+            else if (dateB < dateA) return -1
+            else return 0;
+        })
+    }
 
     console.log(notes);
     useEffect(() => {
