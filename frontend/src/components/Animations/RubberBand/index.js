@@ -41,7 +41,6 @@ export default function RubberBand({ children }) {
     const [initialRender, setInitialRender] = useState(true)
 
     useEffect(() => {
-        console.log("BEFORE: ", initialRender);
         const load = setTimeout(() => {
             setInitialRender(false)
         }, 1500)

@@ -8,8 +8,9 @@ import RubberBand from '../Animations/RubberBand';
 import Slide from '../Animations/Slide';
 
 import * as sessionActions from '../../store/session';
+import * as notesActions from '../../store/notes';
 
-import './Navigation.css'
+import './Navigation.css';
 import logo from '../static/images/noted-logo.png';
 
 import { UilUserCircle, UilCheck, UilAngleDown, UilEllipsisH } from '@iconscout/react-unicons';
@@ -17,17 +18,11 @@ import { UilUserCircle, UilCheck, UilAngleDown, UilEllipsisH } from '@iconscout/
 export default function Navigation() {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
+    const notes = useSelector(state => state.notes.notes)
 
+    console.log(notes);
     const [userDropdown, setUserDropdown] = useState(false);
-    const [initialRender, setInitialRender] = useState(true)
 
-    useEffect(() => {
-        console.log("BEFORE: ", initialRender);
-        const load = setTimeout(() => {
-            setInitialRender(false)
-        }, 1500)
-        return () => clearTimeout(load)
-    }, [])
 
     return (
         <div className='sidebar'>
@@ -36,7 +31,6 @@ export default function Navigation() {
                 <RubberBand>
                     <img className='logo' src={logo} />
                 </RubberBand>
-
             </div>
 
             <div className='user-bar-container'>

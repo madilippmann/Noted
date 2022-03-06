@@ -5,9 +5,9 @@ const asyncHandler = require('express-async-handler');
 const { Note } = require('../../db/models');
 
 // Add validation for title later
-const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation');
-const { route } = require('./session');
+// const { check } = require('express-validator');
+// const { handleValidationErrors } = require('../../utils/validation');
+
 
 // Get all posts from user
 router.get(
@@ -36,22 +36,6 @@ router.post(
     }),
 );
 
-// // Get single note
-// router.get(
-//     '/users/:userId(\\d+)/notes/:noteId(\\d+)',
-//     asyncHandler(async (req, res) => {
-//         const { userId } = req.body;
-//         const { noteId } = req.params;
-
-//         const note = await Note.findByPk(noteId)
-
-//         // TODO ADD EXTRA CHECK
-//         // if (note.userId === userId) return res.json({ note })
-//         // else return res.json({})
-
-//         return res.json({ note })
-//     })
-// );
 
 // Update existing note
 router.patch(
@@ -83,7 +67,7 @@ router.delete(
     asyncHandler(async (req, res) => {
         const { noteId } = req.body;
         const { userId } = req.params;
-        // const note = await Note.findByPk(noteId);
+
         const note = await Note.findOne({
             where: {
                 id: noteId,

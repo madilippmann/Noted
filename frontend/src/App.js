@@ -33,6 +33,10 @@ function App() {
         <Route exact path='/'>
           <Home />
         </Route>
+        <Route path='/notes'>
+          {/* <Notes /> */}
+        </Route>
+
 
         {sessionUser &&
           <Route path='/notebooks'>
@@ -40,11 +44,6 @@ function App() {
           </Route>
         }
 
-        {sessionUser &&
-          <Route path='/notes'>
-            {/* <Notes /> */}
-          </Route>
-        }
         {sessionUser &&
           <Route path='/tags'>
             {/* <Tags /> */}

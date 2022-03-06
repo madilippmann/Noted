@@ -70,7 +70,7 @@ export const updateNoteThunk = (noteData) => async (dispatch) => {
 
 
 
-const initialState = { notes: [] };
+const initialState = { notes: {} };
 
 const notesReducer = (state = initialState, action) => {
     let newState;
