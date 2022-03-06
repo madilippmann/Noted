@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Link, useHistory } from 'react-router-dom';
 
-import { UilPlusCircle } from '@iconscout/react-unicons'
+import { UilPlusCircle } from '@iconscout/react-unicons';
 import * as notesActions from '../../store/notes';
 
-import { formattedDate, OuterDiv, shortenedContent, sortByUpdatedAt } from '../utils/utils.js'
+import { formattedDate, OuterDiv, shortenedContent, sortByUpdatedAt } from '../utils/utils.js';
 
-import './Notes.css'
+import './Notes.css';
 import Note from '../Note';
 
 export default function Notes() {
@@ -16,20 +16,20 @@ export default function Notes() {
 
     const notes = useSelector(state => state.notes.notes);
 
-    let formattedNotes = []
+    let formattedNotes = [];
 
     Object.entries(notes).map(rawNote => {
-        let note = {}
-        note.title = rawNote[1].title
-        note.notebookId = rawNote[1].notebookId
-        note.id = rawNote[1].id
-        note.userId = rawNote[1].userId
-        note.content = shortenedContent(rawNote[1].content)
-        note.updatedAt = formattedDate(rawNote[1].updatedAt)
-        formattedNotes.push(note)
+        let note = {};
+        note.title = rawNote[1].title;
+        note.notebookId = rawNote[1].notebookId;
+        note.id = rawNote[1].id;
+        note.userId = rawNote[1].userId;
+        note.content = shortenedContent(rawNote[1].content);
+        note.updatedAt = formattedDate(rawNote[1].updatedAt);
+        formattedNotes.push(note);
     })
 
-    formattedNotes = sortByUpdatedAt(formattedNotes)
+    formattedNotes = sortByUpdatedAt(formattedNotes);
 
 
     // useEffect(() => {
