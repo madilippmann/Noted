@@ -30,11 +30,10 @@ export const deleteNote = () => ({
 export const loadNotesThunk = (userId) => async (dispatch) => {
     const res = await csrfFetch(`/api/users/${userId}/notes`)
     const notes = await res.json();
-    console.log('NOTES: ', notes.notes);
     dispatch(loadNotes(notes.notes));
     return notes;
-
 }
+
 
 // Thunk for creating new note
 export const createNoteThunk = (userId) => async (dispatch) => {
@@ -44,8 +43,8 @@ export const createNoteThunk = (userId) => async (dispatch) => {
     });
 
     const note = await res.json()
-    console.log("Note data AFTER adding to DB: ", note);
-    dispatch(addNote(note))
+    console.log("Note data AFTER adding to DB: ", note, typeof note);
+    dispatch(addNote(note.note))
 }
 
 
