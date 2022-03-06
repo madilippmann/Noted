@@ -47,8 +47,17 @@ export const createNoteThunk = (userId) => async (dispatch) => {
 }
 
 
-export const editNoteThunk = (noteData) => async (dispatch) => {
-    console.log('NOTE INFO TO UPDATE: ', noteData);
+export const deleteNoteThunk = ({ userId, noteId }) => async (dispatch) => {
+    const res = await csrfFetch(`/api/users/${userId}/notes/${noteId}`, {
+        method: 'DELETE',
+        body: JSON.stringify({ noteId })
+    });
+
+    const note = await res.json()
+    dispatch(deleteNote(note.note))
+}
+
+export const updateNoteThunk = (noteData) => async (dispatch) => {
     const { noteId, title, content, userId, notebookId } = noteData
     const res = await csrfFetch(`/api/users/${userId}/notes/${noteId}`, {
         method: 'PATCH',
@@ -56,9 +65,10 @@ export const editNoteThunk = (noteData) => async (dispatch) => {
     });
 
     const note = await res.json()
-    console.log('UPDATED NOTE: ', note);
-    dispatch(addNote(note.note))
+    dispatch(updateNote(note.note))
 }
+
+
 
 const initialState = { notes: [] };
 
@@ -81,16 +91,16 @@ const notesReducer = (state = initialState, action) => {
             newNotes[action.newNote.id] = action.newNote;
             newState.notes = newNotes;
             return newState;
-        case DELETE_NOTE:
-            newState = { ...state };
-            newNotes = { ...state.notes };
-            delete newNotes[action.note.id];
-            newState.notes = newNotes;
-            return newState;
         case UPDATE_NOTE:
             newState = { ...state };
             newNotes = { ...state.notes };
             newNotes[action.updatedNote.id] = action.updatedNote;
+            newState.notes = newNotes;
+            return newState;
+        case DELETE_NOTE:
+            newState = { ...state };
+            newNotes = { ...state.notes };
+            delete newNotes[action.note.id];
             newState.notes = newNotes;
             return newState;
         default:

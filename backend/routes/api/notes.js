@@ -36,22 +36,22 @@ router.post(
     }),
 );
 
-// Get single note
-router.get(
-    '/users/:userId(\\d+)/notes/:noteId(\\d+)',
-    asyncHandler(async (req, res) => {
-        const { userId } = req.body;
-        const { noteId } = req.params;
+// // Get single note
+// router.get(
+//     '/users/:userId(\\d+)/notes/:noteId(\\d+)',
+//     asyncHandler(async (req, res) => {
+//         const { userId } = req.body;
+//         const { noteId } = req.params;
 
-        const note = await Note.findByPk(noteId)
+//         const note = await Note.findByPk(noteId)
 
-        // TODO ADD EXTRA CHECK
-        // if (note.userId === userId) return res.json({ note })
-        // else return res.json({})
+//         // TODO ADD EXTRA CHECK
+//         // if (note.userId === userId) return res.json({ note })
+//         // else return res.json({})
 
-        return res.json({ note })
-    })
-);
+//         return res.json({ note })
+//     })
+// );
 
 // Update existing note
 router.patch(
@@ -82,7 +82,14 @@ router.delete(
     '/users/:userId(\\d+)/notes/:noteId(\\d+)',
     asyncHandler(async (req, res) => {
         const { noteId } = req.body;
-        const note = await Note.findByPk(noteId);
+        const { userId } = req.params;
+        // const note = await Note.findByPk(noteId);
+        const note = await Note.findOne({
+            where: {
+                id: noteId,
+                userId
+            }
+        });
 
         await note.destroy();
 
