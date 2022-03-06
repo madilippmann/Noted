@@ -40,17 +40,21 @@
 .new-note-container {
     background-color: rgb(124, 0, 249);
     color: #F3F3F3;
-    transition: background-color .24s ease;
+    border: 1.5px solid rgb(124, 0, 249);
+    transition: background-color .24s ease, color .24s ease;
 }
 
-.new-note-container:hover {
-    background-color: rgb(112, 0, 225);
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 8px;
+div.rounded-container.new-note-container:hover {
+    /* background-color: rgb(112, 0, 225); */
+    /* box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 8px; */
+    color: rgb(124, 0, 249);
+    background-color: #F3F3F3;
+    border: 1.5px solid rgb(124, 0, 249);
 
 }
 
 .new-note-container h4 {
-    font-weight: 300;
+    font-weight: 500;
 
 }
 
