@@ -20,6 +20,8 @@ router.get(
             order: [["id", "DESC"]]
         });
 
+        notes.forEach(note => console.log(note.id));
+
         return res.json({ notes })
     })
 );
