@@ -28,7 +28,6 @@ export default function LoginFormPage() {
     );
 
     const demoLogin = () => {
-        console.log('Clicked!')
         dispatch(sessionActions.login({ credential: 'demo@user.io', password: 'password' }))
     }
 

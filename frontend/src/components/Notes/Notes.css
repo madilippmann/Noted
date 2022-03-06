@@ -70,8 +70,21 @@ h1.notes-title {
 
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
+    overflow-y: auto;
+    scrollbar-color: rebeccapurple green;
+    scrollbar-width: thin;
+}
 
+
+.notes-page-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+
+
+.notes-page-container::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 25px;
 }
 
 .notes-container {

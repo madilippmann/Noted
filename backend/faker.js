@@ -44,7 +44,7 @@ const fakeNote = num => {
     }
 }
 
-fakeNote(30);
+// fakeNote(30);
 
 // const fakeComment = num => {
 //     let i = 0;

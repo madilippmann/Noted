@@ -20,7 +20,6 @@ export default function Navigation() {
     const sessionUser = useSelector(state => state.session.user);
     const notes = useSelector(state => state.notes.notes)
 
-    console.log(notes);
     const [userDropdown, setUserDropdown] = useState(false);
 
 

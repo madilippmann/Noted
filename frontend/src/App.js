@@ -8,6 +8,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import Home from "./components/Home";
 import Notes from './components/Notes';
 import Navigation from "./components/Navigation";
+import Note from "./components/Note";
 
 import * as sessionActions from "./store/session";
 
@@ -38,21 +39,26 @@ function App() {
           {sessionUser ? <Home /> : <Redirect to='/login' />}
         </Route>
 
-        <Route path='/notes'>
+        <Route exact path='/notes'>
           {sessionUser ? <Notes /> : <Redirect to='/login' />}
         </Route>
 
-        <Route path='/notebooks'>
+        <Route exact path='/notebooks'>
           {sessionUser ? <div>NOTEBOOKS PAGE TODO</div> : <Redirect to='/login' />}
         </Route>
 
-        <Route path='/tags'>
+        <Route exact path='/tags'>
           {sessionUser ? <div>TAGS PAGE TODO</div> : <Redirect to='/login' />}
+        </Route>
+
+        <Route path={`/notes/:noteId`} >
+          {sessionUser ? <Note /> : <Redirect to='/login' />}
         </Route>
 
         <Route >
           {sessionUser ? <div>Page Not Found</div> : <Redirect to='/login' />}
         </Route>
+
       </Switch>
       <InfoButton className='info' />
     </>
