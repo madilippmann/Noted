@@ -6,6 +6,7 @@ import InfoButton from "./components/InfoButton";
 import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import Home from "./components/Home";
+import Notes from './components/Notes';
 import Navigation from "./components/Navigation";
 
 import * as sessionActions from "./store/session";
@@ -20,6 +21,8 @@ function App() {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
+  console.log("SESSION: ", sessionUser);
+
   return isLoaded && (
     <>
       {sessionUser && <Navigation />}
@@ -27,32 +30,29 @@ function App() {
         <Route path='/login'>
           <LoginFormPage />
         </Route>
+
         <Route path='/signup'>
           <SignupFormPage />
         </Route>
+
         <Route exact path='/'>
-          <Home />
+          {sessionUser ? <Home /> : <Redirect to='/login' />}
         </Route>
+
         <Route path='/notes'>
-          {/* <Notes /> */}
+          {sessionUser ? <Notes /> : <Redirect to='/login' />}
         </Route>
 
+        <Route path='/notebooks'>
+          {sessionUser ? <div>NOTEBOOKS PAGE TODO</div> : <Redirect to='/login' />}
+        </Route>
 
-        {sessionUser &&
-          <Route path='/notebooks'>
-            {/* <Notebooks /> */}
-          </Route>
-        }
-
-        {sessionUser &&
-          <Route path='/tags'>
-            {/* <Tags /> */}
-          </Route>
-        }
-
+        <Route path='/tags'>
+          {sessionUser ? <div>TAGS PAGE TODO</div> : <Redirect to='/login' />}
+        </Route>
 
         <Route >
-          <Redirect path='/login' />
+          {sessionUser ? <div>Page Not Found</div> : <Redirect to='/login' />}
         </Route>
       </Switch>
       <InfoButton className='info' />

@@ -8,6 +8,11 @@ import './Notes.css'
 export default function Notes() {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
+    const notes = useSelector(state => state.notes.notes);
+
+    useEffect(() => {
+        console.log(notes)
+    }, [])
 
     if (!sessionUser) return (
         <Redirect to="/login" />
@@ -16,7 +21,7 @@ export default function Notes() {
 
     return (
         <div className='main'>
-            Hello from the home page
+            Hello from the notes page
         </div>
     );
 }

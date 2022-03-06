@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 
 import * as sessionActions from '../../store/session';
+import * as notesActions from '../../store/notes';
 
 import RubberBand from '../Animations/RubberBand';
 import './LoginForm.css'
