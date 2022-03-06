@@ -19,7 +19,13 @@
 .create-note-card {
     background-color: rgb(171, 233, 212);
     transition: background-color .25s ease;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
+
 .create-note-card:hover {
     background-color: rgb(129, 226, 194);
 
@@ -36,6 +42,8 @@ h1.notes-title {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+
 }
 
 
@@ -83,4 +91,10 @@ p.note-card-content {
 p.note-card-date {
     font-size: 12px;
     margin: 0;
+}
+
+
+.add-card-title {
+
+    text-shadow: 2px 2px #dadada;
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Link, Switch, Route } from 'react-router-dom';
 
+import { UilPlusCircle } from '@iconscout/react-unicons'
 import * as notesActions from '../../store/notes';
 
 import './Notes.css'
@@ -82,7 +83,8 @@ export default function Notes() {
                 <div className='notes-container'>
                     <button type='button' onClick={handleClick}>
                         <div className='create-note-card square-card'>
-                            Create Note
+                            <UilPlusCircle size='75' />
+                            <h2 className='add-card-title'>New Note</h2>
                         </div>
                     </button>
 
