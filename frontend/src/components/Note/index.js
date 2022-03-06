@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams, Redirect } from 'react-router-dom';
 import * as notesActions from '../../store/notes';
 
 import styled from 'styled-components'
 import './Note.css';
 import { formattedDate, OuterDiv } from "../utils/utils";
-import { UilTimes } from '@iconscout/react-unicons'
+import { UilTimes, UilCheck } from '@iconscout/react-unicons'
+
+import Slide from "../Animations/Slide";
 
 export default function Note() {
     const { noteId } = useParams();
@@ -15,20 +17,26 @@ export default function Note() {
 
     const [title, setTitle] = useState(note.title);
     const [content, setContent] = useState(note.content);
-    const [notebookId, setNotebookId] = useState(null)
+    const [notebookId, setNotebookId] = useState(null);
     const [disabled, setDisabled] = useState(true);
-    const [formValidations, setFormValidations] = useState([]);
+    // const [formValidations, setFormValidations] = useState([]);
     const [deleteNoteModal, setDeleteNoteModal] = useState(false);
-
+    const [save, setSave] = useState(false);
 
     useEffect(() => {
-        if (title.length > 100 || title.length === 0) {
+        if (title.length > 100 || title.length === 0 || /^\s*$/.test(title)) {
             setDisabled(true)
         }
         else setDisabled(false)
     }, [title])
 
 
+    useEffect(() => {
+        if (save) {
+            const timer = setTimeout(() => setSave(false), 5000)
+            return () => clearTimeout(timer)
+        }
+    }, [save])
 
     const saveNote = async (e) => {
         e.preventDefault()
@@ -44,8 +52,8 @@ export default function Note() {
         console.log('Note Data: ', noteData);
         const res = await dispatch(notesActions.updateNoteThunk(noteData));
 
+        setSave(true)
         const update = await res.json()
-        console.log(update)
     }
 
     const TitleInput = styled.input`
@@ -54,6 +62,7 @@ export default function Note() {
         justify-content: center;
         border-radius: 0px;
         border: none;
+        margin-bottom: 10px;
     `;
 
     const ContentTextarea = styled.textarea`
@@ -62,6 +71,7 @@ export default function Note() {
         flex-grow: 2;
         padding: 10px;
         border: none;
+        resize: none;
 
     `;
 
@@ -74,7 +84,7 @@ export default function Note() {
         background-color: rgb(124, 0, 249);
         border: 2px solid rgb(124, 0, 249);
         transition: background-color .24s ease, color .24s ease;
-        margin-left: 20px;
+        margin-left: 10px;
 
         &:hover {
             color: ${props => props.buttonColor};
@@ -136,9 +146,11 @@ export default function Note() {
                 onSubmit={saveNote}
             >
                 <CenteringDiv style={{ width: '100%' }}>
-                    <CenteringDiv style={{ flexDirection: 'row' }}>
-                        <p style={{ width: '100%', fontSize: '12px', flexGrow: '4' }}><span style={{ fontWeight: '800' }}>Last Updated:</span> {formattedDate(note.updatedAt)}</p>
+                    <CenteringDiv style={{ flexDirection: 'row', paddingBottom: '10px' }}>
+                        <p style={{ width: '100%', fontSize: '12px', flexGrow: '4', alignSelf: 'flex-end', margin: '0' }}><span style={{ fontWeight: '800' }}>Last Updated:</span> {formattedDate(note.updatedAt)}</p>
                         <ButtonDiv>
+                            {save && <UilCheck size='30' style={{ color: '#4fb06b' }} />}
+
                             <Button
                                 type='submit'
                                 disabled={disabled}
@@ -156,6 +168,7 @@ export default function Note() {
                             </Button>
                         </ButtonDiv>
                     </CenteringDiv>
+                    {deleteNoteModal && <DeleteNoteModal note={note} setDeleteNoteModal={setDeleteNoteModal} />}
                     <CenteringDiv style={{ width: '100%' }}>
                         {disabled && <TitleError>Title must be between 1 and 100 characters long.</TitleError>}
 
@@ -178,13 +191,14 @@ export default function Note() {
 
             </Form>
 
-            {deleteNoteModal && <DeleteNoteModal setDeleteNoteModal={setDeleteNoteModal} />}
         </OuterDiv >
     );
 };
 
 
-function DeleteNoteModal({ setDeleteNoteModal }) {
+function DeleteNoteModal({ note, setDeleteNoteModal }) {
+    const history = useHistory();
+    const dispatch = useDispatch();
     const Modal = styled.div`
         position: absolute;
         z-index: 2000;
@@ -213,42 +227,64 @@ function DeleteNoteModal({ setDeleteNoteModal }) {
     `;
 
     const ModalButton = styled.button`
+        font-size: 16px;
+        padding: 5px;
+        color: white;
 
+
+        padding: 5px 10px;
+        border-radius: 25px;
+        color: #F3F3F3;
+        background-color: rgb(64, 0, 189);
+        transition: background-color .24s ease;
+        margin-left: 10px;
+
+        &:hover {
+            background-color: ${props => props.buttonColor};
+        }
     `;
 
 
-    const deleteNote = () => {
 
+    const ModalDiv = styled.div`
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    `;
+
+    const deleteNote = async () => {
+        const res = await dispatch(notesActions.deleteNoteThunk({ userId: note.userId, noteId: note.id }))
+        history.push('/notes');
+        return <Redirect exact to='/notes' />
     }
+
 
 
     return (
         <Modal>
-            <button
-                type='button'
-                onClick={() => setDeleteNoteModal(false)}
-            >
-                <UilTimes size='30' />
-            </button>
-            <ModalInfo>
-                <p>Select delete to permanently delete this note.</p>
-                <ButtonDiv>
-                    <ModalButton
-                        type='button'
-                        onClick={deleteNote}
-                    >
-                        Delete
-                    </ModalButton>
-
-                    <ModalButton
+            <Slide direction='down'>
+                <ModalDiv className='user-modal' style={{ top: '50px' }}>
+                    <button
                         type='button'
                         onClick={() => setDeleteNoteModal(false)}
                     >
-                        Cancel
-                    </ModalButton>
-                </ButtonDiv>
+                        <UilTimes size='30' style={{ color: 'white' }} />
+                    </button>
+                    <ModalInfo>
+                        <p style={{ marginTop: '0', fontSize: '13px', textAlign: 'center' }}>Select delete to permanently delete this note.</p>
+                        <ButtonDiv>
+                            <ModalButton
+                                type='button'
+                                onClick={deleteNote}
+                                buttonColor='#f25c5c'
+                            >
+                                Delete
+                            </ModalButton>
 
-            </ModalInfo>
-        </Modal>
+                        </ButtonDiv>
+                    </ModalInfo>
+                </ModalDiv>
+            </Slide>
+        </Modal >
     );
 }
