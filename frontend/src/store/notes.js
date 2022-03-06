@@ -20,10 +20,10 @@ export const updateNote = (updatedNote) => ({
     updatedNote
 })
 
-export const deleteNote = () => ({
-    type: DELETE_NOTE
+export const deleteNote = (note) => ({
+    type: DELETE_NOTE,
+    note
 })
-
 
 
 // Thunk for loading notes
@@ -43,19 +43,29 @@ export const createNoteThunk = (userId) => async (dispatch) => {
     });
 
     const note = await res.json()
-    console.log("Note data AFTER adding to DB: ", note, typeof note);
     dispatch(addNote(note.note))
 }
 
+
+export const editNoteThunk = (noteData) => async (dispatch) => {
+    console.log('NOTE INFO TO UPDATE: ', noteData);
+    const { noteId, title, content, userId, notebookId } = noteData
+    const res = await csrfFetch(`/api/users/${userId}/notes/${noteId}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ title, content, notebookId })
+    });
+
+    const note = await res.json()
+    console.log('UPDATED NOTE: ', note);
+    dispatch(addNote(note.note))
+}
 
 const initialState = { notes: [] };
 
 const notesReducer = (state = initialState, action) => {
     let newState;
     let newNotes;
-    let TODO;
 
-    console.log('ENTERED REDUCER', Array.isArray(action.notes));
     switch (action.type) {
         case LOAD_NOTES:
             newState = { ...state }
@@ -67,14 +77,22 @@ const notesReducer = (state = initialState, action) => {
             return newState;
         case ADD_NOTE:
             newState = { ...state };
-            newNotes = { ...state.notes }
+            newNotes = { ...state.notes };
             newNotes[action.newNote.id] = action.newNote;
             newState.notes = newNotes;
             return newState;
         case DELETE_NOTE:
-            return TODO;
+            newState = { ...state };
+            newNotes = { ...state.notes };
+            delete newNotes[action.note.id];
+            newState.notes = newNotes;
+            return newState;
         case UPDATE_NOTE:
-            return TODO
+            newState = { ...state };
+            newNotes = { ...state.notes };
+            newNotes[action.updatedNote.id] = action.updatedNote;
+            newState.notes = newNotes;
+            return newState;
         default:
             return state
     }

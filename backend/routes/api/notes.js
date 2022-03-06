@@ -11,7 +11,7 @@ const { route } = require('./session');
 
 // Get all posts from user
 router.get(
-    '/users/:userId/notes',
+    '/users/:userId(\\d+)/notes',
     asyncHandler(async (req, res) => {
         const userId = req.params.userId;
 
@@ -27,7 +27,7 @@ router.get(
 
 // Create new note
 router.post(
-    '/users/:userId/notes',
+    '/users/:userId(\\d+)/notes',
     asyncHandler(async (req, res) => {
         const { userId } = req.body;
         const note = await Note.create({ title: 'Untitled', content: '', userId });
@@ -38,7 +38,7 @@ router.post(
 
 // Get single note
 router.get(
-    '/users/:userId/notes/:noteId(\\d+)',
+    '/users/:userId(\\d+)/notes/:noteId(\\d+)',
     asyncHandler(async (req, res) => {
         const { userId } = req.body;
         const { noteId } = req.params;
@@ -55,10 +55,17 @@ router.get(
 
 // Update existing note
 router.patch(
-    '/users/:userId/notes/:noteId(\\d+)',
+    '/users/:userId(\\d+)/notes/:noteId(\\d+)',
     asyncHandler(async (req, res) => {
-        const { title, content, noteId, notebookId } = req.body;
-        const note = await Note.findByPk(noteId);
+        const { noteId, userId } = req.params
+        const { title, content, notebookId } = req.body;
+
+        const note = await Note.findOne({
+            where: {
+                id: noteId,
+                userId
+            }
+        });
 
         if (title) note.title = title;
         if (content) note.content = content;
@@ -72,7 +79,7 @@ router.patch(
 
 // Delete existing note
 router.delete(
-    '/users/:userId/notes/:noteId(\\d+)',
+    '/users/:userId(\\d+)/notes/:noteId(\\d+)',
     asyncHandler(async (req, res) => {
         const { noteId } = req.body;
         const note = await Note.findByPk(noteId);
