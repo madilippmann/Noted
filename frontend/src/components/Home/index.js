@@ -15,12 +15,6 @@ export default function Home() {
         dispatch(notesActions.loadNotesThunk(sessionUser.id))
     }, [dispatch])
 
-    console.log('NOTES: ', notes);
-
-    // if (!sessionUser) return (
-    //     <Redirect to="/login" />
-    // );
-
 
     return (
         <div className='main'>

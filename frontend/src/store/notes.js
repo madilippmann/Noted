@@ -44,6 +44,7 @@ export const createNoteThunk = (userId) => async (dispatch) => {
 
     const note = await res.json()
     dispatch(addNote(note.note))
+    return note.note.id
 }
 
 

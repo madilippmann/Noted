@@ -1,0 +1,60 @@
+.square-card {
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+
+    padding: 10px;
+    margin: 10px;
+}
+
+.create-note-card {
+    background-color: rgb(171, 233, 212);
+}
+
+.note-card {
+    background-color: rgba(255, 255, 255, 0.90);
+}
+
+
+.notes-page-outer-container {
+    height: 100%;
+    width: calc(100% - 250px);
+    /* flex-grow: 1; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-direction: column;
+
+
+}
+
+.notes-page-container {
+    width: 90%;
+    height: 90%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.notes-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap:wrap;
+    /* overflow-y: scroll; */
+}
+
+h3.note-card-title {
+    font-size: 15px;
+    margin: 0;
+}
+
+p.note-card-content {
+ font-size: 12px;
+}
+
+p.note-card-date {
+font-size: 12px;
+}
