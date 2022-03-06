@@ -40,11 +40,12 @@
 .new-note-container {
     background-color: rgb(124, 0, 249);
     color: #F3F3F3;
+    transition: background-color .24s ease;
 }
 
 .new-note-container:hover {
-    background-color: #5739aa;
-    box-shadow: 2px 4px 2px 1px rgba(160, 160, 160, 0.25);
+    background-color: rgb(112, 0, 225);
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 8px;
 
 }
 
