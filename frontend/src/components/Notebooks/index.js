@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Link, useHistory } from 'react-router-dom';
 
-import { UilPlusCircle, UilEllipsisH, UilAngleRight } from '@iconscout/react-unicons';
+import { UilPlusCircle, UilEllipsisH, UilAngleRight, UilFileAlt, UilBook } from '@iconscout/react-unicons';
 import * as notesActions from '../../store/notes';
 import * as notebooksActions from '../../store/notebooks';
 
@@ -21,7 +21,7 @@ export default function Notebooks() {
 
     const [openNav, setOpenNav] = useState('');
     const [navArrowColor, setNavArrowColor] = useState('#5D2BC5')
-    const [notebookSort, setNotebookSort] = useState(' Updated At')
+    const [notebookSort, setNotebookSort] = useState(localStorage.getItem('notebook-sort') || 'Updated At')
     const [sortNotebooks, setSortNotebooks] = useState()
 
     useEffect(() => {
@@ -32,9 +32,7 @@ export default function Notebooks() {
 
 
     const newNotebook = async () => {
-        const noteId = await dispatch(notesActions.createNoteThunk(sessionUser.id))
-        history.push(`/notes/${noteId}`)
-        return <Redirect to={`/notes/${noteId}`} />
+        const noteId = await dispatch(notebooksActions.createNotebookThunk(sessionUser.id))
     }
 
 
@@ -43,25 +41,40 @@ export default function Notebooks() {
 
 
     useEffect(() => {
-        if (notebookSort === 'Updated At') formattedNotebooks = sortByUpdatedAt(formattedNotebooks)
-        else if (notebookSort === 'Title') formattedNotebooks = sortByTitle(formattedNotebooks)
-        console.log(formattedNotebooks);
+        if (notebookSort === 'Updated At') {
+            localStorage.setItem('notebook-sort', 'Updated At');
+            formattedNotebooks = sortByUpdatedAt(formattedNotebooks)
+            formattedNotes = sortByUpdatedAt(formattedNotes)
+        }
+        else if (notebookSort === 'Title') {
+            localStorage.setItem('notebook-sort', 'Title');
+            formattedNotebooks = sortByTitle(formattedNotebooks)
+            formattedNotes = sortByTitle(formattedNotes)
+        }
 
         let updatedSort = formattedNotebooks.map(notebook => (
             <tr>
-                <td>{notebook.title}</td>
-
+                <td>
+                    <button type='button'>
+                        <UilAngleRight size='25' />
+                    </button>
+                    <UilBook size='25' />
+                    {notebook.title}
+                </td>
                 <td>{notebook.updatedAt}</td>
+                <td>
+                    <button type='button'>
+                        <UilEllipsisH size='25' />
+                    </button>
 
-                <td><UilEllipsisH size='25' /></td>
-
+                </td>
             </tr>
 
         ))
 
         setSortNotebooks(updatedSort);
 
-    }, [notebookSort])
+    }, [notebookSort, notebooks])
 
     const toggleNav = () => {
         if (openNav === 'open') setOpenNav('');
