@@ -117,12 +117,21 @@ export const TitleError = styled.p`
 `;
 
 export const CenteringDiv = styled.div`
+display: flex;
     width: 100%;
-    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 `;
+
+export const JustifyTopDiv = styled.div`
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+`;
+
 
 
 export const Form = styled.form`
@@ -130,4 +139,14 @@ export const Form = styled.form`
     width: 100%;
     height: 100%;
     padding: 50px;
+    padding-top: 35px;
+`;
+
+
+export const ClickableIcon = styled.button`
+    padding-bottom: 10px;
+    transition: color .25s ease;
+    &:hover {
+        color: rgb(124, 0, 249);
+    }
 `;

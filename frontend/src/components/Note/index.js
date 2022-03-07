@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams, Redirect, useNavigate } from 'react-router-dom';
+import { useHistory, useParams, Redirect, Link } from 'react-router-dom';
 import * as notesActions from '../../store/notes';
 
 import * as SC from './StyledComponents'
 
 import './Note.css';
 import { formattedDate, OuterDiv } from "../utils/utils";
-import { UilTimes, UilCheck } from '@iconscout/react-unicons'
+import { UilTimes, UilCheck, UilArrowCircleLeft } from '@iconscout/react-unicons'
 
 import Slide from "../Animations/Slide";
 
@@ -78,9 +78,17 @@ export default function Note({ userId }) {
             <SC.Form
                 onSubmit={saveNote}
             >
-                <SC.CenteringDiv style={{ width: '100%' }}>
-                    <SC.CenteringDiv style={{ flexDirection: 'row', paddingBottom: '10px' }}>
-                        <p style={{ width: '100%', fontSize: '12px', flexGrow: '4', alignSelf: 'flex-end', margin: '0' }}><span style={{ fontWeight: '800' }}>Last Updated:</span> {formattedDate(note.updatedAt)}</p>
+                <SC.CenteringDiv style={{ width: '100%', alignItems: 'flex-start' }}>
+                    <SC.CenteringDiv style={{ flexDirection: 'row', paddingBottom: '10px', alignItems: 'flex-end' }}>
+                        <div style={{ width: '100%' }}>
+                            <Link to='/notes'>
+                                <SC.ClickableIcon>
+                                    <UilArrowCircleLeft size='40' />
+                                </SC.ClickableIcon>
+                            </Link>
+
+                            <p style={{ width: '100%', fontSize: '12px', flexGrow: '4', alignSelf: 'flex-end', margin: '0' }}><span style={{ fontWeight: '800' }}>Last Updated:</span> {formattedDate(note.updatedAt)}</p>
+                        </div>
                         <SC.ButtonDiv2>
                             {save && <UilCheck size='30' style={{ color: '#4fb06b' }} />}
 
