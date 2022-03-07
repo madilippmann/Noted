@@ -88,7 +88,7 @@ const notebooksReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_NOTEBOOKS:
             newState = { ...state }
-            newNotebooks = action.notes.reduce((acc, notebook) => {
+            newNotebooks = action.notebooks.reduce((acc, notebook) => {
                 acc[notebook.id] = notebook
                 return acc;
             }, {})

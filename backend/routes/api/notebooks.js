@@ -9,7 +9,7 @@ const { Notebook, Note } = require('../../db/models');
 // const { handleValidationErrors } = require('../../utils/validation');
 
 
-// Get all posts from user
+// Get all notebooks from user
 router.get(
     '/users/:userId(\\d+)/notebooks',
     asyncHandler(async (req, res) => {
@@ -87,9 +87,9 @@ router.delete(
                 note.notebookId = null;
             })
 
-
             await notes.save();
         }
+
         await notebook.destroy();
 
         return res.json({ notebook });

@@ -9,7 +9,7 @@ const { Note } = require('../../db/models');
 // const { handleValidationErrors } = require('../../utils/validation');
 
 
-// Get all posts from user
+// Get all notes from user
 router.get(
     '/users/:userId(\\d+)/notes',
     asyncHandler(async (req, res) => {
