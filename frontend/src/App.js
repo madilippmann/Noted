@@ -18,8 +18,10 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const sessionUser = useSelector(state => state.session.user);
 
+
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+
   }, [dispatch]);
 
 
@@ -40,7 +42,7 @@ function App() {
         </Route>
 
         <Route exact path='/notes'>
-          {sessionUser ? <Notes /> : <Redirect to='/login' />}
+          {sessionUser ? <Notes userId={sessionUser.id} /> : <Redirect to='/login' />}
         </Route>
 
         <Route exact path='/notebooks'>
@@ -52,7 +54,7 @@ function App() {
         </Route>
 
         <Route path={`/notes/:noteId`} >
-          {sessionUser ? <Note /> : <Redirect to='/login' />}
+          {sessionUser ? <Note userId={sessionUser.id} /> : <Redirect to='/login' />}
         </Route>
 
         <Route >

@@ -11,9 +11,11 @@ import { UilTimes, UilCheck } from '@iconscout/react-unicons'
 
 import Slide from "../Animations/Slide";
 
-export default function Note() {
+export default function Note({ userId }) {
     const { noteId } = useParams();
     const dispatch = useDispatch();
+    const sessionUser = useSelector(state => state.session.user);
+
     const note = useSelector(state => state.notes.notes[noteId]);
 
     const [title, setTitle] = useState(note.title);
@@ -22,6 +24,13 @@ export default function Note() {
     const [disabled, setDisabled] = useState(true);
     const [deleteNoteModal, setDeleteNoteModal] = useState(false);
     const [save, setSave] = useState(false);
+
+
+    useEffect(() => {
+        console.log('USER: ', userId);
+        dispatch(notesActions.loadNotesThunk(userId))
+    }, [dispatch])
+
 
     useEffect(() => {
         if (title.length > 100 || title.length === 0 || /^\s*$/.test(title)) {
@@ -128,9 +137,9 @@ function DeleteNoteModal({ setDeleteNoteModal }) {
 
 
     const deleteNote = async () => {
-        const res = await dispatch(notesActions.deleteNoteThunk(note))
+        const res = dispatch(notesActions.deleteNoteThunk(note))
         history.push('/notes');
-        return <Redirect from={`/notes/${note.id}`} exact to='/notes' />
+        return <Redirect exact to={`/notes`} />
     }
 
 

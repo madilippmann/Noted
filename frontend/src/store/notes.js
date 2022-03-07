@@ -59,6 +59,7 @@ export const deleteNoteThunk = (note) => async (dispatch) => {
 
     const removedNote = await res.json()
     dispatch(deleteNote(removedNote.note))
+    return removedNote
 }
 
 export const updateNoteThunk = (noteData) => async (dispatch) => {

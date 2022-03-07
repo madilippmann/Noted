@@ -10,11 +10,17 @@ import { formattedDate, OuterDiv, shortenedContent, sortByUpdatedAt } from '../u
 import './Notes.css';
 import Note from '../Note';
 
-export default function Notes() {
+export default function Notes({ userId }) {
     const dispatch = useDispatch();
+    const sessionUser = useSelector(state => state.session.user);
     const history = useHistory();
 
     const notes = useSelector(state => state.notes.notes);
+
+    useEffect(() => {
+        dispatch(notesActions.loadNotesThunk(sessionUser.id))
+    }, [dispatch])
+
 
     let formattedNotes = [];
 
@@ -37,7 +43,7 @@ export default function Notes() {
 
 
     const handleClick = async () => {
-        const noteId = await dispatch(notesActions.createNoteThunk(formattedNotes[1].userId))
+        const noteId = await dispatch(notesActions.createNoteThunk(userId))
         history.push(`/notes/${noteId}`)
         return <Redirect to={`/notes/${noteId}`} />
     }
