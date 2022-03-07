@@ -1,8 +1,9 @@
 import { csrfFetch } from "./csrf";
 
-const LOAD_NOTEBOOKS = 'notes/LOAD_NOTEBOOKS';
-const ADD_NOTEBOOK = 'notes/ADD_NOTEBOOK';
-const DELETE_NOTEBOOK = 'notes/DELETE_NOTEBOOK';
+const LOAD_NOTEBOOKS = 'notebooks/LOAD_NOTEBOOKS';
+const ADD_NOTEBOOK = 'notebooks/ADD_NOTEBOOK';
+const UPDATE_NOTEBOOK = 'notebooks/UPDATE_NOTEBOOK';
+const DELETE_NOTEBOOK = 'notebooks/DELETE_NOTEBOOK';
 
 export const loadNotebooks = (notebooks) => ({
     type: LOAD_NOTEBOOKS,
@@ -12,6 +13,11 @@ export const loadNotebooks = (notebooks) => ({
 export const addNotebook = (newNotebook) => ({
     type: ADD_NOTEBOOK,
     newNotebook
+})
+
+export const updateNotebook = (updatedNotebook) => ({
+    type: UPDATE_NOTEBOOK,
+    updatedNotebook
 })
 
 export const deleteNotebook = (notebook) => ({
@@ -40,6 +46,20 @@ export const createNotebookThunk = (userId) => async (dispatch) => {
     dispatch(addNotebook(notebook.notebook))
     return notebook.notebook.id
 }
+
+// Thunk for updating notebook
+export const updateNotebookThunk = (notebookData) => async (dispatch) => {
+    const { notebookId, title, userId } = notebookData
+    const res = await csrfFetch(`/api/users/${userId}/notebooks/${notebookId}`, {
+        method: 'POST',
+        body: JSON.stringify({ title })
+    });
+
+    const notebook = await res.json()
+    dispatch(addNotebook(notebook.notebook))
+    return notebook.notebook.id
+}
+
 
 // Thunk for deleting notebook
 export const deleteNotebookThunk = (notebook) => async (dispatch) => {
@@ -79,6 +99,8 @@ const notebooksReducer = (state = initialState, action) => {
             // newNotebooks = { ...state.notes };
             // newNotebooks[action.newNote.id] = action.newNote;
             // newState.notes = newNotebooks;
+            return newState;
+        case UPDATE_NOTEBOOK:
             return newState;
         case DELETE_NOTEBOOK:
             // newState = { ...state };

@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router();
 const asyncHandler = require('express-async-handler');
+const { default: Note } = require('../../../frontend/src/components/Note');
 
-const { Notebook } = require('../../db/models');
+const { Notebook, Note } = require('../../db/models');
 
 // Add validation for title later
 // const { check } = require('express-validator');
@@ -15,69 +16,80 @@ router.get(
     asyncHandler(async (req, res) => {
         const userId = req.params.userId;
 
-        const notes = await Note.findAll({
+        const notebooks = await Notebook.findAll({
             where: { userId },
-            order: [["id", "DESC"]]
+            order: [["updatedAt", "DESC"]]
         });
 
-        return res.json({ notes })
+        return res.json({ notebooks })
     })
 );
 
 
-// Create new note
+// Create new notebook
 router.post(
-    '/users/:userId(\\d+)/notebookss',
+    '/users/:userId(\\d+)/notebooks',
     asyncHandler(async (req, res) => {
-        const { userId } = req.body;
-        const note = await Note.create({ title: 'Untitled', content: '', userId });
+        const { userId, title } = req.body;
 
-        return res.json({ note });
+        const notebook = await Notebook.create({ title, userId });
+
+        return res.json({ notebook });
     }),
 );
 
 
-// Update existing note
+// Update existing notebook
 router.patch(
     '/users/:userId(\\d+)/notebooks/:notebookId(\\d+)',
     asyncHandler(async (req, res) => {
-        const { noteId, userId } = req.params
-        const { title, content, notebookId } = req.body;
+        const { notebookId, userId } = req.params;
+        const { title } = req.body;
 
-        const note = await Note.findOne({
+        const notebook = await Notebook.findOne({
             where: {
-                id: noteId,
+                id: notebookId,
                 userId
             }
         });
 
-        if (title) note.title = title;
-        if (content) note.content = content;
-        if (notebookId) note.notebookId = notebookId;
+        if (title) notebook.title = title;
 
-        await note.save()
+        await notebook.save()
 
-        return res.json({ note });
+        return res.json({ notebook });
     }),
 );
 
-// Delete existing note
+// Delete existing notebook
 router.delete(
     '/users/:userId(\\d+)/notebooks/:notebookId(\\d+)',
     asyncHandler(async (req, res) => {
-        const { noteId } = req.body;
+        const { id } = req.body;
         const { userId } = req.params;
 
-        const note = await Note.findOne({
+        const notebook = await Notebook.findOne({
             where: {
-                id: noteId,
+                id,
                 userId
             }
         });
 
-        await note.destroy();
+        const notes = await Note.findAll({
+            where: {
+                userId,
+                notebookId: id
+            }
+        })
 
-        return res.json({ note });
+        notes.forEach(note => {
+            note.notebookId = null;
+        })
+
+        await notes.save();
+        await notebook.destroy();
+
+        return res.json({ notebook });
     }),
 );
 
