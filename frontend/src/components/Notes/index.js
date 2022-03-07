@@ -42,7 +42,7 @@ export default function Notes({ userId }) {
     // }, [])
 
 
-    const handleClick = async () => {
+    const newNote = async () => {
         const noteId = await dispatch(notesActions.createNoteThunk(userId))
         history.push(`/notes/${noteId}`)
         return <Redirect to={`/notes/${noteId}`} />
@@ -53,7 +53,7 @@ export default function Notes({ userId }) {
             <div className='notes-page-container'>
                 <h1 className='notes-title'>Notes</h1>
                 <div className='notes-container'>
-                    <button type='button' onClick={handleClick}>
+                    <button type='button' onClick={newNote}>
                         <div className='create-note-card square-card'>
                             <UilPlusCircle size='75' />
                             <h2 className='add-card-title'>New Note</h2>

@@ -13,7 +13,7 @@ import * as notesActions from '../../store/notes';
 import './Navigation.css';
 import logo from '../static/images/noted-logo.png';
 
-import { UilUserCircle, UilCheck, UilAngleDown, UilEllipsisH } from '@iconscout/react-unicons';
+import { UilUserCircle, UilCheck, UilEllipsisH } from '@iconscout/react-unicons';
 
 export default function Navigation() {
     const dispatch = useDispatch();

@@ -50,6 +50,49 @@ export function sortByUpdatedAt(notes) {
 }
 
 
+export function sortByTitle(notes) {
+    return notes.sort((a, b) => {
+        const titleA = a.title.toUpperCase();
+        const titleB = b.title.toUpperCase();
+        console.log(titleA, titleB);
+        if (titleA > titleB) return 1
+        else if (titleA < titleB) return -1
+        else return 0;
+    })
+}
+
+
+export function formatNotes(notes) {
+    let formattedNotes = [];
+    Object.entries(notes).map(rawNote => {
+        let note = {};
+        note.title = rawNote[1].title;
+        note.notebookId = rawNote[1].notebookId;
+        note.id = rawNote[1].id;
+        note.userId = rawNote[1].userId;
+        note.content = shortenedContent(rawNote[1].content);
+        note.updatedAt = formattedDate(rawNote[1].updatedAt);
+        formattedNotes.push(note);
+    })
+
+    return formattedNotes;
+}
+
+export function formatNotebooks(notebooks) {
+    let formattedNotebooks = [];
+    Object.entries(notebooks).map(rawNotebook => {
+        let notebook = {};
+        notebook.title = rawNotebook[1].title;
+        notebook.id = rawNotebook[1].id;
+        notebook.userId = rawNotebook[1].userId;
+        notebook.updatedAt = formattedDate(rawNotebook[1].updatedAt);
+        formattedNotebooks.push(notebook);
+    })
+
+    return formattedNotebooks;
+}
+
+
 
 export const OuterDiv = styled.div`
     width: calc(100% - 250px);

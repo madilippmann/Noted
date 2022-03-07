@@ -11,6 +11,7 @@ import Navigation from "./components/Navigation";
 import Note from "./components/Note";
 
 import * as sessionActions from "./store/session";
+import Notebooks from "./components/Notebooks";
 
 
 function App() {
@@ -46,7 +47,7 @@ function App() {
         </Route>
 
         <Route exact path='/notebooks'>
-          {sessionUser ? <div>NOTEBOOKS PAGE TODO</div> : <Redirect to='/login' />}
+          {sessionUser ? <Notebooks /> : <Redirect to='/login' />}
         </Route>
 
         <Route exact path='/tags'>
