@@ -51,7 +51,7 @@ export const createNotebookThunk = (userId) => async (dispatch) => {
 export const updateNotebookThunk = (notebookData) => async (dispatch) => {
     const { notebookId, title, userId } = notebookData
     const res = await csrfFetch(`/api/users/${userId}/notebooks/${notebookId}`, {
-        method: 'POST',
+        method: 'PATCH',
         body: JSON.stringify({ title })
     });
 
@@ -101,6 +101,10 @@ const notebooksReducer = (state = initialState, action) => {
             newState.notebooks = newNotebooks;
             return newState;
         case UPDATE_NOTEBOOK:
+            newState = { ...state };
+            newNotebooks = { ...state.notebooks };
+            newNotebooks[action.updatedNotebook.id] = action.updatedNotebook;
+            newState.notebooks = newNotebooks;
             return newState;
         case DELETE_NOTEBOOK:
             // newState = { ...state };
