@@ -54,7 +54,7 @@ export default function Note() {
         const res = await dispatch(notesActions.updateNoteThunk(noteData));
 
         setSave(true)
-        const update = await res.json()
+        await res.json()
     }
 
 
@@ -121,15 +121,22 @@ export default function Note() {
 };
 
 
-function DeleteNoteModal({ note, setDeleteNoteModal }) {
+function DeleteNoteModal({ setDeleteNoteModal }) {
+    const { noteId } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
+    const note = useSelector(state => state.notes.notes[noteId]);
+
+    useEffect(() => {
+        console.log(note);
+    }, [])
+
 
 
     const deleteNote = async () => {
-        const res = await dispatch(notesActions.deleteNoteThunk({ userId: note.userId, noteId: note.id }))
+        const res = await dispatch(notesActions.deleteNoteThunk(note))
         history.push('/notes');
-        return <Redirect exact to='/notes' />
+        return <Redirect to='/notes' />
     }
 
 
@@ -147,6 +154,7 @@ function DeleteNoteModal({ note, setDeleteNoteModal }) {
                     <StyledComponents.ModalInfo>
                         <p style={{ marginTop: '0', fontSize: '13px', textAlign: 'center' }}>Select delete to permanently delete this note.</p>
                         <StyledComponents.ButtonDiv>
+
                             <StyledComponents.ModalButton
                                 type='button'
                                 onClick={deleteNote}
