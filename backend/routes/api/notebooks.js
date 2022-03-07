@@ -29,9 +29,9 @@ router.get(
 router.post(
     '/users/:userId(\\d+)/notebooks',
     asyncHandler(async (req, res) => {
-        const { userId, title } = req.body;
+        const { userId } = req.body;
 
-        const notebook = await Notebook.create({ title, userId });
+        const notebook = await Notebook.create({ userId });
 
         return res.json({ notebook });
     }),
@@ -74,6 +74,7 @@ router.delete(
             }
         });
 
+
         const notes = await Note.findAll({
             where: {
                 userId,
@@ -81,11 +82,14 @@ router.delete(
             }
         })
 
-        notes.forEach(note => {
-            note.notebookId = null;
-        })
+        if (notes.length > 0) {
+            notes.forEach(note => {
+                note.notebookId = null;
+            })
 
-        await notes.save();
+
+            await notes.save();
+        }
         await notebook.destroy();
 
         return res.json({ notebook });
