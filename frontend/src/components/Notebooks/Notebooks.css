@@ -1,0 +1,34 @@
+div.flex-end {
+    display: flex;
+    align-items: flex-end;
+}
+
+label#sort {
+    padding-right: 10px;
+}
+
+table.notebooks-table {
+    width: 100%;
+    /* height: inherit; */
+}
+
+tr.header-row {
+
+}
+
+
+th.header-col {
+    text-align: left;
+
+}
+
+
+th.updatedAt-header {
+    width: 200px;
+}
+
+
+th.actions-header {
+    /* text-align: right; */
+    width: 50px;
+}

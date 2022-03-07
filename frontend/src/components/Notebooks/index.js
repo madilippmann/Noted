@@ -22,6 +22,7 @@ export default function Notebooks() {
     const [openNav, setOpenNav] = useState('');
     const [navArrowColor, setNavArrowColor] = useState('#5D2BC5')
     const [notebookSort, setNotebookSort] = useState(' Updated At')
+    const [sortNotebooks, setSortNotebooks] = useState()
 
     useEffect(() => {
         dispatch(notebooksActions.loadNotebooksThunk(sessionUser.id))
@@ -45,6 +46,21 @@ export default function Notebooks() {
         if (notebookSort === 'Updated At') formattedNotebooks = sortByUpdatedAt(formattedNotebooks)
         else if (notebookSort === 'Title') formattedNotebooks = sortByTitle(formattedNotebooks)
         console.log(formattedNotebooks);
+
+        let updatedSort = formattedNotebooks.map(notebook => (
+            <tr>
+                <td>{notebook.title}</td>
+
+                <td>{notebook.updatedAt}</td>
+
+                <td><UilEllipsisH size='25' /></td>
+
+            </tr>
+
+        ))
+
+        setSortNotebooks(updatedSort);
+
     }, [notebookSort])
 
     const toggleNav = () => {
@@ -62,8 +78,8 @@ export default function Notebooks() {
             <SC.MainDiv>
                 <h1>Notebooks</h1>
                 <SC.UpperDiv>
-                    <div>
-                        <label for='sort'>Sort Notebooks by: </label>
+                    <div className='flex-end'>
+                        <label id='sort' for='sort'>Sort Notebooks by: </label>
                         <select
                             name='sort'
                             value={notebookSort}
@@ -82,25 +98,17 @@ export default function Notebooks() {
                     </SC.Button>
                 </SC.UpperDiv>
 
-                <table>
+                <table className='notebooks-table'>
                     <thead>
                         <tr className='header-row'>
-                            <th>Title</th>
-                            <th>Last Updated</th>
-                            <th>Actions</th>
+                            <th className='header-col title-header'>Title</th>
+                            <th className='header-col updatedAt-header'>Last Updated</th>
+                            <th className='header-col actions-header'>Actions</th>
                         </tr>
                     </thead>
 
                     <tbody className='table-body'>
-                        {/* {notebooks && notebooks.map(notebook => (
-                            <tr>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-
-                            </tr>
-
-                        ))} */}
+                        {sortNotebooks}
                     </tbody>
 
                 </table>

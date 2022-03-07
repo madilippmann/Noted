@@ -54,7 +54,6 @@ export function sortByTitle(notes) {
     return notes.sort((a, b) => {
         const titleA = a.title.toUpperCase();
         const titleB = b.title.toUpperCase();
-        console.log(titleA, titleB);
         if (titleA > titleB) return 1
         else if (titleA < titleB) return -1
         else return 0;

@@ -4,9 +4,7 @@ import styled from 'styled-components';
 export const MainDiv = styled.div`
     height: 95%;
     width: 95%;
-    padding: 25px;
-
-
+    padding: 23px 50px;
 
     border-radius: 10px;
     background-color: rgba(255, 255, 255, .75);
@@ -15,6 +13,7 @@ export const MainDiv = styled.div`
 export const UpperDiv = styled.div`
     display: flex;
     justify-content: space-between;
+    padding: 25px 0 15px 0;
 
 `;
 
