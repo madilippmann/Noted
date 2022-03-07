@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams, Redirect } from 'react-router-dom';
+import { useHistory, useParams, Redirect, useNavigate } from 'react-router-dom';
 import * as notesActions from '../../store/notes';
 
 import * as StyledComponents from './StyledComponents.js'
@@ -20,7 +20,6 @@ export default function Note() {
     const [content, setContent] = useState(note.content);
     const [notebookId, setNotebookId] = useState(null);
     const [disabled, setDisabled] = useState(true);
-    // const [formValidations, setFormValidations] = useState([]);
     const [deleteNoteModal, setDeleteNoteModal] = useState(false);
     const [save, setSave] = useState(false);
 
@@ -127,18 +126,12 @@ function DeleteNoteModal({ setDeleteNoteModal }) {
     const dispatch = useDispatch();
     const note = useSelector(state => state.notes.notes[noteId]);
 
-    useEffect(() => {
-        console.log(note);
-    }, [])
-
-
 
     const deleteNote = async () => {
         const res = await dispatch(notesActions.deleteNoteThunk(note))
         history.push('/notes');
-        return <Redirect to='/notes' />
+        return <Redirect from={`/notes/${note.id}`} exact to='/notes' />
     }
-
 
 
     return (

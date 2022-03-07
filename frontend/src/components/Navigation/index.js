@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, Link, NavLink } from 'react-router-dom';
+import { Redirect, Link, NavLink, useHistory } from 'react-router-dom';
 
 import RoundedContainer from './RoundedContainer';
 import NavigationContainer from './NavigationContainer';
@@ -19,9 +19,14 @@ export default function Navigation() {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const notes = useSelector(state => state.notes.notes)
-
+    const history = useHistory();
     const [userDropdown, setUserDropdown] = useState(false);
 
+    const handleClick = async () => {
+        const noteId = await dispatch(notesActions.createNoteThunk(sessionUser.id))
+        history.push(`/notes/${noteId}`)
+        return <Redirect to={`/notes/${noteId}`} />
+    }
 
     return (
         <div className='sidebar'>
@@ -91,9 +96,9 @@ export default function Navigation() {
 
             <div className='search-and-create-bars-container'>
                 <RoundedContainer type='search' />
-                <Link to='/notes/create'>
-                    <RoundedContainer type='new-note' />
-                </Link>
+                <button type='button' onClick={handleClick}>
+                    <RoundedContainer userId={sessionUser.id} type='new-note' />
+                </button>
             </div>
 
             <nav className='nav-bars-container'>

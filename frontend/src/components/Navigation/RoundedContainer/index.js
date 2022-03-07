@@ -2,9 +2,10 @@ import './RoundedContainer.css';
 import { UilPlus, UilSearchAlt } from '@iconscout/react-unicons'
 import { useState, useEffect } from 'react';
 
-const RoundedContainer = ({ type }) => {
-    const [searchInput, setSearchInput] = useState('');
 
+
+const RoundedContainer = ({ userId, type }) => {
+    const [searchInput, setSearchInput] = useState('');
 
 
     return (
