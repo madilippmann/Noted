@@ -56,7 +56,7 @@ export const updateNotebookThunk = (notebookData) => async (dispatch) => {
     });
 
     const notebook = await res.json()
-    dispatch(addNotebook(notebook.notebook))
+    dispatch(updateNotebook(notebook.notebook))
     return notebook.notebook.id
 }
 
@@ -95,10 +95,10 @@ const notebooksReducer = (state = initialState, action) => {
             newState.notebooks = newNotebooks
             return newState;
         case ADD_NOTEBOOK:
-            // newState = { ...state };
-            // newNotebooks = { ...state.notes };
-            // newNotebooks[action.newNote.id] = action.newNote;
-            // newState.notes = newNotebooks;
+            newState = { ...state };
+            newNotebooks = { ...state.notebooks };
+            newNotebooks[action.newNotebook.id] = action.newNotebook;
+            newState.notebooks = newNotebooks;
             return newState;
         case UPDATE_NOTEBOOK:
             return newState;
