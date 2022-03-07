@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, Redirect } from 'react-router-dom';
 import * as notesActions from '../../store/notes';
 
-import styled from 'styled-components'
+import * as StyledComponents from './StyledComponents.js'
+
 import './Note.css';
 import { formattedDate, OuterDiv } from "../utils/utils";
 import { UilTimes, UilCheck } from '@iconscout/react-unicons'
@@ -56,82 +57,6 @@ export default function Note() {
         const update = await res.json()
     }
 
-    const TitleInput = styled.input`
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        border-radius: 0px;
-        border: none;
-        margin-bottom: 10px;
-    `;
-
-    const ContentTextarea = styled.textarea`
-        width: 100%;
-        height: 100%;
-        flex-grow: 2;
-        padding: 10px;
-        border: none;
-        resize: none;
-
-    `;
-
-    // background-color:;
-    const notedPuple = ``
-    const Button = styled.button`
-        padding: 5px 10px;
-        border-radius: 25px;
-        color: #F3F3F3;
-        background-color: rgb(124, 0, 249);
-        border: 2px solid rgb(124, 0, 249);
-        transition: background-color .24s ease, color .24s ease;
-        margin-left: 10px;
-
-        &:hover {
-            color: ${props => props.buttonColor};
-            background-color: #F3F3F3;
-            border: 2px solid ${props => props.buttonColor};
-        }
-        &:disabled {
-            opacity: 50%;
-        }
-
-        &:disabled:hover {
-            color: #F3F3F3;
-            background-color: rgb(124, 0, 249);
-            border: 2px solid rgb(124, 0, 249);
-            cursor: not-allowed;
-        }
-    `;
-
-    const TitleError = styled.p`
-        color: red;
-        margin: 0;
-        align-self: flex-start;
-        font-size: 12px;
-
-    `;
-
-    const CenteringDiv = styled.div`
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    `;
-
-    const ButtonDiv = styled.div`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-`;
-
-    const Form = styled.form`
-        margin: auto;
-        width: 100%;
-        height: 100%;
-        padding: 50px;
-    `;
 
     return (
         // padding: '15px'
@@ -142,54 +67,54 @@ export default function Note() {
             height: '90%',
             margin: 'auto'
         }}>
-            <Form
+            <StyledComponents.Form
                 onSubmit={saveNote}
             >
-                <CenteringDiv style={{ width: '100%' }}>
-                    <CenteringDiv style={{ flexDirection: 'row', paddingBottom: '10px' }}>
+                <StyledComponents.CenteringDiv style={{ width: '100%' }}>
+                    <StyledComponents.CenteringDiv style={{ flexDirection: 'row', paddingBottom: '10px' }}>
                         <p style={{ width: '100%', fontSize: '12px', flexGrow: '4', alignSelf: 'flex-end', margin: '0' }}><span style={{ fontWeight: '800' }}>Last Updated:</span> {formattedDate(note.updatedAt)}</p>
-                        <ButtonDiv>
+                        <StyledComponents.ButtonDiv2>
                             {save && <UilCheck size='30' style={{ color: '#4fb06b' }} />}
 
-                            <Button
+                            <StyledComponents.Button
                                 type='submit'
                                 disabled={disabled}
                                 buttonColor='#4fb06b'
                             >
                                 Save
-                            </Button>
-                            <Button
+                            </StyledComponents.Button>
+                            <StyledComponents.Button
                                 type='button'
                                 onClick={() => setDeleteNoteModal(true)}
                                 buttonColor='#f25c5c'
 
                             >
                                 Delete Note
-                            </Button>
-                        </ButtonDiv>
-                    </CenteringDiv>
+                            </StyledComponents.Button>
+                        </StyledComponents.ButtonDiv2>
+                    </StyledComponents.CenteringDiv>
                     {deleteNoteModal && <DeleteNoteModal note={note} setDeleteNoteModal={setDeleteNoteModal} />}
-                    <CenteringDiv style={{ width: '100%' }}>
-                        {disabled && <TitleError>Title must be between 1 and 100 characters long.</TitleError>}
+                    <StyledComponents.CenteringDiv style={{ width: '100%' }}>
+                        {disabled && <StyledComponents.TitleError>Title must be between 1 and 100 characters long.</StyledComponents.TitleError>}
 
-                        <TitleInput
+                        <StyledComponents.TitleInput
                             value={title}
                             placeholder='Title'
                             onChange={(e) => setTitle(e.target.value)}
                         />
-                    </CenteringDiv>
+                    </StyledComponents.CenteringDiv>
 
-                </CenteringDiv>
+                </StyledComponents.CenteringDiv>
 
-                <CenteringDiv style={{ height: '100%', flexGrow: '2' }}>
-                    <ContentTextarea
+                <StyledComponents.CenteringDiv style={{ height: '100%', flexGrow: '2' }}>
+                    <StyledComponents.ContentTextarea
                         placeholder='Start writing...'
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
                     />
-                </CenteringDiv>
+                </StyledComponents.CenteringDiv>
 
-            </Form>
+            </StyledComponents.Form>
 
         </OuterDiv >
     );
@@ -199,58 +124,7 @@ export default function Note() {
 function DeleteNoteModal({ note, setDeleteNoteModal }) {
     const history = useHistory();
     const dispatch = useDispatch();
-    const Modal = styled.div`
-        position: absolute;
-        z-index: 2000;
-        display: flex;
-        width: 400px;
-        height: 200px;
-        margin: 0;
-        flex-direction: column;
-        align-items: flex-end;
-        justify-content: flex-start;
 
-    `
-
-    const ModalInfo = styled.div`
-        flex-grow: 1;
-        display: flex;
-        align-self:center;
-        flex-direction: column;
-        align-items:center;
-    `
-
-    const ButtonDiv = styled.div`
-        display: flex;
-        justify-content: space-between;
-        with: 200px;
-    `;
-
-    const ModalButton = styled.button`
-        font-size: 16px;
-        padding: 5px;
-        color: white;
-
-
-        padding: 5px 10px;
-        border-radius: 25px;
-        color: #F3F3F3;
-        background-color: rgb(64, 0, 189);
-        transition: background-color .24s ease;
-        margin-left: 10px;
-
-        &:hover {
-            background-color: ${props => props.buttonColor};
-        }
-    `;
-
-
-
-    const ModalDiv = styled.div`
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-    `;
 
     const deleteNote = async () => {
         const res = await dispatch(notesActions.deleteNoteThunk({ userId: note.userId, noteId: note.id }))
@@ -261,30 +135,30 @@ function DeleteNoteModal({ note, setDeleteNoteModal }) {
 
 
     return (
-        <Modal>
+        <StyledComponents.Modal>
             <Slide direction='down'>
-                <ModalDiv className='user-modal' style={{ top: '50px' }}>
+                <StyledComponents.ModalDiv className='user-modal' style={{ top: '50px' }}>
                     <button
                         type='button'
                         onClick={() => setDeleteNoteModal(false)}
                     >
                         <UilTimes size='30' style={{ color: 'white' }} />
                     </button>
-                    <ModalInfo>
+                    <StyledComponents.ModalInfo>
                         <p style={{ marginTop: '0', fontSize: '13px', textAlign: 'center' }}>Select delete to permanently delete this note.</p>
-                        <ButtonDiv>
-                            <ModalButton
+                        <StyledComponents.ButtonDiv>
+                            <StyledComponents.ModalButton
                                 type='button'
                                 onClick={deleteNote}
                                 buttonColor='#f25c5c'
                             >
                                 Delete
-                            </ModalButton>
+                            </StyledComponents.ModalButton>
 
-                        </ButtonDiv>
-                    </ModalInfo>
-                </ModalDiv>
+                        </StyledComponents.ButtonDiv>
+                    </StyledComponents.ModalInfo>
+                </StyledComponents.ModalDiv>
             </Slide>
-        </Modal >
+        </StyledComponents.Modal >
     );
 }
