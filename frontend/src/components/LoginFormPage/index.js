@@ -8,6 +8,7 @@ import * as notesActions from '../../store/notes';
 import RubberBand from '../Animations/RubberBand';
 import './LoginForm.css'
 import logo from '../static/images/noted-logo.png';
+import { Button } from './StyledComponents.js';
 
 export default function LoginFormPage() {
     const dispatch = useDispatch();

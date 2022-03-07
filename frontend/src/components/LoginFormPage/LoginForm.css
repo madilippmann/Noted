@@ -82,23 +82,40 @@ button.smaller-buttons, button.submit-button {
     border-radius: 15px;
     box-sizing: border-box;
     padding: 10px;
+
+    color: #F3F3F3;
+    background-color: rgb(191, 174, 250);
+    border: 2px solid rgb(191, 174, 250);
+    transition: background-color .24s ease, color .24s ease;
+
+    font-weight: 500;
 }
 
 
 
-.submit-button {
-    background: #865CF3;
+button.submit-button {
+    /* background: #865CF3;
     border: 1px solid #865CF3;
-    color: #FFFFFF;
+    color: #FFFFFF; */
     width: 100%;
     padding: 10px 0;
     margin: 0;
     margin-top: 5px;
 
+    color: #F3F3F3;
+    background-color: rgb(124, 0, 249);
+    border: 2px solid rgb(124, 0, 249);
+    transition: background-color .24s ease, color .24s ease;
+
+    font-size: 15px;
+
 }
 
 .submit-button:hover {
-    opacity: 70%;
+    /* opacity: 70%; */
+    color: rgb(124, 0, 249);
+    background-color: rgb(250, 249, 253);
+    border: 2px solid rgb(124, 0, 249);
 }
 
 .smaller-buttons {
@@ -110,8 +127,9 @@ button.smaller-buttons, button.submit-button {
 
 .smaller-buttons:hover {
     /* border: 1.5px solid rgba(191, 187, 252, 0.72); */
-    background: rgba(191, 187, 252, 0.25);
-    color: #353535;
+    /* background: rgba(191, 187, 252, 0.25); */
+    background-color: rgb(250, 249, 253);
+    color: rgb(191, 174, 250);
 }
 
 button.submit-button:hover, button.smaller-buttons:hover {
