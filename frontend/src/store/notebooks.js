@@ -107,10 +107,10 @@ const notebooksReducer = (state = initialState, action) => {
             newState.notebooks = newNotebooks;
             return newState;
         case DELETE_NOTEBOOK:
-            // newState = { ...state };
-            // newNotebooks = { ...state.notes };
-            // delete newNotebooks[action.note.id];
-            // newState.notes = newNotebooks;
+            newState = { ...state };
+            newNotebooks = { ...state.notebooks };
+            delete newNotebooks[action.notebook.id];
+            newState.notebooks = newNotebooks;
             return newState;
         default:
             return state
