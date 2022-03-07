@@ -12,7 +12,7 @@
 
 .square-card:hover {
     box-shadow: rgba(0, 0, 0, 0.5) 0px 3px 8px;
-    border: 1px solid rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(63, 63, 63, 0.25);
 
 }
 

@@ -14,3 +14,8 @@ body {
     background: linear-gradient(135deg, rgb(105, 67, 244) 25%, rgb(210, 198, 252) 95%);
 
 }
+
+
+/* .home-page.square-card.note-card:hover, .home-page.square-card.create-note-card:hover {
+    border: none;
+} */
