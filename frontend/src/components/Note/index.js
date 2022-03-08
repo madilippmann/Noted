@@ -22,7 +22,7 @@ export default function Note({ userId }) {
 
     const [title, setTitle] = useState(note.title);
     const [content, setContent] = useState(note.content);
-    const [notebookId, setNotebookId] = useState(note.id || null);
+    const [notebookId, setNotebookId] = useState(note.notebookId || null);
     const [disabled, setDisabled] = useState(true);
     const [deleteNoteModal, setDeleteNoteModal] = useState(false);
     const [save, setSave] = useState(false);
@@ -31,6 +31,7 @@ export default function Note({ userId }) {
     useEffect(() => {
         dispatch(notesActions.loadNotesThunk(userId))
         dispatch(notebooksActions.loadNotebooksThunk(userId))
+
     }, [dispatch])
 
 
@@ -62,18 +63,22 @@ export default function Note({ userId }) {
 
 
         const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
-        const notebookRes = await dispatch(notebooksActions.createNotebookThunk({
-            notebookId,
-            title: notebooks[notebookId].title,
-            userId: note.userId
-        }))
+        let notebookRes;
+        if (notebookId) {
+            notebookRes = await dispatch(notebooksActions.updateNotebookThunk({
+                notebookId,
+                title: notebooks[notebookId].title,
+                userId: note.userId
+            }))
+
+        }
 
         setSave(true)
-        await noteRes.json()
-        await notebookRes.json()
-
     }
 
+    useEffect(() => {
+        console.log('NOTEBOOK ID: ', notebookId);
+    }, [notebookId])
 
 
     return (
@@ -100,26 +105,6 @@ export default function Note({ userId }) {
                             <p style={{ width: '100%', fontSize: '12px', flexGrow: '4', alignSelf: 'flex-end', margin: '0' }}><span style={{ fontWeight: '800' }}>Last Updated:</span> {formattedDate(note.updatedAt)}</p>
                         </div>
                         <SC.ButtonDiv2>
-                            <div>
-                                <label for='notebookId'>Notebook: </label>
-                                <select
-                                    name='notebookId'
-                                    value={notebookId}
-                                    onChange={(e) => setNotebookId(e.target.value)}
-                                >
-                                    <option>None</option>
-                                    {formattedNotebooks.map(notebook => (
-                                        <option
-                                            value={notebook.id}
-                                            key={notebook.id}
-                                        >
-                                            {notebook.title}
-                                        </option>
-                                    ))}
-                                    <option>
-                                    </option>
-                                </select>
-                            </div>
 
                             {save && <UilCheck size='30' style={{ color: '#4fb06b' }} />}
 
@@ -138,6 +123,26 @@ export default function Note({ userId }) {
                             >
                                 Delete Note
                             </SC.Button>
+                            <div>
+                                <label for='notebookId'>Notebook: </label>
+                                <select
+                                    name='notebookId'
+                                    value={notebookId}
+                                    onChange={(e) => setNotebookId(e.target.value)}
+                                >
+                                    <option value={null}>None</option>
+                                    {formattedNotebooks.map(notebook => (
+                                        <option
+                                            value={notebook.id}
+                                            key={notebook.id}
+                                        >
+                                            {notebook.title}
+                                        </option>
+                                    ))}
+                                    <option>
+                                    </option>
+                                </select>
+                            </div>
                         </SC.ButtonDiv2>
                     </SC.CenteringDiv>
                     {deleteNoteModal && <DeleteNoteModal note={note} setDeleteNoteModal={setDeleteNoteModal} />}
