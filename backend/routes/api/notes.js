@@ -41,9 +41,10 @@ router.post(
 router.patch(
     '/users/:userId(\\d+)/notes/:noteId(\\d+)',
     asyncHandler(async (req, res) => {
-        const { noteId, userId } = req.params
-        const { title, content, notebookId } = req.body;
+        const { userId } = req.params
+        const { title, content, notebookId, noteId } = req.body;
 
+        console.log('\n\n\n\nNote ID: ', noteId, '\n\n\n\n\n');
         const note = await Note.findOne({
             where: {
                 id: noteId,
@@ -53,7 +54,9 @@ router.patch(
 
         if (title) note.title = title;
         if (content) note.content = content;
-        if (notebookId) note.notebookId = notebookId;
+        if (notebookId && notebookId !== 0) note.notebookId = notebookId;
+
+        console.log('\n\n\n\n\nNOTEBOOK ID AFTER: ', note.notebookId, '\n\n\n\n\n');
 
         await note.save()
 

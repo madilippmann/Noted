@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     content: DataTypes.TEXT,
     notebookId: {
       type: DataTypes.INTEGER,
-      defaultValue: null
+      defaultValue: 0
     }
   }, {});
   Note.associate = function (models) {
