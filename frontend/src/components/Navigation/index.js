@@ -52,7 +52,7 @@ export default function Navigation() {
                     <div className='right-justified'>
                         <div className='ellipsis-container'>
                             <button onClick={() => setUserDropdown(!userDropdown)} className='ellipsis' type='button'>
-                                <UilEllipsisH size='25' className='ellipsis-icon' />
+                                <UilEllipsisH size='30' className='ellipsis-icon' />
                             </button>
                         </div>
 

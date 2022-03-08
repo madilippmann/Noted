@@ -5,7 +5,7 @@ import { Redirect, Link, useHistory } from 'react-router-dom';
 import { UilPlusCircle } from '@iconscout/react-unicons';
 import * as notesActions from '../../store/notes';
 
-import { formattedDate, OuterDiv, shortenedContent, sortByUpdatedAt } from '../utils/utils.js';
+import { formatNotes, formatNotebooks, formattedDate, OuterDiv, shortenedContent, sortByUpdatedAt } from '../utils/utils.js';
 
 import './Notes.css';
 import Note from '../Note';
@@ -19,28 +19,11 @@ export default function Notes({ userId }) {
 
     useEffect(() => {
         dispatch(notesActions.loadNotesThunk(sessionUser.id))
+
     }, [dispatch])
 
 
-    let formattedNotes = [];
-
-    Object.entries(notes).map(rawNote => {
-        let note = {};
-        note.title = rawNote[1].title;
-        note.notebookId = rawNote[1].notebookId;
-        note.id = rawNote[1].id;
-        note.userId = rawNote[1].userId;
-        note.content = shortenedContent(rawNote[1].content);
-        note.updatedAt = formattedDate(rawNote[1].updatedAt);
-        formattedNotes.push(note);
-    })
-
-    formattedNotes = sortByUpdatedAt(formattedNotes);
-
-
-    // useEffect(() => {
-    // }, [])
-
+    let formattedNotes = sortByUpdatedAt(formatNotes(notes));
 
     const newNote = async () => {
         const noteId = await dispatch(notesActions.createNoteThunk(userId))

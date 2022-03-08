@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, Redirect, Link } from 'react-router-dom';
 import * as notesActions from '../../store/notes';
+import * as notebooksActions from '../../store/notebooks';
 
 import * as SC from './StyledComponents'
 
 import './Note.css';
-import { formattedDate, OuterDiv } from "../utils/utils";
+import { formatNotebooks, sortByTitle, formattedDate, OuterDiv } from "../utils/utils";
 import { UilTimes, UilCheck, UilArrowCircleLeft } from '@iconscout/react-unicons'
 
 import Slide from "../Animations/Slide";
@@ -15,20 +16,21 @@ export default function Note({ userId }) {
     const { noteId } = useParams();
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
-
+    const notebooks = useSelector(state => state.notebooks.notebooks);
+    const formattedNotebooks = sortByTitle(formatNotebooks(notebooks))
     const note = useSelector(state => state.notes.notes[noteId]);
 
     const [title, setTitle] = useState(note.title);
     const [content, setContent] = useState(note.content);
-    const [notebookId, setNotebookId] = useState(null);
+    const [notebookId, setNotebookId] = useState(note.id || null);
     const [disabled, setDisabled] = useState(true);
     const [deleteNoteModal, setDeleteNoteModal] = useState(false);
     const [save, setSave] = useState(false);
 
 
     useEffect(() => {
-        console.log('USER: ', userId);
         dispatch(notesActions.loadNotesThunk(userId))
+        dispatch(notebooksActions.loadNotebooksThunk(userId))
     }, [dispatch])
 
 
@@ -58,12 +60,20 @@ export default function Note({ userId }) {
             userId: note.userId
         }
 
-        console.log('Note Data: ', noteData);
-        const res = await dispatch(notesActions.updateNoteThunk(noteData));
+
+        const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
+        const notebookRes = await dispatch(notebooksActions.createNotebookThunk({
+            notebookId,
+            title: notebooks[notebookId].title,
+            userId: note.userId
+        }))
 
         setSave(true)
-        await res.json()
+        await noteRes.json()
+        await notebookRes.json()
+
     }
+
 
 
     return (
@@ -90,6 +100,27 @@ export default function Note({ userId }) {
                             <p style={{ width: '100%', fontSize: '12px', flexGrow: '4', alignSelf: 'flex-end', margin: '0' }}><span style={{ fontWeight: '800' }}>Last Updated:</span> {formattedDate(note.updatedAt)}</p>
                         </div>
                         <SC.ButtonDiv2>
+                            <div>
+                                <label for='notebookId'>Notebook: </label>
+                                <select
+                                    name='notebookId'
+                                    value={notebookId}
+                                    onChange={(e) => setNotebookId(e.target.value)}
+                                >
+                                    <option>None</option>
+                                    {formattedNotebooks.map(notebook => (
+                                        <option
+                                            value={notebook.id}
+                                            key={notebook.id}
+                                        >
+                                            {notebook.title}
+                                        </option>
+                                    ))}
+                                    <option>
+                                    </option>
+                                </select>
+                            </div>
+
                             {save && <UilCheck size='30' style={{ color: '#4fb06b' }} />}
 
                             <SC.Button

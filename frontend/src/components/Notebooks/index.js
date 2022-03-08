@@ -19,11 +19,11 @@ export default function Notebooks() {
     const notebooks = useSelector(state => state.notebooks.notebooks);
     const notes = useSelector(state => state.notes.notes);
 
+    const [openNotebooks, setOpenNotebooks] = useState(new Set());
 
     const [notebookSort, setNotebookSort] = useState(localStorage.getItem('notebook-sort') || 'Updated At')
     const [sortNotebooks, setSortNotebooks] = useState()
 
-    const [openNotebooks, setOpenNotebooks] = useState(new Set());
 
     useEffect(() => {
         dispatch(notebooksActions.loadNotebooksThunk(sessionUser.id))
@@ -42,17 +42,21 @@ export default function Notebooks() {
 
     function toggleNotebook(e) {
         console.log(e.target.dataset.id);
+        console.log('BEFORE: ', openNotebooks)
+        let set = new Set().add(...openNotebooks)
         if (openNotebooks.has(e.target.dataset.id)) {
-            setOpenNotebooks(openNotebooks.delete(e.target.dataset.id))
+            set.delete(e.target.dataset.id)
+            setOpenNotebooks(set)
         } else {
-            setOpenNotebooks(openNotebooks.add(e.target.dataset.id))
+            set.add(e.target.dataset.id)
+            setOpenNotebooks(set)
         }
-        console.log(openNotebooks);
+        console.log('AFTER: ', openNotebooks);
     }
 
 
-    useEffect(() => { console.log('Notebook Open? ', openNotebooks) }, [openNotebooks])
     useEffect(() => {
+        console.log(formattedNotes);
         if (notebookSort === 'Updated At') {
             localStorage.setItem('notebook-sort', 'Updated At');
             formattedNotebooks = sortByUpdatedAt(formattedNotebooks)
@@ -63,13 +67,14 @@ export default function Notebooks() {
             formattedNotebooks = sortByTitle(formattedNotebooks)
             formattedNotes = sortByTitle(formattedNotes)
         }
+        console.log(openNotebooks.has(String(8)));
 
         let updatedSort = formattedNotebooks.map(notebook => (
             <>
-                <SC.TableRow>
+                <SC.TableRow key={notebook.id}>
                     <td className='notebooks-table-data'>
                         <button type='button' onClick={toggleNotebook} data-id={notebook.id}>
-                            <UilAngleRight className={`arrow-right-icon ${String(openNotebooks)}`} side='24' />
+                            <UilAngleRight className={`arrow-right-icon ${openNotebooks.has(notebook.id)}`} side='24' />
 
                             {/* <UilAngleRight size='25' /> */}
                             <UilBook size='20' style={{ marginRight: '10px' }} />
@@ -81,27 +86,26 @@ export default function Notebooks() {
                         <button type='button'>
                             <UilEllipsisH size='25' />
                         </button>
-
                     </td>
                 </SC.TableRow>
 
-                {formattedNotes.filter(note => {
+                {openNotebooks.has(notebook.id) && formattedNotes.filter(note => {
+                    console.log(note.title);
                     return note.notebookId === notebook.id
                 }).map(note => (
-                    <SC.TableRow>
+                    <SC.TableRow key={note.id}>
                         <td>{note.title}</td>
                         <td>{note.updatedAt}</td>
                         <td></td>
                     </SC.TableRow>
                 ))}
-
             </>
 
         ))
 
         setSortNotebooks(updatedSort);
 
-    }, [notebookSort, notebooks])
+    }, [notebookSort, notebooks, openNotebooks])
 
 
 
@@ -141,6 +145,7 @@ export default function Notebooks() {
 
                     <tbody className='table-body'>
                         {sortNotebooks}
+
                     </tbody>
 
                 </table>
