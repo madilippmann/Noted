@@ -53,10 +53,20 @@ export default function Note({ userId }) {
     const saveNote = async (e) => {
         e.preventDefault()
 
+        // notebookId ? Number(notebookId) : null
+        let nbId;
+        if (notebookId === null || notebookId === 'None') {
+            nbId = null;
+        } else {
+            nbId = Number(notebookId);
+        }
+        console.log(
+            'NEW NOTEBOOK ID ASSIGNMENT: ', nbId
+        );
         const noteData = {
             title,
             content,
-            notebookId: notebookId ? Number(notebookId) : null,
+            notebookId: nbId,
             noteId: Number(noteId),
             userId: note.userId
         }
@@ -64,7 +74,7 @@ export default function Note({ userId }) {
 
         const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
         let notebookRes;
-        if (notebookId) {
+        if (notebookId && notebookId !== 'None') {
             notebookRes = await dispatch(notebooksActions.updateNotebookThunk({
                 notebookId,
                 title: notebooks[notebookId].title,
@@ -130,7 +140,7 @@ export default function Note({ userId }) {
                                     value={notebookId}
                                     onChange={(e) => setNotebookId(e.target.value)}
                                 >
-                                    <option value={null}>None</option>
+                                    <option >None</option>
                                     {formattedNotebooks.map(notebook => (
                                         <option
                                             value={notebook.id}
