@@ -66,7 +66,7 @@ export const updateNoteThunk = (noteData) => async (dispatch) => {
     const { noteId, title, content, userId, notebookId } = noteData
     const res = await csrfFetch(`/api/users/${userId}/notes/${noteId}`, {
         method: 'PATCH',
-        body: JSON.stringify({ title, content, notebookId })
+        body: JSON.stringify({ title, content, notebookId, noteId })
     });
 
     const note = await res.json()

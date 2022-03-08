@@ -23,7 +23,7 @@ export default function Notebooks() {
 
     const [notebookSort, setNotebookSort] = useState(localStorage.getItem('notebook-sort') || 'Updated At')
     const [sortNotebooks, setSortNotebooks] = useState()
-
+    const [notebookModal, setNotebookModal] = useState(null)
 
     useEffect(() => {
         dispatch(notebooksActions.loadNotebooksThunk(sessionUser.id))
@@ -55,6 +55,12 @@ export default function Notebooks() {
     }
 
 
+    function toggleNotebookModal(id) {
+        if (notebookModal === id) setNotebookModal(null)
+        else setNotebookModal(id)
+    }
+
+
     useEffect(() => {
         console.log(formattedNotes);
         if (notebookSort === 'Updated At') {
@@ -67,7 +73,6 @@ export default function Notebooks() {
             formattedNotebooks = sortByTitle(formattedNotebooks)
             formattedNotes = sortByTitle(formattedNotes)
         }
-        console.log(openNotebooks.has(String(8)));
 
         let updatedSort = formattedNotebooks.map(notebook => (
             <>
@@ -83,8 +88,15 @@ export default function Notebooks() {
                     </td>
                     <td className='notebooks-table-data updatedAt-data'>{notebook.updatedAt}</td>
                     <td className='notebooks-table-data actions-data'>
-                        <button type='button'>
+                        <button
+                            data-id={notebook.id}
+                            type='button'
+                            onClick={() => toggleNotebookModal(notebook.id)}
+                            value={notebook.id}
+                        >
                             <UilEllipsisH size='25' />
+                            {notebookModal === notebook.id && <p>OPEN</p>}
+
                         </button>
                     </td>
                 </SC.TableRow>
@@ -105,7 +117,7 @@ export default function Notebooks() {
 
         setSortNotebooks(updatedSort);
 
-    }, [notebookSort, notebooks, openNotebooks])
+    }, [notebookSort, notebooks, openNotebooks, notebookModal])
 
 
 
@@ -162,3 +174,48 @@ export default function Notebooks() {
 //     <UilAngleRight className={`arrow-right-icon ${openNav}`} side='40' style={{ color: `${navArrowColor}` }} />
 // </button>
 // </div>
+
+
+
+// function NotebookModal({ setNotebookModal }) {
+//     const { noteId } = useParams();
+//     const dispatch = useDispatch();
+//     const note = useSelector(state => state.notes.notes[noteId]);
+
+
+//     const deleteNote = async () => {
+//         const res = dispatch(notesActions.deleteNoteThunk(note))
+//         history.push('/notes');
+//         return <Redirect exact to={`/notes`} />
+//     }
+
+
+//     return (
+//         <SC.Modal>
+//             <Slide direction='down'>
+//                 <SC.ModalDiv className='user-modal' style={{ top: '50px' }}>
+//                     <button
+//                         type='button'
+//                         onClick={() => setDeleteNoteModal(false)}
+//                     >
+//                         <UilTimes size='30' style={{ color: 'white' }} />
+//                     </button>
+//                     <SC.ModalInfo>
+//                         <p style={{ marginTop: '0', fontSize: '13px', textAlign: 'center' }}>Select delete to permanently delete this note.</p>
+//                         <SC.ButtonDiv>
+
+//                             <SC.ModalButton
+//                                 type='button'
+//                                 onClick={deleteNote}
+//                                 buttonColor='#f25c5c'
+//                             >
+//                                 Delete
+//                             </SC.ModalButton>
+
+//                         </SC.ButtonDiv>
+//                     </SC.ModalInfo>
+//                 </SC.ModalDiv>
+//             </Slide>
+//         </SC.Modal >
+//     );
+// }
