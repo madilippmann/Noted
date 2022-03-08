@@ -44,7 +44,6 @@ router.patch(
         const { userId } = req.params
         const { title, content, notebookId, noteId } = req.body;
 
-        console.log('\n\n\n\nNote ID: ', noteId, '\n\n\n\n\n');
         const note = await Note.findOne({
             where: {
                 id: noteId,
@@ -52,13 +51,16 @@ router.patch(
             }
         });
 
-        if (title) note.title = title;
-        if (content) note.content = content;
-        if (notebookId && notebookId !== 0) note.notebookId = notebookId;
+        const updatedTitle = title || note.title;
+        const updatedContent = content || note.content;
+        const updatedNotebookId = notebookId || null
 
-        console.log('\n\n\n\n\nNOTEBOOK ID AFTER: ', note.notebookId, '\n\n\n\n\n');
+        await note.update({
+            title: updatedTitle,
+            content: updatedContent,
+            notebookId: updatedNotebookId
+        })
 
-        await note.save()
 
         return res.json({ note });
     }),

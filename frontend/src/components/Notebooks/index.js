@@ -190,6 +190,8 @@ function NotebookModal({ notebookId, setNotebookModal }) {
             title,
             userId: notebook.userId
         }))
+        setNotebookModal(null)
+
     }
 
     async function deleteNotebook() {
