@@ -54,3 +54,69 @@ export const TableRow = styled.tr`
         background-color: rgba(112, 0, 248, .35);
     }
 `;
+
+
+
+// MODAL
+
+
+export const Modal = styled.div`
+        position: absolute;
+        z-index: 2000;
+        display: flex;
+        width: 400px;
+        height: 200px;
+        margin: 0;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: flex-start;
+
+    `
+
+export const ModalInfo = styled.div`
+        flex-grow: 1;
+        display: flex;
+        align-self:center;
+        flex-direction: column;
+        align-items:center;
+    `
+
+export const ButtonDiv = styled.div`
+        display: flex;
+        justify-content: space-between;
+
+    `;
+
+export const ButtonDiv2 = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+`;
+
+
+export const ModalButton = styled.button`
+        font-size: 16px;
+        padding: 5px;
+        color: white;
+
+
+        padding: 5px 10px;
+        border-radius: 25px;
+        color: #F3F3F3;
+        background-color: rgb(64, 0, 189);
+        transition: background-color .24s ease;
+        margin-left: 10px;
+
+        &:hover {
+            background-color: ${props => props.buttonColor};
+        }
+    `;
+
+
+
+export const ModalDiv = styled.div`
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    `;

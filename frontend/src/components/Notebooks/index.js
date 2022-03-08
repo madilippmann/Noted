@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Link, useHistory } from 'react-router-dom';
 
-import { UilPlusCircle, UilEllipsisH, UilAngleRight, UilFileAlt, UilBook } from '@iconscout/react-unicons';
+import { UilTimes, UilPlusCircle, UilEllipsisH, UilAngleRight, UilFileAlt, UilBook } from '@iconscout/react-unicons';
 import * as notesActions from '../../store/notes';
 import * as notebooksActions from '../../store/notebooks';
 
@@ -10,6 +10,7 @@ import { formattedDate, OuterDiv, shortenedContent, sortByUpdatedAt, sortByTitle
 
 import * as SC from './StyledComponents.js'
 import './Notebooks.css'
+import Slide from '../Animations/Slide';
 
 export default function Notebooks() {
     const dispatch = useDispatch();
@@ -95,9 +96,9 @@ export default function Notebooks() {
                             value={notebook.id}
                         >
                             <UilEllipsisH size='25' />
-                            {notebookModal === notebook.id && <p>OPEN</p>}
-
                         </button>
+                        {notebookModal === notebook.id && <NotebookModal notebookId={notebook.id} setNotebookModal={setNotebookModal} />}
+
                     </td>
                 </SC.TableRow>
 
@@ -177,45 +178,62 @@ export default function Notebooks() {
 
 
 
-// function NotebookModal({ setNotebookModal }) {
-//     const { noteId } = useParams();
-//     const dispatch = useDispatch();
-//     const note = useSelector(state => state.notes.notes[noteId]);
+function NotebookModal({ notebookId, setNotebookModal }) {
+    const dispatch = useDispatch();
+    const notebook = useSelector(state => state.notebooks.notebooks[notebookId]);
 
+    const [title, setTitle] = useState(notebook.title)
 
-//     const deleteNote = async () => {
-//         const res = dispatch(notesActions.deleteNoteThunk(note))
-//         history.push('/notes');
-//         return <Redirect exact to={`/notes`} />
-//     }
+    async function updateTitle() {
+        await dispatch(notebooksActions.updateNotebookThunk({
+            notebookId,
+            title,
+            userId: notebook.userId
+        }))
+    }
 
+    async function deleteNotebook() {
+        setNotebookModal(null)
+        await dispatch(notebooksActions.deleteNotebookThunk({
+            userId: notebook.userId,
+            id: notebookId
+        }))
+    }
 
-//     return (
-//         <SC.Modal>
-//             <Slide direction='down'>
-//                 <SC.ModalDiv className='user-modal' style={{ top: '50px' }}>
-//                     <button
-//                         type='button'
-//                         onClick={() => setDeleteNoteModal(false)}
-//                     >
-//                         <UilTimes size='30' style={{ color: 'white' }} />
-//                     </button>
-//                     <SC.ModalInfo>
-//                         <p style={{ marginTop: '0', fontSize: '13px', textAlign: 'center' }}>Select delete to permanently delete this note.</p>
-//                         <SC.ButtonDiv>
+    return (
+        <SC.Modal>
+            <Slide direction='down'>
+                {/* FIX FIX FIX FIX */}
+                <SC.ModalDiv className='user-modal' style={{ top: '10px', right: '350px' }}>
 
-//                             <SC.ModalButton
-//                                 type='button'
-//                                 onClick={deleteNote}
-//                                 buttonColor='#f25c5c'
-//                             >
-//                                 Delete
-//                             </SC.ModalButton>
+                    <SC.ModalInfo>
+                        <SC.ButtonDiv>
+                            {/* TODO TITLE ADD VALIDATIONS */}
+                            <input
+                                type='text'
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                            ></input>
+                            <SC.ModalButton
+                                type='button'
+                                buttonColor='#f25c5c'
+                                onClick={updateTitle}
+                            >
+                                Change Tittle
+                            </SC.ModalButton>
 
-//                         </SC.ButtonDiv>
-//                     </SC.ModalInfo>
-//                 </SC.ModalDiv>
-//             </Slide>
-//         </SC.Modal >
-//     );
-// }
+                            <SC.ModalButton
+                                type='button'
+                                buttonColor='#f25c5c'
+                                onClick={deleteNotebook}
+                            >
+                                Delete Notebook
+                            </SC.ModalButton>
+
+                        </SC.ButtonDiv>
+                    </SC.ModalInfo>
+                </SC.ModalDiv>
+            </Slide>
+        </SC.Modal >
+    );
+}
