@@ -19,10 +19,11 @@ export default function Notebooks() {
     const notebooks = useSelector(state => state.notebooks.notebooks);
     const notes = useSelector(state => state.notes.notes);
 
-    const [openNav, setOpenNav] = useState('');
-    const [navArrowColor, setNavArrowColor] = useState('#5D2BC5')
+
     const [notebookSort, setNotebookSort] = useState(localStorage.getItem('notebook-sort') || 'Updated At')
     const [sortNotebooks, setSortNotebooks] = useState()
+
+    const [openNotebooks, setOpenNotebooks] = useState(new Set());
 
     useEffect(() => {
         dispatch(notebooksActions.loadNotebooksThunk(sessionUser.id))
@@ -39,7 +40,18 @@ export default function Notebooks() {
     let formattedNotebooks = sortByUpdatedAt(formatNotebooks(notebooks));
     let formattedNotes = sortByUpdatedAt(formatNotes(notes));
 
+    function toggleNotebook(e) {
+        console.log(e.target.dataset.id);
+        if (openNotebooks.has(e.target.dataset.id)) {
+            setOpenNotebooks(openNotebooks.delete(e.target.dataset.id))
+        } else {
+            setOpenNotebooks(openNotebooks.add(e.target.dataset.id))
+        }
+        console.log(openNotebooks);
+    }
 
+
+    useEffect(() => { console.log('Notebook Open? ', openNotebooks) }, [openNotebooks])
     useEffect(() => {
         if (notebookSort === 'Updated At') {
             localStorage.setItem('notebook-sort', 'Updated At');
@@ -53,22 +65,37 @@ export default function Notebooks() {
         }
 
         let updatedSort = formattedNotebooks.map(notebook => (
-            <tr>
-                <td>
-                    <button type='button'>
-                        <UilAngleRight size='25' />
-                    </button>
-                    <UilBook size='25' />
-                    {notebook.title}
-                </td>
-                <td>{notebook.updatedAt}</td>
-                <td>
-                    <button type='button'>
-                        <UilEllipsisH size='25' />
-                    </button>
+            <>
+                <SC.TableRow>
+                    <td className='notebooks-table-data'>
+                        <button type='button' onClick={toggleNotebook} data-id={notebook.id}>
+                            <UilAngleRight className={`arrow-right-icon ${String(openNotebooks)}`} side='24' />
 
-                </td>
-            </tr>
+                            {/* <UilAngleRight size='25' /> */}
+                            <UilBook size='20' style={{ marginRight: '10px' }} />
+                            {notebook.title}
+                        </button>
+                    </td>
+                    <td className='notebooks-table-data updatedAt-data'>{notebook.updatedAt}</td>
+                    <td className='notebooks-table-data actions-data'>
+                        <button type='button'>
+                            <UilEllipsisH size='25' />
+                        </button>
+
+                    </td>
+                </SC.TableRow>
+
+                {formattedNotes.filter(note => {
+                    return note.notebookId === notebook.id
+                }).map(note => (
+                    <SC.TableRow>
+                        <td>{note.title}</td>
+                        <td>{note.updatedAt}</td>
+                        <td></td>
+                    </SC.TableRow>
+                ))}
+
+            </>
 
         ))
 
@@ -76,14 +103,6 @@ export default function Notebooks() {
 
     }, [notebookSort, notebooks])
 
-    const toggleNav = () => {
-        if (openNav === 'open') setOpenNav('');
-        else setOpenNav('open');
-    }
-
-    useEffect(() => {
-        setNavArrowColor(navArrowColor === '#bea3fa' ? '#5D2BC5' : '#bea3fa');
-    }, [openNav])
 
 
     return (

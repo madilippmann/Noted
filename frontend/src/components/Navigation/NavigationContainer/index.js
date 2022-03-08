@@ -1,4 +1,4 @@
-import { UilHome, UilBook, UilFilePlusAlt, UilTagAlt, UilUsersAlt, UilAngleRight } from '@iconscout/react-unicons';
+import { UilHome, UilBooks, UilBook, UilFilePlusAlt, UilTagAlt, UilUsersAlt, UilAngleRight } from '@iconscout/react-unicons';
 import './NavigationContainer.css';
 import { useState, useEffect } from 'react';
 const NavigationContainer = ({ type, dropdown }) => {
@@ -26,7 +26,7 @@ const NavigationContainer = ({ type, dropdown }) => {
             {!dropdown && <div className='filler'></div>}
 
             {type === 'Home' && <div className='nav-icon-container'><UilHome side='30' className='icon' /></div>}
-            {type === 'Notebooks' && <div className='nav-icon-container'><UilBook side='30' className='icon' /></div>}
+            {type === 'Notebooks' && <div className='nav-icon-container'><UilBooks side='30' className='icon' /></div>}
             {type === 'Notes' && <div className='nav-icon-container'><UilFilePlusAlt side='30' className='icon' /></div>}
             {type === 'Tags' && <div className='nav-icon-container'><UilTagAlt side='30' className='icon' /></div>}
 

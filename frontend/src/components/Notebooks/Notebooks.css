@@ -10,6 +10,7 @@ label#sort {
 table.notebooks-table {
     width: 100%;
     /* height: inherit; */
+    /* overflow-x: scroll; */
 }
 
 tr.header-row {
@@ -25,10 +26,47 @@ th.header-col {
 
 th.updatedAt-header {
     width: 200px;
+    text-align:left;
+
 }
 
 
 th.actions-header {
     /* text-align: right; */
     width: 50px;
+}
+
+
+td.notebooks-table-data {
+    padding: 5px 0;
+}
+
+td.notebooks-table-data * {
+    vertical-align: middle;
+    font-size: 16px;;
+}
+
+td.updatedAt-data {
+    text-align: left;
+}
+
+
+td.actions-data {
+    text-align: center;
+}
+
+
+table {
+    border-collapse: collapse;
+}
+
+.arrow-right-icon.open {
+    transform: none;
+}
+
+.arrow-right-icon.true {
+    transform: rotate(90deg);
+}
+.arrow-right-icon.false {
+    transform: rotate(0deg);
 }

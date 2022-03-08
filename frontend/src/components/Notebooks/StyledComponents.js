@@ -42,3 +42,15 @@ margin-left: 10px;
     cursor: not-allowed;
 }
 `;
+
+
+export const TableRow = styled.tr`
+    background-color: transparent;
+    border-radius: 15px;
+    transition: background-color .15s ease;
+
+
+    &:hover {
+        background-color: rgba(112, 0, 248, .35);
+    }
+`;
