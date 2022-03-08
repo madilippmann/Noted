@@ -83,11 +83,10 @@ router.delete(
         })
 
         if (notes.length > 0) {
-            notes.forEach(note => {
-                note.notebookId = null;
+            notes.forEach(async note => {
+                await note.update({ notebookId: null })
             })
 
-            await notes.save();
         }
 
         await notebook.destroy();
