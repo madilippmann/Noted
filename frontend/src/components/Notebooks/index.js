@@ -209,28 +209,40 @@ function NotebookModal({ notebookId, setNotebookModal }) {
                 <SC.ModalDiv className='user-modal' style={{ top: '10px', right: '350px' }}>
 
                     <SC.ModalInfo>
-                        <SC.ButtonDiv>
+                        <SC.ButtonDiv  >
                             {/* TODO TITLE ADD VALIDATIONS */}
+                            <button
+                                type='button'
+                                onClick={() => setNotebookModal(null)}
+                                style={{ alignSelf: 'flex-end' }}
+                            >
+                                <UilTimes size='30' style={{ color: 'white' }} />
+                            </button>
+
                             <input
                                 type='text'
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
+                                style={{ padding: '5px 10px' }}
                             ></input>
-                            <SC.ModalButton
-                                type='button'
-                                buttonColor='#f25c5c'
-                                onClick={updateTitle}
-                            >
-                                Change Tittle
-                            </SC.ModalButton>
+                            <SC.InputDiv>
+                                <SC.ModalButton
+                                    type='button'
+                                    buttonColor='rgb(70, 167, 96)'
+                                    onClick={updateTitle}
+                                    style={{ marginLeft: '0' }}
+                                >
+                                    Change Tittle
+                                </SC.ModalButton>
+                                <SC.ModalButton
+                                    type='button'
+                                    buttonColor='#f25c5c'
+                                    onClick={deleteNotebook}
+                                >
+                                    Delete Notebook
+                                </SC.ModalButton>
+                            </SC.InputDiv>
 
-                            <SC.ModalButton
-                                type='button'
-                                buttonColor='#f25c5c'
-                                onClick={deleteNotebook}
-                            >
-                                Delete Notebook
-                            </SC.ModalButton>
 
                         </SC.ButtonDiv>
                     </SC.ModalInfo>

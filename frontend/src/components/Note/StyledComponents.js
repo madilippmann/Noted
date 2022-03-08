@@ -23,6 +23,7 @@ export const ModalInfo = styled.div`
 
 export const ButtonDiv = styled.div`
         display: flex;
+
         justify-content: space-between;
 
     `;

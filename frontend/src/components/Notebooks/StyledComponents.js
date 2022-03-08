@@ -84,8 +84,15 @@ export const ModalInfo = styled.div`
 export const ButtonDiv = styled.div`
         display: flex;
         justify-content: space-between;
+        flex-direction: column;
 
     `;
+
+export const InputDiv = styled.div`
+    display: flex;
+    padding: 10px 0;
+`;
+
 
 export const ButtonDiv2 = styled.div`
     width: 100%;
@@ -96,7 +103,7 @@ export const ButtonDiv2 = styled.div`
 
 
 export const ModalButton = styled.button`
-        font-size: 16px;
+        // font-size: 12px;
         padding: 5px;
         color: white;
 
