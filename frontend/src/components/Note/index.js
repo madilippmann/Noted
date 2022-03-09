@@ -9,8 +9,8 @@ import * as tagsActions from '../../store/tags';
 import * as SC from './StyledComponents'
 
 import './Note.css';
-import { formatNotebooks, sortByTitle, formattedDate, OuterDiv } from "../utils/utils";
-import { UilTimes, UilCheck, UilArrowCircleLeft } from '@iconscout/react-unicons'
+import { formatNotebooks, formatTags, sortByTitle, formattedDate, OuterDiv } from "../utils/utils";
+import { UilTimes, UilCheck, UilPlusCircle, UilArrowCircleLeft } from '@iconscout/react-unicons'
 
 import Slide from "../Animations/Slide";
 
@@ -23,6 +23,7 @@ export default function Note({ userId }) {
     const formattedNotebooks = sortByTitle(formatNotebooks(notebooks))
     const note = useSelector(state => state.notes.notes[noteId]);
     const tags = useSelector(state => state.tags.tags);
+    const formattedTags = formatTags(tags)
 
     const [title, setTitle] = useState(note.title);
     const [content, setContent] = useState(note.content);
@@ -30,7 +31,16 @@ export default function Note({ userId }) {
     const [disabled, setDisabled] = useState(true);
     const [deleteNoteModal, setDeleteNoteModal] = useState(false);
     const [save, setSave] = useState(false);
+    const [tagDelete, setTagDelete] = useState(null);
 
+
+    const tagsObj = formattedTags.reduce((tags, tag) => {
+        tags[tag.id] = tag.name
+        return tags
+    }, {})
+
+
+    const [names, setNames] = useState(tagsObj);
 
     useEffect(() => {
         dispatch(notesActions.loadNotesThunk(userId))
@@ -38,9 +48,7 @@ export default function Note({ userId }) {
         dispatch(tagsActions.loadTagsThunk({ userId, noteId: note.id }))
     }, [dispatch])
 
-    useEffect(() => {
-        console.log('Tags: ', tags);
-    }, [])
+
 
     useEffect(() => {
         if (title.length > 100 || title.length === 0 || /^\s*$/.test(title)) {
@@ -61,7 +69,6 @@ export default function Note({ userId }) {
         e.preventDefault()
 
         if (notebookId && notebookId !== null) {
-            console.log('Has notebook id');
             const noteData = {
                 title,
                 content,
@@ -78,7 +85,6 @@ export default function Note({ userId }) {
                 userId: note.userId,
             }))
         } else {
-            console.log('NULL notebook id');
 
             const noteData = {
                 title,
@@ -91,6 +97,29 @@ export default function Note({ userId }) {
         }
 
         setSave(true)
+    }
+
+
+    const deleteTag = async (tagId) => {
+        await dispatch(tagsActions.deleteTagThunk({
+            tagId,
+            noteId: note.id,
+            userId: note.userId
+        }))
+    }
+
+
+    const saveTagName = async (tagId, name) => {
+        if (name.length > !name.trim()) {
+            await dispatch(tagsActions.updateTagThunk({
+                tagId,
+                noteId: note.id,
+                userId: note.userId,
+                name
+            }))
+        } else {
+            // TODO FIGURE OUT HOW TO MAKE THE TAG RED
+        }
     }
 
 
@@ -184,6 +213,47 @@ export default function Note({ userId }) {
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
                     />
+                    <SC.TagsOuterContainer>
+                        <SC.TagsContainer>
+                            <h4>Tags:</h4>
+                            {formattedTags.length > 0 && formattedTags.map(tag => (
+                                <SC.InputDiv>
+                                    <SC.TagInput
+                                        value={names[tag.id]}
+                                        onChange={(e) => setNames(() => {
+                                            const newNames = { ...names }
+                                            newNames[tag.id] = e.target.value
+                                            return newNames
+                                        })}
+                                        onFocus={() => setTagDelete(tag.id)}
+                                        onBlur={() => saveTagName(tag.id, names[tag.id])}
+                                    >
+                                    </SC.TagInput>
+                                    {tagDelete === tag.id &&
+                                        <button
+                                            type='button'
+                                            onClick={() => deleteTag(tag.id)}
+                                        >
+                                            <UilTimes size='20' />
+                                        </button>
+                                    }
+                                </SC.InputDiv>
+                            ))}
+                        </SC.TagsContainer>
+
+
+                        <SC.TagsCreate>
+                            <button
+                                type='button'
+                                onClick={() => dispatch(tagsActions.createTagThunk({
+                                    userId: note.userId,
+                                    noteId: note.id
+                                }))}
+                            >
+                                <UilPlusCircle size='25' />
+                            </button>
+                        </SC.TagsCreate>
+                    </SC.TagsOuterContainer>
                 </SC.CenteringDiv>
 
             </SC.Form>

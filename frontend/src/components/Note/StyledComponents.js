@@ -83,6 +83,50 @@ export const ContentTextarea = styled.textarea`
 
 `;
 
+
+export const TagsOuterContainer = styled.div`
+        // height: 50px;
+        width: 100%;
+        background-color: white;
+        display: flex;
+        border-top: rgb(245, 245, 245);
+
+
+`;
+
+export const TagsContainer = styled.div`
+        // height: 50px;
+        background-color: white;
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+
+`;
+export const TagsCreate = styled.div`
+        height: 50px;
+        background-color: white;
+        display: flex;
+        justify-content: flex-end;
+
+`;
+
+export const OuterInput = styled.div`
+`;
+
+export const TagInput = styled.input`
+    border: none;
+    width: fit-content;
+
+    &:focus {
+        outline: none;
+    }
+`;
+
+export const InputDiv = styled.div`
+    display:flex;
+
+`;
+
 export const Button = styled.button`
     padding: 5px 10px;
     border-radius: 25px;

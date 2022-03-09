@@ -28,6 +28,10 @@ export default function Navigation() {
         return <Redirect to={`/notes/${noteId}`} />
     }
 
+    useEffect(() => {
+        dispatch(notesActions.loadNotesThunk(sessionUser.id))
+    }, [dispatch])
+
     return (
         <div className='sidebar'>
 
