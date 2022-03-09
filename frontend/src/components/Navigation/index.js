@@ -13,7 +13,7 @@ import * as notesActions from '../../store/notes';
 import './Navigation.css';
 import logo from '../static/images/noted-logo.png';
 
-import { UilUserCircle, UilCheck, UilEllipsisH } from '@iconscout/react-unicons';
+import { UilUserCircle, UilCheck, UilEllipsisH, UilSignout } from '@iconscout/react-unicons';
 
 export default function Navigation() {
     const dispatch = useDispatch();
@@ -79,12 +79,14 @@ export default function Navigation() {
                             </div>
 
                             <div className='settings-and-sign-out-container'>
-                                <Link to={`users/${sessionUser.id}/settings`}>
+                                {/* <Link to={`users/${sessionUser.id}/settings`}>
                                     <div className='settings'>Account settings</div>
-                                </Link>
+                                </Link> */}
                                 {/*  */}
                                 <button type='button' onClick={() => dispatch(sessionActions.logout())} >
-                                    <div className='settings'>Sign out {sessionUser.firstName} {sessionUser.lastName}</div>
+                                    <div className='settings-sign-out'>
+                                        <UilSignout size='25' />Sign out {sessionUser.firstName} {sessionUser.lastName}
+                                    </div>
                                 </button>
 
                             </div>

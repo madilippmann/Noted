@@ -152,6 +152,12 @@ h5, h4 {
 }
 
 
+.settings-sign-out {
+    opacity: 100%;
+    font-size: 15px;
+}
+
+
 .nav-bars-container, .search-and-create-bars-container {
     display: flex;
     flex-direction: column;

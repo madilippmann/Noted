@@ -34,6 +34,7 @@ export default function Home() {
 
     useEffect(() => {
         dispatch(notesActions.loadNotesThunk(sessionUser.id))
+        dispatch(notebooksActions.loadNotebooksThunk(sessionUser.id))
     }, [dispatch])
 
     let formattedNotes = sortByUpdatedAt(formatNotes(notes)).slice(0, 6);

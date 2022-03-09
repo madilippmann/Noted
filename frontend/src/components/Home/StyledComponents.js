@@ -14,6 +14,7 @@ export const Backdrop = styled.div`
     background-color: rgba(255, 255, 255, .85);
     border-radius: 15px;
     padding: 10px;
+    height: 50%;
 
 `;
 
@@ -56,14 +57,17 @@ height: 100%;
 
 
 export const BottomDiv = styled.div`
-margin-top: 50px;
+margin-top: 25px;
 display: flex;
 flex-direction: row;
+height: 50%;
+
 `;
 
 export const StickyNoteContainer = styled.div`
-      width: 400px;
-      height: 400px;
+    width: 50%;
+    height: 100%;
+    //   height: 400px;
       background-color: rgb(247, 257, 137);
       border-radius: 15px;
       padding: 10px;
@@ -71,21 +75,26 @@ export const StickyNoteContainer = styled.div`
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
+
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+
 `;
 
 export const StickyNote = styled.textarea`
-      width: 350px;
-      height: 300px;
+      width: 100%;
+      height: 100%;
       border: none;
       resize: none;
       background-color: transparent;
-    //   padding: 20px;
+      padding: 0 10px;
 
 
 
       &:focus {
         outline: none;
     }
+
 
     // &:target {
     //     border: 1px solid white;
