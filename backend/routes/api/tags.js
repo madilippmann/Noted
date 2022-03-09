@@ -72,11 +72,10 @@ router.patch(
 router.delete(
     '/users/:userId(\\d+)/notes/:noteId(\\d+)/tags/:tagId(\\d+)',
     asyncHandler(async (req, res) => {
-        TODO
         const { id } = req.body;
         const { userId } = req.params;
 
-        const tag = await Tags.findOne({
+        const tag = await Tag.findOne({
             where: {
                 id,
                 userId
