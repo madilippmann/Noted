@@ -65,7 +65,6 @@ export const updateNotebookThunk = (notebookData) => async (dispatch) => {
 export const deleteNotebookThunk = (notebook) => async (dispatch) => {
     const { userId, id } = notebook;
 
-    console.log('Notebook from thunk: ', notebook);
     const res = await csrfFetch(`/api/users/${userId}/notebooks/${id}`, {
         method: 'DELETE',
         body: JSON.stringify({ id })

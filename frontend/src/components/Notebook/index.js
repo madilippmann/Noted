@@ -36,9 +36,7 @@ export default function Notebook() {
 
 
 
-    useEffect(() => {
-        console.log("formattedNotes: ", formattedNotes);
-    }, [])
+
 
 
     function removeNoteFromNotebook(id) {

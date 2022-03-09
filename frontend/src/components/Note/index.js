@@ -60,10 +60,7 @@ export default function Note({ userId }) {
         } else {
             nbId = Number(notebookId);
         }
-        console.log(
-            'NEW NOTEBOOK ID ASSIGNMENT: ', nbId
-        );
-        console.log('NOTE ID: ', note.id);
+
         const noteData = {
             title,
             content,
@@ -88,9 +85,6 @@ export default function Note({ userId }) {
         setSave(true)
     }
 
-    useEffect(() => {
-        console.log('NOTEBOOK ID: ', notebookId);
-    }, [notebookId])
 
 
     return (

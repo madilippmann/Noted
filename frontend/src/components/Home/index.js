@@ -23,13 +23,8 @@ export default function Home() {
     const history = useHistory();
 
     let storedScratch = localStorage.getItem('scratch-demo')
-    console.log(storedScratch);
 
     const [scratchPad, setScratchPad] = useState(localStorage.getItem('scratch-pad') || '')
-
-    useEffect(() => {
-        console.log(scratchPad);
-    }, [scratchPad])
 
 
     useEffect(() => {

@@ -42,8 +42,7 @@ export default function Notebooks() {
     let formattedNotes = sortByUpdatedAt(formatNotes(notes));
 
     function toggleNotebook(e) {
-        console.log(e.target.dataset.id);
-        console.log('BEFORE: ', openNotebooks)
+
         let set = new Set().add(...openNotebooks)
         if (openNotebooks.has(e.target.dataset.id)) {
             set.delete(e.target.dataset.id)
@@ -52,7 +51,7 @@ export default function Notebooks() {
             set.add(e.target.dataset.id)
             setOpenNotebooks(set)
         }
-        console.log('AFTER: ', openNotebooks);
+
     }
 
 
@@ -63,7 +62,6 @@ export default function Notebooks() {
 
 
     useEffect(() => {
-        console.log(formattedNotes);
         if (notebookSort === 'Updated At') {
             localStorage.setItem('notebook-sort', 'Updated At');
             formattedNotebooks = sortByUpdatedAt(formattedNotebooks)
@@ -103,7 +101,6 @@ export default function Notebooks() {
                 </SC.TableRow>
 
                 {openNotebooks.has(notebook.id) && formattedNotes.filter(note => {
-                    console.log(note.title);
                     return note.notebookId === notebook.id
                 }).map(note => (
                     <SC.TableRow key={note.id}>

@@ -51,7 +51,6 @@ export const createNoteThunk = (userId) => async (dispatch) => {
 export const deleteNoteThunk = (note) => async (dispatch) => {
     const { userId, id } = note;
 
-    console.log('Note from thunk: ', note);
     const res = await csrfFetch(`/api/users/${userId}/notes/${id}`, {
         method: 'DELETE',
         body: JSON.stringify({ noteId: id })
