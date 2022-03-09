@@ -43,8 +43,9 @@ router.patch(
     '/users/:userId(\\d+)/notebooks/:notebookId(\\d+)',
     asyncHandler(async (req, res) => {
         const { notebookId, userId } = req.params;
-        const { title } = req.body;
+        const { title, updatedAt } = req.body;
 
+        console.log('ENTERED');
         const notebook = await Notebook.findOne({
             where: {
                 id: notebookId,
@@ -52,9 +53,20 @@ router.patch(
             }
         });
 
-        if (title) notebook.title = title;
 
-        await notebook.save()
+
+        // await notebook.update({
+        //     title,
+        //     updatedAt: new Date()
+        // })
+
+        if (title) {
+            notebook.title = `Termporary title reassignment for updatedAt to work`;
+            await notebook.save();
+            notebook.title = title;
+            await notebook.save();
+        }
+
 
         return res.json({ notebook });
     }),
