@@ -37,8 +37,8 @@ export default function Home() {
         dispatch(notebooksActions.loadNotebooksThunk(sessionUser.id))
     }, [dispatch])
 
-    let formattedNotes = sortByUpdatedAt(formatNotes(notes)).slice(0, 6);
-    let formattedNotebooks = sortByUpdatedAt(formatNotebooks(notebooks)).slice(0, 6);
+    let formattedNotes = sortByUpdatedAt(formatNotes(notes)).slice(0, 5);
+    let formattedNotebooks = sortByUpdatedAt(formatNotebooks(notebooks)).slice(0, 3);
 
     const addNote = async () => {
         const noteId = await dispatch(notesActions.createNoteThunk(sessionUser.id))

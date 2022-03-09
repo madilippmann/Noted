@@ -44,6 +44,17 @@ export default function Notebook() {
     function removeNoteFromNotebook(id) {
         // if (noteModal === id) setNoteModal(null)
         // else setNoteModal(id)
+        const note = allNotes[id]
+        const noteData = {
+            noteId: note.id,
+            title: note.title,
+            content: note.content,
+            userId: note.userId,
+            notebookId: null
+        }
+
+        dispatch(notesActions.updateNoteThunk(noteData))
+
     }
 
 
@@ -75,6 +86,7 @@ export default function Notebook() {
                         type='button'
                         onClick={() => removeNoteFromNotebook(note.id)}
                         value={note.id}
+                        className='red-hover'
                     >
                         Remove from Notebook
                         {/* <UilEllipsisH size='25' /> */}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Link, useHistory } from 'react-router-dom';
 
-import { UilTimes, UilPlusCircle, UilEllipsisH, UilAngleRight, UilFileAlt, UilBook } from '@iconscout/react-unicons';
+import { UilTimes, UilPlus, UilPlusCircle, UilEllipsisH, UilAngleRight, UilFileAlt, UilBook } from '@iconscout/react-unicons';
 import * as notesActions from '../../store/notes';
 import * as notebooksActions from '../../store/notebooks';
 
@@ -99,7 +99,7 @@ export default function Notebooks() {
                 {/* </div> */}
                 <SC.UpperDiv>
                     <div className='flex-end'>
-                        <label id='sort' for='sort'>Sort Notebooks by: </label>
+                        <label id='sort' for='sort'>Sort Notebooks: </label>
                         <select
                             name='sort'
                             value={notebookSort}
@@ -113,8 +113,10 @@ export default function Notebooks() {
                     <SC.Button
                         onClick={newNotebook}
                         buttonColor='#4fb06b'
+                        className='align-items-center'
                     >
-                        New Notebook
+                        <UilPlus size='20' />
+                        <span className='add-side-padding'>New Notebook</span>
                     </SC.Button>
                 </SC.UpperDiv>
 

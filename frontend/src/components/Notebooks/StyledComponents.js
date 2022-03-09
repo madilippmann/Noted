@@ -55,6 +55,7 @@ margin-left: 10px;
     border: 2px solid rgb(124, 0, 249);
     cursor: not-allowed;
 }
+
 `;
 
 

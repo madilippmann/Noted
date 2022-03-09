@@ -1,0 +1,7 @@
+button.red-hover {
+    transition: color .24s ease;
+}
+
+button.red-hover:hover {
+    color: red
+}

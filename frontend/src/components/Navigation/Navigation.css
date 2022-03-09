@@ -155,6 +155,8 @@ h5, h4 {
 .settings-sign-out {
     opacity: 100%;
     font-size: 15px;
+    display: flex;
+    align-items: center;
 }
 
 
