@@ -35,9 +35,12 @@ export default function Note({ userId }) {
     useEffect(() => {
         dispatch(notesActions.loadNotesThunk(userId))
         dispatch(notebooksActions.loadNotebooksThunk(userId))
-        dispatch(tagsActions.loadTagsThunk(userId))
+        dispatch(tagsActions.loadTagsThunk({ userId, noteId: note.id }))
     }, [dispatch])
 
+    useEffect(() => {
+        console.log('Tags: ', tags);
+    }, [])
 
     useEffect(() => {
         if (title.length > 100 || title.length === 0 || /^\s*$/.test(title)) {

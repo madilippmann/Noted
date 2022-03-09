@@ -9,7 +9,7 @@ const { Notebook, Note, Tag } = require('../../db/models');
 // const { handleValidationErrors } = require('../../utils/validation');
 
 
-// Get all tags from user
+// Get tags for single note from user
 router.get(
     '/users/:userId(\\d+)/notes/:noteId(\\d+)/tags',
     asyncHandler(async (req, res) => {
@@ -25,6 +25,23 @@ router.get(
         return res.json({ tags })
     })
 );
+
+// Get all tags from user
+router.get(
+    '/users/:userId(\\d+)/notes/tags',
+    asyncHandler(async (req, res) => {
+        const { userId } = req.params;
+
+        const tags = await Tag.findAll({
+            where: {
+                userId,
+            }
+        });
+
+        return res.json({ tags })
+    })
+);
+
 
 
 // Create new tag

@@ -4,6 +4,7 @@ import { Redirect, Link, useHistory } from 'react-router-dom';
 
 import * as notesActions from '../../store/notes';
 import * as notebooksActions from '../../store/notebooks';
+import * as tagsActions from '../../store/tags';
 
 import { formatNotebooks, formatNotes, formattedDate, sortByUpdatedAt, shortenedContent } from '../utils/utils.js';
 
@@ -19,6 +20,7 @@ export default function Home() {
     const sessionUser = useSelector(state => state.session.user);
     const notes = useSelector(state => state.notes.notes);
     const notebooks = useSelector(state => state.notebooks.notebooks);
+    const tags = useSelector(state => state.tags.tags);
 
     const history = useHistory();
 
@@ -28,8 +30,10 @@ export default function Home() {
 
 
     useEffect(() => {
-        dispatch(notesActions.loadNotesThunk(sessionUser.id))
-        dispatch(notebooksActions.loadNotebooksThunk(sessionUser.id))
+        dispatch(notesActions.loadNotesThunk(sessionUser.id));
+        dispatch(notebooksActions.loadNotebooksThunk(sessionUser.id));
+        dispatch(tagsActions.loadAllTagsThunk(sessionUser.id));
+
     }, [dispatch])
 
     let formattedNotes = sortByUpdatedAt(formatNotes(notes)).slice(0, 5);

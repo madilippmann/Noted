@@ -25,23 +25,24 @@ export const deleteTag = (tag) => ({
     tag
 })
 
-// TODO
-// Thunk for loading tags
-export const loadAllTagsThunk = ({ userId }) => async (dispatch) => {
-    const res = await csrfFetch(`/api/users/${userId}/notes/tags`)
-    const tags = await res.json();
-    dispatch(loadTags(tags.tags));
-    return tags;
-}
 
 
-// Thunk for loading Note's tags
+// Thunk for loading single note's tags
 export const loadTagsThunk = ({ userId, noteId }) => async (dispatch) => {
     const res = await csrfFetch(`/api/users/${userId}/notes/${noteId}/tags`)
     const tags = await res.json();
     dispatch(loadTags(tags.tags));
     return tags;
 }
+
+// Thunk for loading all user's tags
+export const loadAllTagsThunk = (userId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/users/${userId}/notes/tags`)
+    const tags = await res.json();
+    dispatch(loadTags(tags.tags));
+    return tags;
+}
+
 
 
 // Thunk for creating new tag

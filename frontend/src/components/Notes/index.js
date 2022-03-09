@@ -4,6 +4,7 @@ import { Redirect, Link, useHistory } from 'react-router-dom';
 
 import { UilPlusCircle } from '@iconscout/react-unicons';
 import * as notesActions from '../../store/notes';
+import * as tagsActions from '../../store/tags';
 
 import { formatNotes, formatNotebooks, formattedDate, OuterDiv, shortenedContent, sortByUpdatedAt } from '../utils/utils.js';
 
@@ -16,9 +17,11 @@ export default function Notes({ userId }) {
     const history = useHistory();
 
     const notes = useSelector(state => state.notes.notes);
+    const tags = useSelector(state => state.tags.tags);
 
     useEffect(() => {
         dispatch(notesActions.loadNotesThunk(sessionUser.id))
+        dispatch(tagsActions.loadAllTagsThunk(sessionUser.id))
 
     }, [dispatch])
 
