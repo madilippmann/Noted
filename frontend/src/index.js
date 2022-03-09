@@ -10,6 +10,7 @@ import configureStore from './store/index'
 import * as sessionActions from './store/session';
 import * as notesActions from "./store/notes";
 import * as notebooksActions from "./store/notebooks";
+import * as tagsActions from "./store/tags";
 
 import { restoreCSRF, csrfFetch } from './store/csrf';
 
@@ -24,6 +25,7 @@ if (process.env.NODE_ENV !== 'production') {
   window.sessionActions = sessionActions;
   window.notesActions = notesActions;
   window.notebooksActions = notebooksActions;
+  window.tagsActions = tagsActions;
 
 }
 
