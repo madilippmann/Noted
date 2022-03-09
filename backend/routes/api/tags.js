@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router();
 const asyncHandler = require('express-async-handler');
 
-const { Notebook, Note, Tags } = require('../../db/models');
+const { Notebook, Note, Tag } = require('../../db/models');
 
 // Add validation for title later
 // const { check } = require('express-validator');
@@ -13,15 +13,16 @@ const { Notebook, Note, Tags } = require('../../db/models');
 router.get(
     '/users/:userId(\\d+)/notes/:noteId(\\d+)/tags',
     asyncHandler(async (req, res) => {
-        TODO
-        //     const userId = req.params.userId;
+        const { userId, noteId } = req.params;
 
-        //     const notebooks = await Notebook.findAll({
-        //         where: { userId },
-        //         order: [["updatedAt", "DESC"]]
-        //     });
+        const tags = await Tag.findAll({
+            where: {
+                userId,
+                noteId
+            }
+        });
 
-        //     return res.json({ notebooks })
+        return res.json({ tags })
     })
 );
 
@@ -30,12 +31,16 @@ router.get(
 router.post(
     '/users/:userId(\\d+)/notes/:noteId(\\d+)/tags',
     asyncHandler(async (req, res) => {
-        TODO
-        //     const { userId } = req.body;
+        const { userId, noteId } = req.params;
+        const { name } = req.body;
 
-        //     const notebook = await Notebook.create({ userId });
+        const tag = await Tag.create({
+            userId,
+            noteId,
+            name
+        });
 
-        //     return res.json({ notebook });
+        return res.json({ tag });
     }),
 );
 
@@ -44,22 +49,22 @@ router.post(
 router.patch(
     '/users/:userId(\\d+)/notes/:noteId(\\d+)/tags/:tagId(\\d+)',
     asyncHandler(async (req, res) => {
-        TODO
-        // const { notebookId, userId } = req.params;
-        // const { title } = req.body;
+        const { userId, noteId } = req.params;
+        const { name } = req.body;
 
-        // const notebook = await Notebook.findOne({
-        //     where: {
-        //         id: notebookId,
-        //         userId
-        //     }
-        // });
+        const tag = await Tag.findOne({
+            where: {
+                userId,
+                noteId
+            }
+        });
 
-        // if (title) notebook.title = title;
 
-        // await notebook.save()
+        if (name) tag.name = name;
 
-        // return res.json({ notebook });
+        await tag.save()
+
+        return res.json({ tag });
     }),
 );
 
@@ -68,34 +73,19 @@ router.delete(
     '/users/:userId(\\d+)/notes/:noteId(\\d+)/tags/:tagId(\\d+)',
     asyncHandler(async (req, res) => {
         TODO
-        // const { id } = req.body;
-        // const { userId } = req.params;
+        const { id } = req.body;
+        const { userId } = req.params;
 
-        // const tag = await Tags.findOne({
-        //     where: {
-        //         id,
-        //         userId
-        //     }
-        // });
+        const tag = await Tags.findOne({
+            where: {
+                id,
+                userId
+            }
+        });
 
+        await tag.destroy();
 
-        // const notes = await Note.findAll({
-        //     where: {
-        //         userId,
-        //         notebookId: id
-        //     }
-        // })
-
-        // if (notes.length > 0) {
-        //     notes.forEach(async note => {
-        //         await note.update({ notebookId: null })
-        //     })
-
-        // }
-
-        // await tag.destroy();
-
-        // return res.json({ notebook });
+        return res.json({ tag });
     }),
 );
 
