@@ -19,3 +19,31 @@ body {
 /* .home-page.square-card.note-card:hover, .home-page.square-card.create-note-card:hover {
     border: none;
 } */
+
+div.blue-card {
+    background-color: rgb(108, 211, 245);
+    transition: background-color .25s ease;
+}
+
+div.blue-card:hover {
+    background-color: rgb(99, 204, 238);
+
+}
+
+
+div.no-border:hover {
+    border: none;
+
+}
+
+
+div#notebook-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+h3.notebook-title {
+    padding-top: 10px;
+}

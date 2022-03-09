@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Link, useHistory } from 'react-router-dom';
 
 import * as notesActions from '../../store/notes';
-import { formattedDate, sortByUpdatedAt, shortenedContent } from '../utils/utils.js';
+import * as notebooksActions from '../../store/notebooks';
 
-import { UilPlusCircle } from '@iconscout/react-unicons';
+import { formatNotebooks, formatNotes, formattedDate, sortByUpdatedAt, shortenedContent } from '../utils/utils.js';
+
+import { UilPlusCircle, UilBook } from '@iconscout/react-unicons';
 
 
 import * as SC from './StyledComponents.js';
@@ -16,6 +18,8 @@ export default function Home() {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const notes = useSelector(state => state.notes.notes);
+    const notebooks = useSelector(state => state.notebooks.notebooks);
+
     const history = useHistory();
 
     let storedScratch = localStorage.getItem('scratch-demo')
@@ -32,24 +36,20 @@ export default function Home() {
         dispatch(notesActions.loadNotesThunk(sessionUser.id))
     }, [dispatch])
 
-    let formattedNotes = [];
-    Object.entries(notes).forEach(rawNote => {
-        let note = {};
-        note.title = rawNote[1].title;
-        note.notebookId = rawNote[1].notebookId;
-        note.id = rawNote[1].id;
-        note.userId = rawNote[1].userId;
-        note.content = shortenedContent(rawNote[1].content);
-        note.updatedAt = formattedDate(rawNote[1].updatedAt);
-        formattedNotes.push(note);
-    })
-
-    formattedNotes = sortByUpdatedAt(formattedNotes).slice(0, 6);
+    let formattedNotes = sortByUpdatedAt(formatNotes(notes)).slice(0, 6);
+    let formattedNotebooks = sortByUpdatedAt(formatNotebooks(notebooks)).slice(0, 6);
 
     const addNote = async () => {
         const noteId = await dispatch(notesActions.createNoteThunk(sessionUser.id))
         history.push(`/notes/${noteId}`)
         return <Redirect to={`/notes/${noteId}`} />
+    }
+
+
+    const addNotebook = async () => {
+        const notebookId = await dispatch(notebooksActions.createNotebookThunk(sessionUser.id))
+        history.push(`/notebooks/${notebookId}`)
+        return <Redirect to={`/notes/${notebookId}`} />
     }
 
     return (
@@ -59,7 +59,7 @@ export default function Home() {
                 <SC.NotesContainer>
                     {formattedNotes.map(note => (
                         <Link to={`/notes/${note.id}`} >
-                            <div key={note.id} className='square-card note-card'>
+                            <div key={note.id} className='square-card note-card no-border'>
                                 <h3 className='note-card-title'>{note.title}</h3>
                                 <p className='note-card-content'>{note.content}</p>
                                 <p className='note-card-date'>{note.updatedAt}</p>
@@ -78,7 +78,24 @@ export default function Home() {
             <SC.BottomDiv >
 
                 <SC.NotebooksContainer>
-
+                    <SC.H1>Recent Notebooks</SC.H1>
+                    <SC.NotesContainer>
+                        {formattedNotebooks.map(notebook => (
+                            <Link to={`/notebooks/${notebook.id}`} >
+                                <div key={notebook.id} id='notebook-card' className='square-card note-card'>
+                                    <UilBook size='50' />
+                                    <h3 className='notebook-title note-card-title'>{notebook.title}</h3>
+                                    {/* <p className='note-card-date'>{notebook.updatedAt}</p> */}
+                                </div>
+                            </Link>
+                        ))}
+                        <button type='button' onClick={addNotebook} style={{ border: 'none' }}>
+                            <div className='create-note-card square-card home-page blue-card no-border'>
+                                <UilPlusCircle size='75' />
+                                <h2 className='add-card-title'>New Notebook</h2>
+                            </div>
+                        </button>
+                    </SC.NotesContainer>
                 </SC.NotebooksContainer>
 
 
@@ -102,6 +119,6 @@ export default function Home() {
                 {/* FOR NOTEBOOKS */}
 
             </SC.BottomDiv>
-        </OuterDiv>
+        </OuterDiv >
     );
 }
