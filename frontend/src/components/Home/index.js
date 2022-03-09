@@ -18,6 +18,8 @@ export default function Home() {
     const notes = useSelector(state => state.notes.notes);
     const history = useHistory();
 
+    // const [scratchPad, setScratchPad] = useState(localStorage.get('scratch-pad') || '')
+
     useEffect(() => {
         dispatch(notesActions.loadNotesThunk(sessionUser.id))
     }, [dispatch])
@@ -65,18 +67,29 @@ export default function Home() {
                 </SC.NotesContainer>
             </SC.Backdrop>
 
-            <SC.CenteringDiv >
-                {/* FOR STICKY NOTE */}
-                {/* <SC.Backdrop>
+            <SC.BottomDiv >
 
-                </SC.Backdrop> */}
+                <SC.NotebooksContainer>
+
+                </SC.NotebooksContainer>
+
+
+
+                {/* FOR STICKY NOTE */}
+                <SC.StickyNoteContainer>
+                    <SC.ScratchPadTitle>SCRATCH PAD</SC.ScratchPadTitle>
+                    <SC.StickyNote
+                    // value={scratchPad}
+                    // onChange={(e) => setScratchPad(e.target.value)}
+                    >
+
+                    </SC.StickyNote>
+
+                </SC.StickyNoteContainer>
 
                 {/* FOR NOTEBOOKS */}
-                {/* <SC.Backdrop>
 
-                </SC.Backdrop> */}
-
-            </SC.CenteringDiv>
+            </SC.BottomDiv>
         </OuterDiv>
     );
 }

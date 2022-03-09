@@ -38,9 +38,62 @@ export const NotesContainer = styled.div`
 `;
 
 
-export const NotebooksContainer = styled.div`
-`;
+
 
 export const H1 = styled.h1`
     margin: 20px 20px 0 30px;
+`;
+
+
+export const NotebooksContainer = styled.div`
+background-color: rgba(255, 255, 255, .85);
+border-radius: 15px;
+padding: 10px;
+margin-right: 50px;
+width: calc(100% - 450px);
+height: 100%;
+`;
+
+
+export const BottomDiv = styled.div`
+margin-top: 50px;
+display: flex;
+flex-direction: row;
+`;
+
+export const StickyNoteContainer = styled.div`
+      width: 400px;
+      height: 400px;
+      background-color: yellow;
+      border-radius: 15px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+`;
+
+export const StickyNote = styled.textarea`
+      width: 350px;
+      height: 300px;
+      border: none;
+      background-color: transparent;
+    //   padding: 20px;
+
+
+
+      &:focus {
+        outline: none;
+    }
+
+    // &:target {
+    //     border: 1px solid white;
+    // }
+`;
+
+
+export const ScratchPadTitle = styled.h2`
+    font-size: 16px;
+    align-self: flex-start;
+    margin-left: 10px;
 `;
