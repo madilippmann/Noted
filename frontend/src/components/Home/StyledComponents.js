@@ -64,7 +64,7 @@ flex-direction: row;
 export const StickyNoteContainer = styled.div`
       width: 400px;
       height: 400px;
-      background-color: yellow;
+      background-color: rgb(247, 257, 137);
       border-radius: 15px;
       padding: 10px;
       display: flex;
@@ -77,6 +77,7 @@ export const StickyNote = styled.textarea`
       width: 350px;
       height: 300px;
       border: none;
+      resize: none;
       background-color: transparent;
     //   padding: 20px;
 
