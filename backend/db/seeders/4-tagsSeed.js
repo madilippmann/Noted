@@ -7,61 +7,71 @@ module.exports = {
       {
         userId: 1,
         name: 'Tag 1',
-        noteId: 12
+        noteId: 12,
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         userId: 1,
         name: 'Tag 2',
-        noteId: 12
+        noteId: 12,
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         userId: 1,
         name: 'Tag 3',
-        noteId: 12
-      }, {
-        userId: 1,
-        name: 'Tag 4',
-        noteId: 39
-      }, {
-        userId: 1,
-        name: 'Tag 1',
-        noteId: 39
-      }, {
-        userId: 1,
-        name: 'Tag 1',
-        noteId: 32
+        noteId: 12,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }, {
         userId: 1,
         name: 'Tag 2',
-        noteId: 7
+        noteId: 7,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }, {
         userId: 1,
         name: 'Tag 3',
-        noteId: 7
+        noteId: 7,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }, {
         userId: 1,
         name: 'Tag 2',
-        noteId: 17
+        noteId: 17,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }, {
         userId: 1,
         name: 'Tag 4',
-        noteId: 17
+        noteId: 17,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }, {
         userId: 1,
         name: 'Tag 4',
-        noteId: 16
+        noteId: 16,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }, {
         userId: 1,
         name: 'Tag 2',
-        noteId: 23
+        noteId: 23,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }, {
         userId: 1,
         name: 'Tag 3',
-        noteId: 30
+        noteId: 30,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }, {
         userId: 1,
         name: 'Tag 1',
-        noteId: 30
+        noteId: 30,
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
 
     ], {});

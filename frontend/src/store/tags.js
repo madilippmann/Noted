@@ -65,10 +65,10 @@ export const deleteTagThunk = (tag) => async (dispatch) => {
 }
 
 export const updateTagThunk = (tagData) => async (dispatch) => {
-    const { tagId, title, content, userId, tagbookId } = tagData
+    const { tagId, title, content, userId, noteId } = tagData
     const res = await csrfFetch(`/api/users/${userId}/notes/${noteId}/tags/${tagId}`, {
         method: 'PATCH',
-        body: JSON.stringify({ title, content, tagbookId, tagId })
+        body: JSON.stringify({ title, content, noteId, tagId })
     });
 
     const tag = await res.json()
