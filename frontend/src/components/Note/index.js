@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, Redirect, Link } from 'react-router-dom';
+
 import * as notesActions from '../../store/notes';
 import * as notebooksActions from '../../store/notebooks';
+import * as tagsActions from '../../store/tags';
 
 import * as SC from './StyledComponents'
 
@@ -15,10 +17,12 @@ import Slide from "../Animations/Slide";
 export default function Note({ userId }) {
     const { noteId } = useParams();
     const dispatch = useDispatch();
+
     const sessionUser = useSelector(state => state.session.user);
     const notebooks = useSelector(state => state.notebooks.notebooks);
     const formattedNotebooks = sortByTitle(formatNotebooks(notebooks))
     const note = useSelector(state => state.notes.notes[noteId]);
+    const tags = useSelector(state => state.tags.tags);
 
     const [title, setTitle] = useState(note.title);
     const [content, setContent] = useState(note.content);
@@ -31,7 +35,7 @@ export default function Note({ userId }) {
     useEffect(() => {
         dispatch(notesActions.loadNotesThunk(userId))
         dispatch(notebooksActions.loadNotebooksThunk(userId))
-
+        dispatch(tagsActions.loadTagsThunk(userId))
     }, [dispatch])
 
 
