@@ -6,7 +6,7 @@ import * as notesActions from '../../store/notes';
 import * as notebooksActions from '../../store/notebooks';
 import * as tagsActions from '../../store/tags';
 
-import { formatNotebooks, formatNotes, formattedDate, sortByUpdatedAt, shortenedContent } from '../utils/utils.js';
+import { formatNotebooks, formatNotes, formatTags, formattedDate, sortByUpdatedAt, shortenedContent } from '../utils/utils.js';
 
 import { UilPlusCircle, UilBook } from '@iconscout/react-unicons';
 
@@ -24,8 +24,6 @@ export default function Home() {
 
     const history = useHistory();
 
-    let storedScratch = localStorage.getItem('scratch-demo')
-
     const [scratchPad, setScratchPad] = useState(localStorage.getItem('scratch-pad') || '')
 
 
@@ -38,6 +36,7 @@ export default function Home() {
 
     let formattedNotes = sortByUpdatedAt(formatNotes(notes)).slice(0, 5);
     let formattedNotebooks = sortByUpdatedAt(formatNotebooks(notebooks)).slice(0, 3);
+    const formattedTags = formatTags(tags)
 
     const addNote = async () => {
         const noteId = await dispatch(notesActions.createNoteThunk(sessionUser.id))
@@ -52,6 +51,29 @@ export default function Home() {
         return <Redirect to={`/notes/${notebookId}`} />
     }
 
+
+    useEffect(() => {
+        formattedNotes.forEach(note => {
+            tagsElement(note.id)
+        })
+    }, [])
+
+    const tagsElement = (noteId) => {
+
+        const tags = formattedTags.filter(tag => tag.noteId === noteId)
+        console.log(tags);
+        return (
+            <SC.TagsOuterDiv>
+                {tags.map(tag => (
+                    <SC.TagContainer key={tag.id}>
+                        {tag.name}
+                    </SC.TagContainer>
+                ))}
+            </SC.TagsOuterDiv>
+        )
+    }
+
+
     return (
         <OuterDiv className='main' style={{ padding: '50px', display: 'flex', flexDirection: 'column' }}>
             <SC.Backdrop >
@@ -62,6 +84,7 @@ export default function Home() {
                             <div key={note.id} className='square-card note-card no-border'>
                                 <h3 className='note-card-title'>{note.title}</h3>
                                 <p className='note-card-content'>{note.content}</p>
+                                {tags[note.id] && tagsElement(note.id)}
                                 <p className='note-card-date'>{note.updatedAt}</p>
                             </div>
                         </Link>

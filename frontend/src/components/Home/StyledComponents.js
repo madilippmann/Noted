@@ -107,3 +107,20 @@ export const ScratchPadTitle = styled.h2`
     align-self: flex-start;
     margin-left: 10px;
 `;
+
+
+export const TagsOuterDiv = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding-bottom: 5px;
+`;
+
+
+export const TagContainer = styled.div`
+    border-radius: 25px;
+    font-size: 10px;
+    background-color: rgb(240, 240, 240);
+    padding: 3px 10px;
+    margin-right: 5px;
+`;

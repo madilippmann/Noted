@@ -6,7 +6,7 @@ import { UilTimes, UilPlusCircle, UilEllipsisH, UilAngleRight, UilFileAlt, UilBo
 import * as notesActions from '../../store/notes';
 import * as notebooksActions from '../../store/notebooks';
 
-import { formattedDate, OuterDiv, shortenedContent, sortByUpdatedAt, sortByTitle, formatNotes, formatNotebooks } from '../utils/utils.js';
+import { formattedDate, OuterDiv, formattedTags, shortenedContent, sortByUpdatedAt, sortByTitle, formatNotes, formatNotebooks } from '../utils/utils.js';
 
 import * as SC from './StyledComponents.js'
 import './Notebook.css'
@@ -33,10 +33,6 @@ export default function Notebook() {
         dispatch(notebooksActions.loadNotebooksThunk(sessionUser.id))
         dispatch(notesActions.loadNotesThunk(sessionUser.id))
     }, [dispatch])
-
-
-
-
 
 
     function removeNoteFromNotebook(id) {
@@ -98,6 +94,8 @@ export default function Notebook() {
         setSortNotes(updatedSort);
 
     }, [noteSort, noteModal])
+
+
 
 
 

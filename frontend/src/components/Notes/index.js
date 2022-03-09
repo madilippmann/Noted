@@ -6,7 +6,9 @@ import { UilPlusCircle } from '@iconscout/react-unicons';
 import * as notesActions from '../../store/notes';
 import * as tagsActions from '../../store/tags';
 
-import { formatNotes, formatNotebooks, formattedDate, OuterDiv, shortenedContent, sortByUpdatedAt } from '../utils/utils.js';
+import * as SC from './StyledComponents';
+
+import { formatNotes, formatTags, formatNotebooks, formattedDate, OuterDiv, shortenedContent, sortByUpdatedAt } from '../utils/utils.js';
 
 import './Notes.css';
 import Note from '../Note';
@@ -34,6 +36,23 @@ export default function Notes({ userId }) {
         return <Redirect to={`/notes/${noteId}`} />
     }
 
+    const formattedTags = formatTags(tags);
+
+    const tagsElement = (noteId) => {
+
+        const tags = formattedTags.filter(tag => tag.noteId === noteId)
+        console.log(tags);
+        return (
+            <SC.TagsOuterDiv>
+                {tags.map(tag => (
+                    <SC.TagContainer key={tag.id}>
+                        {tag.name}
+                    </SC.TagContainer>
+                ))}
+            </SC.TagsOuterDiv>
+        )
+    }
+
     return (
         <OuterDiv className='main notes-page-outer-container'>
             <div className='notes-page-container'>
@@ -52,6 +71,7 @@ export default function Notes({ userId }) {
                             <div key={note.id} className='square-card note-card'>
                                 <h3 className='note-card-title'>{note.title}</h3>
                                 <p className='note-card-content'>{note.content}</p>
+                                {tags[note.id] && tagsElement(note.id)}
                                 <p className='note-card-date'>{note.updatedAt}</p>
                             </div>
                         </Link>

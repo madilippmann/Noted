@@ -92,6 +92,23 @@ export function formatNotebooks(notebooks) {
 }
 
 
+export function formatTags(tags) {
+    let formattedTags = [];
+    Object.entries(tags).map(rawTag => {
+        let tag = {};
+        tag.name = rawTag[1].name;
+        tag.id = rawTag[1].id;
+        tag.userId = rawTag[1].userId;
+        tag.noteId = rawTag[1].noteId;
+        tag.updatedAt = formattedDate(rawTag[1].updatedAt);
+        formattedTags.push(tag);
+    })
+
+    return formattedTags;
+}
+
+
+
 
 export const OuterDiv = styled.div`
     width: calc(100% - 250px);
