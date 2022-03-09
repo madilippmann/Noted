@@ -35,6 +35,11 @@ th.actions-header {
     /* text-align: right; */
     width: 50px;
 }
+th.actions-header2 {
+    text-align: right;
+    width: 225px;
+}
+
 
 
 td.notebooks-table-data {
@@ -43,7 +48,7 @@ td.notebooks-table-data {
 
 td.notebooks-table-data * {
     vertical-align: middle;
-    font-size: 16px;;
+    font-size: 16px;
 }
 
 td.updatedAt-data {
@@ -55,6 +60,9 @@ td.actions-data {
     text-align: center;
 }
 
+td.actions-data2 {
+    text-align: right;
+}
 
 table {
     border-collapse: collapse;

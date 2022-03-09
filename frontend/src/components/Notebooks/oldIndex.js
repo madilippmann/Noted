@@ -20,6 +20,8 @@ export default function Notebooks() {
     const notebooks = useSelector(state => state.notebooks.notebooks);
     const notes = useSelector(state => state.notes.notes);
 
+    const [openNotebooks, setOpenNotebooks] = useState(new Set());
+
     const [notebookSort, setNotebookSort] = useState(localStorage.getItem('notebook-sort') || 'Updated At')
     const [sortNotebooks, setSortNotebooks] = useState()
     const [notebookModal, setNotebookModal] = useState(null)
@@ -39,6 +41,20 @@ export default function Notebooks() {
     let formattedNotebooks = sortByUpdatedAt(formatNotebooks(notebooks));
     let formattedNotes = sortByUpdatedAt(formatNotes(notes));
 
+    function toggleNotebook(e) {
+        console.log(e.target.dataset.id);
+        console.log('BEFORE: ', openNotebooks)
+        let set = new Set().add(...openNotebooks)
+        if (openNotebooks.has(e.target.dataset.id)) {
+            set.delete(e.target.dataset.id)
+            setOpenNotebooks(set)
+        } else {
+            set.add(e.target.dataset.id)
+            setOpenNotebooks(set)
+        }
+        console.log('AFTER: ', openNotebooks);
+    }
+
 
     function toggleNotebookModal(id) {
         if (notebookModal === id) setNotebookModal(null)
@@ -47,47 +63,62 @@ export default function Notebooks() {
 
 
     useEffect(() => {
-
+        console.log(formattedNotes);
         if (notebookSort === 'Updated At') {
             localStorage.setItem('notebook-sort', 'Updated At');
             formattedNotebooks = sortByUpdatedAt(formattedNotebooks)
             formattedNotes = sortByUpdatedAt(formattedNotes)
         }
         else if (notebookSort === 'Title') {
-            localStorage.setItem('notebook-sort', '');
+            localStorage.setItem('notebook-sort', 'Title');
             formattedNotebooks = sortByTitle(formattedNotebooks)
             formattedNotes = sortByTitle(formattedNotes)
         }
 
         let updatedSort = formattedNotebooks.map(notebook => (
-            <SC.TableRow key={notebook.id}>
-                <td className='notebooks-table-data'>
-                    <Link to={`/notebooks/${notebook.id}`}>
-                        <UilBook size='20' style={{ marginRight: '10px' }} />
-                        {notebook.title}
-                    </Link>
-                </td>
-                <td className='notebooks-table-data updatedAt-data'>{notebook.updatedAt}</td>
-                <td className='notebooks-table-data actions-data'>
-                    <button
-                        data-id={notebook.id}
-                        type='button'
-                        onClick={() => toggleNotebookModal(notebook.id)}
-                        value={notebook.id}
-                    >
-                        <UilEllipsisH size='25' />
-                    </button>
-                    {notebookModal === notebook.id && <NotebookModal notebookId={notebook.id} setNotebookModal={setNotebookModal} />}
+            <>
+                <SC.TableRow key={notebook.id}>
+                    <td className='notebooks-table-data'>
+                        <button type='button' onClick={toggleNotebook} data-id={notebook.id}>
+                            {/* <UilAngleRight className={`arrow-right-icon ${openNotebooks.has(notebook.id)}`} side='24' /> */}
 
-                </td>
-            </SC.TableRow>
+                            {/* <UilAngleRight size='25' /> */}
+                            <UilBook size='20' style={{ marginRight: '10px' }} />
+                            {notebook.title}
+                        </button>
+                    </td>
+                    <td className='notebooks-table-data updatedAt-data'>{notebook.updatedAt}</td>
+                    <td className='notebooks-table-data actions-data'>
+                        <button
+                            data-id={notebook.id}
+                            type='button'
+                            onClick={() => toggleNotebookModal(notebook.id)}
+                            value={notebook.id}
+                        >
+                            <UilEllipsisH size='25' />
+                        </button>
+                        {notebookModal === notebook.id && <NotebookModal notebookId={notebook.id} setNotebookModal={setNotebookModal} />}
 
+                    </td>
+                </SC.TableRow>
+
+                {openNotebooks.has(notebook.id) && formattedNotes.filter(note => {
+                    console.log(note.title);
+                    return note.notebookId === notebook.id
+                }).map(note => (
+                    <SC.TableRow key={note.id}>
+                        <td>{note.title}</td>
+                        <td>{note.updatedAt}</td>
+                        <td></td>
+                    </SC.TableRow>
+                ))}
+            </>
 
         ))
 
         setSortNotebooks(updatedSort);
 
-    }, [notebookSort, notebooks, notebookModal])
+    }, [notebookSort, notebooks, openNotebooks, notebookModal])
 
 
 
@@ -105,7 +136,7 @@ export default function Notebooks() {
                             value={notebookSort}
                             onChange={(e) => setNotebookSort(e.target.value)}
                         >
-                            <option>Updated At</option>
+                            <option>Updated By</option>
                             <option>Title</option>
                         </select>
                     </div>
@@ -177,7 +208,7 @@ function NotebookModal({ notebookId, setNotebookModal }) {
         <SC.Modal>
             <Slide direction='down' duration={.25}>
                 {/* FIX FIX FIX FIX */}
-                <SC.ModalDiv className='user-modal' style={{ width: '300px', height: '150px', top: '10px', right: '350px' }}>
+                <SC.ModalDiv className='user-modal' style={{ top: '10px', right: '350px' }}>
 
                     <SC.ModalInfo>
                         <SC.ButtonDiv  >
