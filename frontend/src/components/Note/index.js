@@ -53,33 +53,34 @@ export default function Note({ userId }) {
     const saveNote = async (e) => {
         e.preventDefault()
 
-        // notebookId ? Number(notebookId) : null
-        let nbId;
-        if (notebookId === null || notebookId === 0) {
-            nbId = 0;
-        } else {
-            nbId = Number(notebookId);
-        }
-
-        const noteData = {
-            title,
-            content,
-            notebookId: nbId,
-            noteId: note.id,
-            userId: note.userId
-        }
-
-
-        const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
-
-        let notebookRes;
-        if (nbId && nbId !== 0) {
-            notebookRes = await dispatch(notebooksActions.updateNotebookThunk({
-                notebookId: nbId,
-                title: notebooks[nbId].title,
+        if (notebookId && notebookId !== null) {
+            console.log('Has notebook id');
+            const noteData = {
+                title,
+                content,
+                notebookId,
+                noteId: note.id,
                 userId: note.userId
-            }))
+            }
 
+            const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
+
+            const notebookRes = await dispatch(notebooksActions.updateNotebookThunk({
+                notebookId,
+                title: notebooks[notebookId].title,
+                userId: note.userId,
+            }))
+        } else {
+            console.log('NULL notebook id');
+
+            const noteData = {
+                title,
+                content,
+                noteId: note.id,
+                userId: note.userId
+            }
+
+            const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
         }
 
         setSave(true)
