@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     Note.belongsTo(models.User, { foreignKey: 'userId' })
     Note.belongsTo(models.Notebook, { foreignKey: 'notebookId' })
+    Note.hasMany(models.Tag, { foreignKey: 'noteId' })
 
   };
   return Note;

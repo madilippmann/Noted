@@ -5,6 +5,10 @@ npx sequelize model:generate --name Note --attributes userId:integer,title:strin
 npx sequelize model:generate --name Notebook --attributes userId:integer,title:string
 
 
+npx sequelize model:generate --name Tag --attributes userId:integer,name:string,noteId:integer
+
+
+
 npx dotenv sequelize db:migrate
 
 <!-- For undoing migrations -->
@@ -14,6 +18,7 @@ npx dotenv sequelize db:migrate:undo
 npx sequelize seed:generate --name demo-user
 npx sequelize seed:generate --name notesSeed
 npx sequelize seed:generate --name notebooksSeed
+npx sequelize seed:generate --name tagsSeed
 
 
 npx dotenv sequelize db:seed:all
