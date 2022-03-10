@@ -28,6 +28,7 @@ export default function Note({ userId }) {
 
     let formattedTags = formatTags(tags)
 
+    const { autosave, setAutosave } = useAutosaveContext();
 
     const [title, setTitle] = useState(note.title);
     const [content, setContent] = useState(note.content);
@@ -39,7 +40,6 @@ export default function Note({ userId }) {
 
     // const [autosave, setAutosave] = useState(localStorage.getItem('autosave-notes'))
 
-    const { autosave, setAutosave } = useAutosaveContext();
     useEffect(() => {
 
         console.log("autosave: ", autosave);
@@ -71,10 +71,17 @@ export default function Note({ userId }) {
 
     useEffect(() => {
         if (save) {
-            const timer = setTimeout(() => setSave(false), 5000)
+            const timer = setTimeout(() => setSave(false), 3000)
             return () => clearTimeout(timer)
         }
     }, [save])
+
+    useEffect(() => {
+        if (autosave) {
+            setDisabled(true);
+            setSave(false)
+        }
+    }, [autosave])
 
 
     useEffect(() => {
@@ -83,16 +90,47 @@ export default function Note({ userId }) {
             if (autosave) {
 
                 console.log('Every 10 seconds');
-                saveNote()
+                if (notebookId && notebookId !== null) {
+                    const noteData = {
+                        title,
+                        content,
+                        notebookId,
+                        noteId: note.id,
+                        userId: note.userId
+                    }
+
+                    const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
+
+                    const notebookRes = await dispatch(notebooksActions.updateNotebookThunk({
+                        notebookId,
+                        title: notebooks[notebookId].title,
+                        userId: note.userId,
+                    }))
+                } else {
+
+                    const noteData = {
+                        title,
+                        content,
+                        noteId: note.id,
+                        userId: note.userId
+                    }
+
+                    const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
+                }
                 console.log(interval)
 
             }
         }, 10000)
+
+
+        if (!autosave) {
+            setDisabled(false)
+        }
         return () => clearInterval(interval)
-    }, [])
+    }, [autosave])
 
     const saveNote = async (e) => {
-        // e.preventDefault()
+        e.preventDefault()
         console.log('saved');
         if (notebookId && notebookId !== null) {
             const noteData = {
