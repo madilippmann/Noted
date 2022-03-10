@@ -20,14 +20,18 @@ const RoundedContainer = ({ userId, type }) => {
     const originalFormattedNotes = sortByUpdatedAt(formatNotes(notes));
     const originalFormattedNotebooks = sortByUpdatedAt(formatNotebooks(notebooks));
 
-    const [formattedNotes, setFormattedNotes] = useState(originalFormattedNotes)
-    const [formattedNotebooks, setFormattedNotebooks] = useState(originalFormattedNotebooks)
+    const [formattedNotes, setFormattedNotes] = useState([])
+    const [formattedNotebooks, setFormattedNotebooks] = useState([])
 
     const [filteredNotes, setFilteredNotes] = useState([]);
     const [filteredNotebooks, setFilteredNotebooks] = useState([]);
 
     const [searchInput, setSearchInput] = useState('');
 
+    useEffect(() => {
+        setFormattedNotes(originalFormattedNotes)
+        setFormattedNotebooks(originalFormattedNotebooks)
+    }, [notes, notebooks])
 
     useEffect(() => {
         dispatch(notesActions.loadNotesThunk(sessionUser.id));
@@ -37,7 +41,7 @@ const RoundedContainer = ({ userId, type }) => {
 
     const handleSearch = (e) => {
         setSearchInput(e.target.value)
-        console.log('NEW', formattedNotes);
+        // console.log('NEW', formattedNotes);
         if (e.target.value.length > 0) {
 
             const filteredNotes = sortByTitle(formattedNotes.reduce((filteredNotes, note) => {
