@@ -23,9 +23,6 @@ export default function Notes({ userId }) {
     const tags = useSelector(state => state.tags.tags);
     const originalFormattedNotes = sortByUpdatedAt(formatNotes(notes));
 
-    const search = useSelector(state => state.search);
-
-
     const [formattedNotes, setFormattedNotes] = useState(sortByUpdatedAt(formatNotes(notes)))
     const [formattedTags, setFormattedTags] = useState(formatTags(tags))
 
@@ -35,7 +32,6 @@ export default function Notes({ userId }) {
     useEffect(() => {
         dispatch(notesActions.loadNotesThunk(sessionUser.id));
         dispatch(tagsActions.loadAllTagsThunk(sessionUser.id));
-        dispatch(updateSearchThunk(''));
     }, [dispatch])
 
 

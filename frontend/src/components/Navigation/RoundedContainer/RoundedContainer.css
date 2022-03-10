@@ -24,6 +24,7 @@
 .search-container {
     background-color: #DEDEDE;
     color: #555555;
+    align-self: center;
 
 }
 
@@ -62,4 +63,47 @@ div.rounded-container.new-note-container:hover {
     display: flex;
     align-items: center;
     padding-right: 5px;
+}
+
+
+.results-outer-container {
+    margin: 0 10px;
+}
+
+
+.results-container {
+    padding-top: 15px;
+}
+
+.results-container h4 {
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #d5d5d5;
+}
+
+
+.results-container p {
+    padding: 4px 0;
+    margin: 0;
+}
+.results {
+    font-size: 13px;
+}
+
+
+.search-outer-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+.italicize {
+    font-style: italic;
+}
+
+
+.result-link:hover {
+    font-weight: bold;
+    color: rgb(113, 0, 248);
 }

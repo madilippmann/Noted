@@ -22,7 +22,7 @@ export default function Notebook() {
     let allNotes = useSelector(state => state.notes.notes);
 
     let formattedNotes = sortByUpdatedAt(formatNotes(allNotes));
-    formattedNotes = formattedNotes.filter(note => note.notebookId === notebook.id)
+    formattedNotes = formattedNotes.filter(note => note.notebookId === notebook?.id)
 
     const [noteSort, setNoteSort] = useState(localStorage.getItem('note-sort') || 'Updated At')
     const [sortNotes, setSortNotes] = useState(formattedNotes)
@@ -102,7 +102,7 @@ export default function Notebook() {
     return (
         <OuterDiv style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <SC.MainDiv>
-                <SC.H1><UilBook size='40' />{notebook.title}</SC.H1>
+                <SC.H1><UilBook size='40' />{notebook?.title}</SC.H1>
 
                 <SC.UpperDiv>
                     <div className='flex-end'>

@@ -1,28 +1,116 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
+import * as notesActions from '../../../store/notes';
+import * as notebooksActions from '../../../store/notebooks';
+
 import './RoundedContainer.css';
 import { UilPlus, UilSearchAlt } from '@iconscout/react-unicons'
-import { useState, useEffect } from 'react';
-
-
+import { formatNotes, formatTags, formatNotebooks, sortByUpdatedAt, sortByTitle } from '../../utils/utils.js';
 
 const RoundedContainer = ({ userId, type }) => {
+
+    const dispatch = useDispatch();
+    const sessionUser = useSelector(state => state.session.user);
+
+    const notes = useSelector(state => state.notes.notes);
+    const notebooks = useSelector(state => state.notebooks.notebooks);
+
+    const originalFormattedNotes = sortByUpdatedAt(formatNotes(notes));
+    const originalFormattedNotebooks = sortByUpdatedAt(formatNotebooks(notebooks));
+
+    const [formattedNotes, setFormattedNotes] = useState(originalFormattedNotes)
+    const [formattedNotebooks, setFormattedNotebooks] = useState(originalFormattedNotebooks)
+
+    const [filteredNotes, setFilteredNotes] = useState([]);
+    const [filteredNotebooks, setFilteredNotebooks] = useState([]);
+
     const [searchInput, setSearchInput] = useState('');
 
+
+    useEffect(() => {
+        dispatch(notesActions.loadNotesThunk(sessionUser.id));
+        dispatch(notebooksActions.loadNotebooksThunk(sessionUser.id));
+    }, [dispatch])
+
+
+    const handleSearch = (e) => {
+        setSearchInput(e.target.value)
+        console.log('NEW', formattedNotes);
+        if (e.target.value.length > 0) {
+
+            const filteredNotes = sortByTitle(formattedNotes.reduce((filteredNotes, note) => {
+                if (note.title.toLowerCase().includes(e.target.value.toLowerCase())) {
+                    filteredNotes.push(note);
+                }
+
+                return filteredNotes;
+            }, []))
+
+            const filteredNotebooks = sortByTitle(formattedNotebooks.reduce((filteredNotebooks, notebook) => {
+                if (notebook.title.toLowerCase().includes(e.target.value.toLowerCase())) {
+                    filteredNotebooks.push(notebook);
+                }
+
+                return filteredNotebooks;
+            }, []))
+
+            setFilteredNotes(filteredNotes);
+            setFilteredNotebooks(filteredNotebooks);
+            console.log('Filtered Notes: ', filteredNotes);
+            console.log('Filtered Notebooks: ', filteredNotebooks);
+
+        } else {
+
+        }
+    }
 
     return (
         <div className='rounded-outer-container'>
             {type === 'search' &&
-                <div className='rounded-container search-container'>
-                    <div className='icon-container search'>
-                        <UilSearchAlt size='25' />
+                <div className='search-outer-container'>
+                    <div className='rounded-container search-container'>
+                        <div className='icon-container search'>
+                            <UilSearchAlt size='25' />
+                        </div>
+                        <input
+                            className='search-input'
+                            type='text'
+                            value={searchInput}
+                            placeholder='Search'
+                            onChange={(e) => handleSearch(e)}
+                        />
                     </div>
-                    <input
-                        className='search-input'
-                        type='text'
-                        value={searchInput}
-                        placeholder='Search'
-                        onChange={(e) => setSearchInput(e.target.value)}
-                    />
-                </div>}
+                    {searchInput.length > 0 &&
+                        <div className='results-outer-container'>
+                            <div className='results-container'>
+                                <h4>Notes</h4>
+                                <div className='results'>
+                                    {filteredNotes.length > 0 ? filteredNotes.map(note => (
+                                        <Link to={`/notes/${note.id}`}>
+                                            <p className='result-link' key={note.id}>{note.title}</p>
+                                        </Link>
+                                    )) : <p className='italicize'>No results</p>}
+                                </div>
+
+                            </div>
+                            <div className='results-container'>
+                                <h4>Notebooks</h4>
+                                <div className='results'>
+                                    {filteredNotebooks.length > 0 ? filteredNotebooks.map(notebook => (
+                                        <Link to={`/notebooks/${notebook.id}`}>
+                                            <p className='result-link' key={notebook.id}>{notebook.title}</p>
+                                        </Link>
+                                    )) : <p className='italicize'>No results</p>}
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+            }
 
 
 

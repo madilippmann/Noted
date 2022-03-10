@@ -30,9 +30,9 @@ export default function Note({ userId }) {
 
     const { autosave, setAutosave } = useAutosaveContext();
 
-    const [title, setTitle] = useState(note.title);
-    const [content, setContent] = useState(note.content);
-    const [notebookId, setNotebookId] = useState(note.notebookId || null);
+    const [title, setTitle] = useState(note?.title);
+    const [content, setContent] = useState(note?.content);
+    const [notebookId, setNotebookId] = useState(note?.notebookId || null);
     const [disabled, setDisabled] = useState(true);
     const [errorMeesage, setErrorMessage] = useState(false);
 
