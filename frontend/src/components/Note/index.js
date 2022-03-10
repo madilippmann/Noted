@@ -42,10 +42,10 @@ export default function Note({ userId }) {
 
     // const [autosave, setAutosave] = useState(localStorage.getItem('autosave-notes'))
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        console.log("autosave: ", autosave);
-    }, [autosave])
+    //     console.log("autosave: ", autosave);
+    // }, [autosave])
 
     const tagsObj = formattedTags.reduce((tags, tag) => {
         tags[tag.id] = tag.name
@@ -60,33 +60,6 @@ export default function Note({ userId }) {
         dispatch(notebooksActions.loadNotebooksThunk(userId))
         dispatch(tagsActions.loadAllTagsThunk(userId))
     }, [dispatch])
-
-
-
-    useEffect(() => {
-        if (!autosave) {
-            if ((title.length > 100 || title.length === 0 || /^\s*$/.test(title))) {
-                setDisabled(true)
-                setErrorMessage(true)
-            }
-            else setDisabled(false)
-            setErrorMessage(true)
-        }
-
-        else if (autosave) {
-            setDisabled(true)
-
-            if ((title.length > 100 || title.length === 0 || /^\s*$/.test(title))) {
-                setErrorMessage(true)
-            } else {
-                setErrorMessage(false)
-            }
-        }
-
-    }, [title])
-
-
-
 
 
     useEffect(() => {
@@ -105,11 +78,32 @@ export default function Note({ userId }) {
 
 
     useEffect(async () => {
-        console.log('Entered autosave')
+
+        if (!autosave) {
+            if ((title.length > 100 || title.length === 0 || /^\s*$/.test(title))) {
+                setDisabled(true)
+                setErrorMessage(true)
+
+            }
+            else {
+                setDisabled(false)
+                setErrorMessage(false)
+            }
+        }
+
+        else if (autosave) {
+            setDisabled(true)
+
+            if ((title.length > 100 || title.length === 0 || /^\s*$/.test(title))) {
+                setErrorMessage(true)
+            } else {
+                setErrorMessage(false)
+            }
+        }
+
         // const interval = setInterval(async () => {
         if (autosave) {
-            console.log(`Title: ${title}\nContent: ${content}`);
-            console.log('Every 5 seconds');
+
             if (notebookId && notebookId !== null) {
                 const noteData = {
                     title,
@@ -137,22 +131,17 @@ export default function Note({ userId }) {
 
                 const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
             }
-            // console.log(interval)
 
         }
         // }, 5000)
 
 
-        if (!autosave) {
-            setDisabled(false)
-        }
 
         // return () => clearInterval(interval)
     }, [autosave, title, content])
 
     const saveNote = async (e) => {
         e.preventDefault()
-        console.log('saved');
         if (notebookId && notebookId !== null) {
             const noteData = {
                 title,
@@ -301,7 +290,6 @@ export default function Note({ userId }) {
                             placeholder='Title'
                             onChange={(e) => {
                                 setTitle(e.target.value)
-                                console.log(title)
                             }}
                         />
                     </SC.CenteringDiv>
@@ -347,7 +335,6 @@ export default function Note({ userId }) {
                                             className='delete-tag'
                                             onClick={() => {
                                                 deleteTag(tag.id)
-                                                console.log('Clicked!')
                                             }}
                                         >
                                             <UilTimes id='add-tag-icon' size='20' />
