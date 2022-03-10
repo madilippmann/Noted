@@ -145,12 +145,24 @@ h5, h4 {
     color: white;
 }
 
-.settings-and-sign-out-container *:hover {
+.settings-and-sign-out-container *:not(.no-hover):hover {
     padding: 3px 0;
     color: white;
     opacity: 50%;
 }
 
+.no-hover {
+    opacity: 100%;
+}
+
+.autosave {
+    display: flex;
+}
+/*
+div.autosave *:hover {
+    opacity: 100%;
+    padding: 0;
+} */
 
 .settings-sign-out {
     opacity: 100%;
@@ -187,6 +199,65 @@ h5, h4 {
 
 .nav-bars-container NavLink:active {
     background-color: rgb(232, 220, 255);
+}
+
+
+
+/* AUTOSAVE   */
+
+/* export const ToggleButton = styled.button`
+
+`; */
+
+
+.toggle-button {
+    display: flex;
+    align-items: center;
+    width: 40px;
+    height: 25px;
+    background: white;
+    padding: 5px 2px;
+    border-radius: 25px;
+
+    transition: justify-content .24s ease;
+
+}
+
+
+.toggle-button.false {
+    justify-content: flex-start;
+}
+
+.toggle-button.true {
+    justify-content: flex-end;
+
+}
+
+/* export const ToggleCircle = styled.div`
+`; */
+
+#autosave-button {
+}
+
+
+.toggle-circle {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+
+    border-radius: 50px;
+
+}
+
+.toggle-circle.false {
+    background-color: grey;
+    transition: color .24s ease;
+}
+
+.toggle-circle.true {
+    background-color: rgb(105 174 113);
+    transition: color .24s ease;
+
 }
 
 

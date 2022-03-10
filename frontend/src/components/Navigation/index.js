@@ -10,6 +10,8 @@ import Slide from '../Animations/Slide';
 import * as sessionActions from '../../store/session';
 import * as notesActions from '../../store/notes';
 
+import * as SC from './StyledComponents.js';
+
 import './Navigation.css';
 import logo from '../static/images/noted-logo.png';
 
@@ -21,7 +23,7 @@ export default function Navigation() {
     const notes = useSelector(state => state.notes.notes)
     const history = useHistory();
     const [userDropdown, setUserDropdown] = useState(false);
-
+    const [autosave, setAutosave] = useState(localStorage.getItem('autosave-notes') || false)
     const handleClick = async () => {
         const noteId = await dispatch(notesActions.createNoteThunk(sessionUser.id))
         history.push(`/notes/${noteId}`)
@@ -31,6 +33,13 @@ export default function Navigation() {
     useEffect(() => {
         dispatch(notesActions.loadNotesThunk(sessionUser.id))
     }, [dispatch])
+
+
+
+    const toggleAutosave = () => {
+        setAutosave(!autosave);
+        localStorage.setItem('autosave-notes', autosave);
+    }
 
     return (
         <div className='sidebar'>
@@ -86,7 +95,16 @@ export default function Navigation() {
                                 {/* <Link to={`users/${sessionUser.id}/settings`}>
                                     <div className='settings'>Account settings</div>
                                 </Link> */}
-                                {/*  */}
+
+                                <div className='autosave no-hover'>
+                                    <SC.P className='no-hover'>Autosave Notes </SC.P>
+                                    <button className={`no-hover toggle-button ${autosave}`} type='button' onClick={toggleAutosave} >
+                                        <div className={`no-hover toggle-circle ${autosave}`}>
+
+                                        </div>
+                                    </button>
+                                </div>
+
                                 <button type='button' onClick={() => dispatch(sessionActions.logout())} >
                                     <div className='settings-sign-out'>
                                         <UilSignout size='25' />Sign out {sessionUser.firstName} {sessionUser.lastName}
