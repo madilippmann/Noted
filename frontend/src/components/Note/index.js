@@ -34,6 +34,8 @@ export default function Note({ userId }) {
     const [content, setContent] = useState(note.content);
     const [notebookId, setNotebookId] = useState(note.notebookId || null);
     const [disabled, setDisabled] = useState(true);
+    const [errorMeesage, setErrorMessage] = useState(false);
+
     const [deleteNoteModal, setDeleteNoteModal] = useState(false);
     const [save, setSave] = useState(false);
     const [tagDelete, setTagDelete] = useState(null);
@@ -62,11 +64,29 @@ export default function Note({ userId }) {
 
 
     useEffect(() => {
-        if (title.length > 100 || title.length === 0 || /^\s*$/.test(title)) {
-            setDisabled(true)
+        if (!autosave) {
+            if ((title.length > 100 || title.length === 0 || /^\s*$/.test(title))) {
+                setDisabled(true)
+                setErrorMessage(true)
+            }
+            else setDisabled(false)
+            setErrorMessage(true)
         }
-        else setDisabled(false)
+
+        else if (autosave) {
+            setDisabled(true)
+
+            if ((title.length > 100 || title.length === 0 || /^\s*$/.test(title))) {
+                setErrorMessage(true)
+            } else {
+                setErrorMessage(false)
+            }
+        }
+
     }, [title])
+
+
+
 
 
     useEffect(() => {
@@ -84,50 +104,51 @@ export default function Note({ userId }) {
     }, [autosave])
 
 
-    useEffect(() => {
+    useEffect(async () => {
         console.log('Entered autosave')
-        const interval = setInterval(async () => {
-            if (autosave) {
-
-                console.log('Every 10 seconds');
-                if (notebookId && notebookId !== null) {
-                    const noteData = {
-                        title,
-                        content,
-                        notebookId,
-                        noteId: note.id,
-                        userId: note.userId
-                    }
-
-                    const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
-
-                    const notebookRes = await dispatch(notebooksActions.updateNotebookThunk({
-                        notebookId,
-                        title: notebooks[notebookId].title,
-                        userId: note.userId,
-                    }))
-                } else {
-
-                    const noteData = {
-                        title,
-                        content,
-                        noteId: note.id,
-                        userId: note.userId
-                    }
-
-                    const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
+        // const interval = setInterval(async () => {
+        if (autosave) {
+            console.log(`Title: ${title}\nContent: ${content}`);
+            console.log('Every 5 seconds');
+            if (notebookId && notebookId !== null) {
+                const noteData = {
+                    title,
+                    content,
+                    notebookId,
+                    noteId: note.id,
+                    userId: note.userId
                 }
-                console.log(interval)
 
+                const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
+
+                const notebookRes = await dispatch(notebooksActions.updateNotebookThunk({
+                    notebookId,
+                    title: notebooks[notebookId].title,
+                    userId: note.userId,
+                }))
+            } else {
+
+                const noteData = {
+                    title,
+                    content,
+                    noteId: note.id,
+                    userId: note.userId
+                }
+
+                const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
             }
-        }, 10000)
+            // console.log(interval)
+
+        }
+        // }, 5000)
 
 
         if (!autosave) {
             setDisabled(false)
         }
-        return () => clearInterval(interval)
-    }, [autosave])
+
+        // return () => clearInterval(interval)
+    }, [autosave, title, content])
 
     const saveNote = async (e) => {
         e.preventDefault()
@@ -269,12 +290,15 @@ export default function Note({ userId }) {
                     </SC.CenteringDiv>
                     {deleteNoteModal && <DeleteNoteModal note={note} setDeleteNoteModal={setDeleteNoteModal} />}
                     <SC.CenteringDiv style={{ width: '100%' }}>
-                        {disabled && !autosave && <SC.TitleError>Title must be between 1 and 100 characters long.</SC.TitleError>}
+                        {errorMeesage && <SC.TitleError>Title must be between 1 and 100 characters long.</SC.TitleError>}
 
                         <SC.TitleInput
                             value={title}
                             placeholder='Title'
-                            onChange={(e) => setTitle(e.target.value)}
+                            onChange={(e) => {
+                                setTitle(e.target.value)
+                                console.log(title)
+                            }}
                         />
                     </SC.CenteringDiv>
 
