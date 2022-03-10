@@ -1,0 +1,15 @@
+button#more-spec.delete-tag {
+    display:flex;
+    align-self: flex-end;
+    margin-top:5px;
+    padding-right: 5px;
+}
+
+button.delete-tag:hover {
+    color: rgb(250, 76, 76);
+}
+
+
+#tags-title {
+    margin-right: 10px;
+}

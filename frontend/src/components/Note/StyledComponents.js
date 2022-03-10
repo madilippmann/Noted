@@ -98,7 +98,7 @@ export const TagsOuterContainer = styled.div`
         background-color: white;
         display: flex;
         border-top: rgb(245, 245, 245);
-
+        padding: 10px 15px;
 
 `;
 
@@ -108,6 +108,7 @@ export const TagsContainer = styled.div`
         width: 100%;
         display: flex;
         justify-content: flex-start;
+        align-items: center;
 
 `;
 export const TagsCreate = styled.div`
@@ -115,7 +116,7 @@ export const TagsCreate = styled.div`
         background-color: white;
         display: flex;
         justify-content: flex-end;
-
+        align-items:center;
 `;
 
 export const OuterInput = styled.div`
@@ -125,7 +126,7 @@ export const TagInput = styled.input`
     border: none;
     width: min-content;
     height: 10px;
-    background-color: rgb(245, 245, 245);
+    background-color: transparent;
     padding; 0;
     cursor: pointer;
 
@@ -133,9 +134,7 @@ export const TagInput = styled.input`
         outline: none;
     }
 
-    &:hover {
-        background-color: rgb(235, 235, 235)
-    }
+
 `;
 
 export const InputDiv = styled.div`
@@ -143,7 +142,11 @@ export const InputDiv = styled.div`
     height: fit-content;
     border-radius: 25px;
     background-color: rgb(245, 245, 245);
-
+    margin: 0 3px;
+    transition: background-color .24s ease;
+    &:hover {
+        background-color: rgb(235, 235, 235)
+    }
 `;
 
 export const Button = styled.button`
@@ -213,4 +216,19 @@ export const ClickableIcon = styled.button`
     &:hover {
         color: rgb(124, 0, 249);
     }
+`;
+
+
+export const DeleteTagButton = styled.button`
+
+    display:flex;
+    align-self: center;
+    padding-right: 5px;
+
+
+    &:hover {
+    color: rgb(250, 76, 76);
+    }
+
+
 `;

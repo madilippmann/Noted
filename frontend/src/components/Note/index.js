@@ -139,13 +139,15 @@ export default function Note({ userId }) {
 
     return (
         // padding: '15px'
-        <OuterDiv style={{
-            backgroundColor: 'rgba(251, 250, 255, .9)',
-            borderRadius: '10px',
-            width: '70%',
-            height: '90%',
-            margin: 'auto'
-        }}>
+        <OuterDiv
+            style={{
+                backgroundColor: 'rgba(251, 250, 255, .9)',
+                borderRadius: '10px',
+                width: '70%',
+                height: '90%',
+                margin: 'auto'
+            }}
+        >
             <SC.Form
                 onSubmit={saveNote}
             >
@@ -228,36 +230,43 @@ export default function Note({ userId }) {
                     />
                     <SC.TagsOuterContainer>
                         <SC.TagsContainer>
-                            <h4>Tags:</h4>
+                            <h4 id="tags-title">Tags:</h4>
                             {formattedTags.length > 0 && formattedTags.map(tag => (
-                                tag.noteId === note.id && <SC.InputDiv key={tag.id}>
+                                tag.noteId === note.id &&
+                                <SC.InputDiv
+                                    key={tag.id}
+                                    onFocus={() => {
+                                        setTagDelete(tag.id)
+                                    }}
+                                    onBlur={(e) => {
+                                        saveTagName(tag.id, names[tag.id])
+                                        console.log(e.currentTarget);
+                                        // e.preventDefault();
+                                        // setTagDelete(null)
+                                    }}
+                                >
                                     <SC.TagInput
                                         value={names[tag.id]}
                                         onChange={(e) => setNames((prevNames) => {
                                             const newNames = { ...prevNames }
                                             newNames[tag.id] = e.target.value
-                                            console.log(newNames[tag.id]);
-                                            console.log(newNames);
                                             return newNames
                                         })}
-                                        onFocus={() => {
-                                            setTagDelete(tag.id)
-                                            console.log('On Focus: ', tag.id);
-                                        }}
-                                        onBlur={() => {
-                                            saveTagName(tag.id, names[tag.id])
-                                            // setTimeout(() => setTagDelete(null), 3)
-                                        }}
+
                                         size={names[tag.id] ? names[tag.id].length : 5}
                                     >
                                     </SC.TagInput>
                                     {tagDelete === tag.id &&
-                                        <button
+                                        <SC.DeleteTagButton
                                             type='button'
-                                            onClick={() => deleteTag(tag.id)}
+                                            className='delete-tag'
+                                            onClick={() => {
+                                                deleteTag(tag.id)
+                                                console.log('Clicked!')
+                                            }}
                                         >
-                                            <UilTimes size='20' />
-                                        </button>
+                                            <UilTimes id='add-tag-icon' size='20' />
+                                        </SC.DeleteTagButton>
                                     }
                                 </SC.InputDiv>
                             ))}
