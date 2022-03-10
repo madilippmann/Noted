@@ -116,7 +116,6 @@ export default function Note({ userId }) {
 
 
     const saveTagName = async (tagId, name) => {
-        console.log('On Blur: ', tagId);
         if (name.length > !name.trim()) {
             await dispatch(tagsActions.updateTagThunk({
                 tagId,
@@ -240,7 +239,6 @@ export default function Note({ userId }) {
                                     }}
                                     onBlur={(e) => {
                                         saveTagName(tag.id, names[tag.id])
-                                        console.log(e.currentTarget);
                                         // e.preventDefault();
                                         // setTagDelete(null)
                                     }}

@@ -61,7 +61,6 @@ export default function Home() {
     const tagsElement = (noteId) => {
 
         const tags = formattedTags.filter(tag => tag.noteId === noteId)
-        console.log(tags);
         return (
             <SC.TagsOuterDiv>
                 {tags.map((tag, i) => {

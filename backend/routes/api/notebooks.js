@@ -45,7 +45,6 @@ router.patch(
         const { notebookId, userId } = req.params;
         const { title, updatedAt } = req.body;
 
-        console.log('ENTERED');
         const notebook = await Notebook.findOne({
             where: {
                 id: notebookId,

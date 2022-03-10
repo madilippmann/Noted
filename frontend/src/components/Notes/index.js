@@ -20,9 +20,11 @@ export default function Notes({ userId }) {
 
     const notes = useSelector(state => state.notes.notes);
     const tags = useSelector(state => state.tags.tags);
+    const originalFormattedNotes = sortByUpdatedAt(formatNotes(notes));
 
-
+    const [formattedNotes, setFormattedNotes] = useState(sortByUpdatedAt(formatNotes(notes)))
     const [searchInput, setSearchInput] = useState('')
+
 
     useEffect(() => {
         dispatch(notesActions.loadNotesThunk(sessionUser.id))
@@ -33,11 +35,21 @@ export default function Notes({ userId }) {
 
 
 
-    let formattedNotes = sortByUpdatedAt(formatNotes(notes));
+    // let formattedNotes = sortByUpdatedAt(formatNotes(notes));
 
     useEffect(() => {
-        formattedNotes = formattedNotes.filter(note => note.title.includes(searchInput))
-        console.log(formattedNotes);
+        if (searchInput === '') setFormattedNotes(originalFormattedNotes)
+
+        // setFormattedNotes(originalFormattedNotes)
+
+        const filtered = formattedNotes.filter(note => note.title.includes(searchInput))
+        if (filtered.length > 0) {
+            setFormattedNotes(filtered)
+        } else {
+            setFormattedNotes(originalFormattedNotes)
+        }
+        console.log('FORMATTED NOTES: ', formattedNotes);
+        console.log('ORIGINAL NOTES: ', originalFormattedNotes);
     }, [searchInput])
 
     const newNote = async () => {
@@ -52,7 +64,6 @@ export default function Notes({ userId }) {
     const tagsElement = (noteId) => {
 
         const tags = formattedTags.filter(tag => tag.noteId === noteId)
-        console.log(tags);
         return (
             <SC.TagsOuterDiv>
                 {tags.map((tag, i) => {
