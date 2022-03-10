@@ -67,10 +67,14 @@ export const ModalDiv = styled.div`
 export const TitleInput = styled.input`
     width: 100%;
     display: flex;
+    font-size: 24px;
     justify-content: center;
     border-radius: 0px;
     border: none;
     margin-bottom: 10px;
+    &:focus {
+        outline: none;
+    }
 `;
 
 export const ContentTextarea = styled.textarea`
@@ -80,6 +84,10 @@ export const ContentTextarea = styled.textarea`
     padding: 10px;
     border: none;
     resize: none;
+
+    &:focus {
+        outline: none;
+    }
 
 `;
 

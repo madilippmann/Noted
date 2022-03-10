@@ -64,11 +64,15 @@ export default function Home() {
         console.log(tags);
         return (
             <SC.TagsOuterDiv>
-                {tags.map(tag => (
-                    <SC.TagContainer key={tag.id}>
-                        {tag.name}
-                    </SC.TagContainer>
-                ))}
+                {tags.map((tag, i) => {
+                    if (i < 5) {
+                        return (
+                            <SC.TagContainer key={tag.id}>
+                                {tag.name}
+                            </SC.TagContainer>
+                        )
+                    }
+                })}
             </SC.TagsOuterDiv>
         )
     }

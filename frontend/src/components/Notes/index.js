@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Link, useHistory } from 'react-router-dom';
 
-import { UilPlusCircle } from '@iconscout/react-unicons';
+import { UilPlusCircle, UilSearchAlt } from '@iconscout/react-unicons';
 import * as notesActions from '../../store/notes';
 import * as tagsActions from '../../store/tags';
 
@@ -20,6 +20,8 @@ export default function Notes({ userId }) {
 
     const notes = useSelector(state => state.notes.notes);
     const tags = useSelector(state => state.tags.tags);
+
+    const [searchInput, setSearchInput] = useState('')
 
     useEffect(() => {
         dispatch(notesActions.loadNotesThunk(sessionUser.id))
@@ -45,11 +47,15 @@ export default function Notes({ userId }) {
         console.log(tags);
         return (
             <SC.TagsOuterDiv>
-                {tags.map(tag => (
-                    <SC.TagContainer key={tag.id}>
-                        {tag.name}
-                    </SC.TagContainer>
-                ))}
+                {tags.map((tag, i) => {
+                    if (i < 5) {
+                        return (
+                            <SC.TagContainer key={tag.id}>
+                                {tag.name}
+                            </SC.TagContainer>
+                        )
+                    }
+                })}
             </SC.TagsOuterDiv>
         )
     }
@@ -57,7 +63,21 @@ export default function Notes({ userId }) {
     return (
         <OuterDiv className='main notes-page-outer-container'>
             <div className='notes-page-container'>
-                <h1 className='notes-title'>Notes</h1>
+                <div>
+                    <h1 className='notes-title'>Notes</h1>
+                    <div className='rounded-container search-container'>
+                        <div className='icon-container search'>
+                            <UilSearchAlt size='25' />
+                        </div>
+                        <input
+                            className='search-input'
+                            type='text'
+                            value={searchInput}
+                            placeholder='Search by tag...'
+                            onChange={(e) => setSearchInput(e.target.value)}
+                        />
+                    </div>
+                </div>
                 <div className='notes-container'>
                     <button type='button' onClick={newNote}>
                         <div className='create-note-card square-card'>

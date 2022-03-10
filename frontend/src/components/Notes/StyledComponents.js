@@ -14,4 +14,7 @@ export const TagContainer = styled.div`
     background-color: rgb(255, 255, 255);
     padding: 3px 10px;
     margin-right: 5px;
+    margin-top: 5px;
 `;
+export const SearchBar = styled.div`
+ `

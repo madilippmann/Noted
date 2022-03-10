@@ -131,6 +131,12 @@ export default function Note({ userId }) {
 
 
 
+    useEffect(() => {
+        const interval = setInterval(() => { }, 60000)
+
+
+    }, [])
+
     return (
         // padding: '15px'
         <OuterDiv style={{
@@ -297,7 +303,7 @@ function DeleteNoteModal({ setDeleteNoteModal }) {
     return (
         <SC.Modal>
             <Slide direction='down'>
-                <SC.ModalDiv className='user-modal' style={{ top: '50px' }}>
+                <SC.ModalDiv className='user-modal' style={{ top: '110px', right: '-690px' }}>
                     <button
                         type='button'
                         onClick={() => setDeleteNoteModal(false)}
