@@ -29,7 +29,6 @@ export default function Notes({ userId }) {
     useEffect(() => {
         dispatch(notesActions.loadNotesThunk(sessionUser.id))
         dispatch(tagsActions.loadAllTagsThunk(sessionUser.id))
-        console.log('Entered');
     }, [dispatch])
 
 
