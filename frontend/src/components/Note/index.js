@@ -254,7 +254,8 @@ export default function Note({ userId }) {
                                 disabled={disabled}
                                 buttonColor='#4fb06b'
                             >
-                                Save
+                                {autosave ? <span>Autosave On</span> : <span>Save</span>}
+
                             </SC.Button>
                             <SC.Button
                                 type='button'
@@ -268,7 +269,7 @@ export default function Note({ userId }) {
                     </SC.CenteringDiv>
                     {deleteNoteModal && <DeleteNoteModal note={note} setDeleteNoteModal={setDeleteNoteModal} />}
                     <SC.CenteringDiv style={{ width: '100%' }}>
-                        {disabled && <SC.TitleError>Title must be between 1 and 100 characters long.</SC.TitleError>}
+                        {disabled && !autosave && <SC.TitleError>Title must be between 1 and 100 characters long.</SC.TitleError>}
 
                         <SC.TitleInput
                             value={title}
