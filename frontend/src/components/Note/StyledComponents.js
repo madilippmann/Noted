@@ -115,15 +115,26 @@ export const OuterInput = styled.div`
 
 export const TagInput = styled.input`
     border: none;
-    width: fit-content;
+    width: min-content;
+    height: 10px;
+    background-color: rgb(245, 245, 245);
+    padding; 0;
+    cursor: pointer;
 
     &:focus {
         outline: none;
+    }
+
+    &:hover {
+        background-color: rgb(235, 235, 235)
     }
 `;
 
 export const InputDiv = styled.div`
     display:flex;
+    height: fit-content;
+    border-radius: 25px;
+    background-color: rgb(245, 245, 245);
 
 `;
 

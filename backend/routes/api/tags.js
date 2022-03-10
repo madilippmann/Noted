@@ -66,11 +66,12 @@ router.post(
 router.patch(
     '/users/:userId(\\d+)/notes/:noteId(\\d+)/tags/:tagId(\\d+)',
     asyncHandler(async (req, res) => {
-        const { userId, noteId } = req.params;
+        const { userId, noteId, tagId } = req.params;
         const { name } = req.body;
 
         const tag = await Tag.findOne({
             where: {
+                id: tagId,
                 userId,
                 noteId
             }

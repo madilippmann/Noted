@@ -1,4 +1,5 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
+
 
 export const CenteringDiv = styled.div`
     width: 100%;

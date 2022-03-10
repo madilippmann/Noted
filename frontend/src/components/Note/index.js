@@ -23,7 +23,9 @@ export default function Note({ userId }) {
     const formattedNotebooks = sortByTitle(formatNotebooks(notebooks))
     const note = useSelector(state => state.notes.notes[noteId]);
     const tags = useSelector(state => state.tags.tags);
-    const formattedTags = formatTags(tags)
+
+    let formattedTags = formatTags(tags)
+
 
     const [title, setTitle] = useState(note.title);
     const [content, setContent] = useState(note.content);
@@ -33,6 +35,10 @@ export default function Note({ userId }) {
     const [save, setSave] = useState(false);
     const [tagDelete, setTagDelete] = useState(null);
 
+    // useEffect(() => {
+    //     formattedTags = formatTags(tags).filter(tag => tag.noteId === note.id)
+    //     console.log("formattedTags: ", formattedTags);
+    // }, [dispatch])
 
     const tagsObj = formattedTags.reduce((tags, tag) => {
         tags[tag.id] = tag.name
@@ -45,7 +51,8 @@ export default function Note({ userId }) {
     useEffect(() => {
         dispatch(notesActions.loadNotesThunk(userId))
         dispatch(notebooksActions.loadNotebooksThunk(userId))
-        dispatch(tagsActions.loadTagsThunk({ userId, noteId: note.id }))
+        dispatch(tagsActions.loadAllTagsThunk(userId))
+        console.log('Formatted: ', formattedTags);
     }, [dispatch])
 
 
@@ -110,6 +117,7 @@ export default function Note({ userId }) {
 
 
     const saveTagName = async (tagId, name) => {
+        console.log('On Blur: ', tagId);
         if (name.length > !name.trim()) {
             await dispatch(tagsActions.updateTagThunk({
                 tagId,
@@ -217,16 +225,25 @@ export default function Note({ userId }) {
                         <SC.TagsContainer>
                             <h4>Tags:</h4>
                             {formattedTags.length > 0 && formattedTags.map(tag => (
-                                <SC.InputDiv>
+                                tag.noteId === note.id && <SC.InputDiv key={tag.id}>
                                     <SC.TagInput
                                         value={names[tag.id]}
-                                        onChange={(e) => setNames(() => {
-                                            const newNames = { ...names }
+                                        onChange={(e) => setNames((prevNames) => {
+                                            const newNames = { ...prevNames }
                                             newNames[tag.id] = e.target.value
+                                            console.log(newNames[tag.id]);
+                                            console.log(newNames);
                                             return newNames
                                         })}
-                                        onFocus={() => setTagDelete(tag.id)}
-                                        onBlur={() => saveTagName(tag.id, names[tag.id])}
+                                        onFocus={() => {
+                                            setTagDelete(tag.id)
+                                            console.log('On Focus: ', tag.id);
+                                        }}
+                                        onBlur={() => {
+                                            saveTagName(tag.id, names[tag.id])
+                                            // setTimeout(() => setTagDelete(null), 3)
+                                        }}
+                                        size={names[tag.id] ? names[tag.id].length : 5}
                                     >
                                     </SC.TagInput>
                                     {tagDelete === tag.id &&
@@ -247,7 +264,8 @@ export default function Note({ userId }) {
                                 type='button'
                                 onClick={() => dispatch(tagsActions.createTagThunk({
                                     userId: note.userId,
-                                    noteId: note.id
+                                    noteId: note.id,
+                                    name: 'New Tag'
                                 }))}
                             >
                                 <UilPlusCircle size='25' />

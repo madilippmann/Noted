@@ -46,10 +46,10 @@ export const loadAllTagsThunk = (userId) => async (dispatch) => {
 
 
 // Thunk for creating new tag
-export const createTagThunk = ({ userId, noteId }) => async (dispatch) => {
+export const createTagThunk = ({ userId, noteId, name }) => async (dispatch) => {
     const res = await csrfFetch(`/api/users/${userId}/notes/${noteId}/tags`, {
         method: 'POST',
-        body: JSON.stringify({ name: 'New Tag' })
+        body: JSON.stringify({ name })
     });
 
     const tag = await res.json()
@@ -80,7 +80,6 @@ export const updateTagThunk = (tagData) => async (dispatch) => {
         method: 'PATCH',
         body: JSON.stringify({ name, noteId, tagId })
     });
-
     const tag = await res.json()
     dispatch(updateTag(tag.tag))
 }
