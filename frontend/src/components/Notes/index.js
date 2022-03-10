@@ -21,6 +21,7 @@ export default function Notes({ userId }) {
     const notes = useSelector(state => state.notes.notes);
     const tags = useSelector(state => state.tags.tags);
 
+
     const [searchInput, setSearchInput] = useState('')
 
     useEffect(() => {
@@ -30,7 +31,14 @@ export default function Notes({ userId }) {
     }, [dispatch])
 
 
+
+
     let formattedNotes = sortByUpdatedAt(formatNotes(notes));
+
+    useEffect(() => {
+        formattedNotes = formattedNotes.filter(note => note.title.includes(searchInput))
+        console.log(formattedNotes);
+    }, [searchInput])
 
     const newNote = async () => {
         const noteId = await dispatch(notesActions.createNoteThunk(userId))
@@ -63,9 +71,9 @@ export default function Notes({ userId }) {
     return (
         <OuterDiv className='main notes-page-outer-container'>
             <div className='notes-page-container'>
-                <div>
+                <SC.TopDiv>
                     <h1 className='notes-title'>Notes</h1>
-                    <div className='rounded-container search-container'>
+                    <SC.SearchBar className='rounded-container search-container'>
                         <div className='icon-container search'>
                             <UilSearchAlt size='25' />
                         </div>
@@ -76,8 +84,8 @@ export default function Notes({ userId }) {
                             placeholder='Search by tag...'
                             onChange={(e) => setSearchInput(e.target.value)}
                         />
-                    </div>
-                </div>
+                    </SC.SearchBar>
+                </SC.TopDiv>
                 <div className='notes-container'>
                     <button type='button' onClick={newNote}>
                         <div className='create-note-card square-card'>

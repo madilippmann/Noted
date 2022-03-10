@@ -16,5 +16,14 @@ export const TagContainer = styled.div`
     margin-right: 5px;
     margin-top: 5px;
 `;
+
 export const SearchBar = styled.div`
+    width: 250px;
  `
+
+
+export const TopDiv = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+ `;
