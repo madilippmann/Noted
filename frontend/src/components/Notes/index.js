@@ -23,11 +23,15 @@ export default function Notes({ userId }) {
     const tags = useSelector(state => state.tags.tags);
     const originalFormattedNotes = sortByUpdatedAt(formatNotes(notes));
 
-    const [formattedNotes, setFormattedNotes] = useState(sortByUpdatedAt(formatNotes(notes)))
-    const [formattedTags, setFormattedTags] = useState(formatTags(tags))
+    const [formattedNotes, setFormattedNotes] = useState([])
+    const [formattedTags, setFormattedTags] = useState([])
 
     const [searchInput, setSearchInput] = useState('');
 
+    useEffect(() => {
+        setFormattedNotes(sortByUpdatedAt(formatNotes(notes)))
+        setFormattedTags(formatTags(tags))
+    }, [notes, tags])
 
     useEffect(() => {
         dispatch(notesActions.loadNotesThunk(sessionUser.id));
