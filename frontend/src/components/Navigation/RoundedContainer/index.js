@@ -78,7 +78,7 @@ const RoundedContainer = ({ userId, type }) => {
                             className='search-input'
                             type='text'
                             value={searchInput}
-                            placeholder='Search'
+                            placeholder='Search titles'
                             onChange={(e) => handleSearch(e)}
                         />
                     </div>
