@@ -146,3 +146,11 @@ export const ModalDiv = styled.div`
 
 export const Table = styled.div`
 `;
+
+
+
+export const H1 = styled.h1`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+`;

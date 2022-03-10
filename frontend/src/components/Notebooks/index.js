@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Link, useHistory } from 'react-router-dom';
 
-import { UilTimes, UilPlus, UilPlusCircle, UilEllipsisH, UilAngleRight, UilFileAlt, UilBook } from '@iconscout/react-unicons';
+import { UilTimes, UilBooks, UilPlus, UilPlusCircle, UilEllipsisH, UilAngleRight, UilFileAlt, UilBook } from '@iconscout/react-unicons';
 import * as notesActions from '../../store/notes';
 import * as notebooksActions from '../../store/notebooks';
 
@@ -95,7 +95,7 @@ export default function Notebooks() {
         <OuterDiv style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <SC.MainDiv>
                 {/* <div style={{ borderBottom: '1px solid rgba(255, 255, 255)' }}> */}
-                <h1 >Notebooks</h1>
+                <SC.H1><UilBooks size='40' />Notebooks</SC.H1>
                 {/* </div> */}
                 <SC.UpperDiv>
                     <div className='flex-end'>
