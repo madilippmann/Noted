@@ -52,7 +52,6 @@ export default function Note({ userId }) {
         dispatch(notesActions.loadNotesThunk(userId))
         dispatch(notebooksActions.loadNotebooksThunk(userId))
         dispatch(tagsActions.loadAllTagsThunk(userId))
-        console.log('Formatted: ', formattedTags);
     }, [dispatch])
 
 

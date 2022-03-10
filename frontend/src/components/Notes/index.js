@@ -36,7 +36,8 @@ export default function Notes({ userId }) {
         return <Redirect to={`/notes/${noteId}`} />
     }
 
-    const formattedTags = formatTags(tags);
+
+    let formattedTags = formatTags(tags);
 
     const tagsElement = (noteId) => {
 
@@ -71,7 +72,7 @@ export default function Notes({ userId }) {
                             <div key={note.id} className='square-card note-card'>
                                 <h3 className='note-card-title'>{note.title}</h3>
                                 <p className='note-card-content'>{note.content}</p>
-                                {tags[note.id] && tagsElement(note.id)}
+                                {tagsElement(note.id)}
                                 <p className='note-card-date'>{note.updatedAt}</p>
                             </div>
                         </Link>

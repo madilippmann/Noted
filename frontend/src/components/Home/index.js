@@ -84,7 +84,7 @@ export default function Home() {
                             <div key={note.id} className='square-card note-card no-border'>
                                 <h3 className='note-card-title'>{note.title}</h3>
                                 <p className='note-card-content'>{note.content}</p>
-                                {tags[note.id] && tagsElement(note.id)}
+                                {tagsElement(note.id)}
                                 <p className='note-card-date'>{note.updatedAt}</p>
                             </div>
                         </Link>
