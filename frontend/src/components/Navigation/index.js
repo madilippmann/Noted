@@ -129,13 +129,13 @@ export default function Navigation() {
                 >
                     <NavigationContainer type='Notes' dropdown={true} />
                 </NavLink>
-                <NavLink
+                {/* <NavLink
                     className='main-nav-links'
                     to='/tags'
                     style={(isActive) => isActive ? { backgroundColor: `rgb(232, 220, 255)` } : { backgroundColor: `transparent` }}
                 >
                     <NavigationContainer type='Tags' dropdown={true} />
-                </NavLink>
+                </NavLink> */}
 
 
             </nav>
