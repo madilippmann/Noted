@@ -5,6 +5,7 @@ import { Redirect, Link, useHistory } from 'react-router-dom';
 import { UilPlusCircle, UilSearchAlt } from '@iconscout/react-unicons';
 import * as notesActions from '../../store/notes';
 import * as tagsActions from '../../store/tags';
+import { loadSearchThunk, updateSearchThunk } from "../../store/search";
 
 import * as SC from './StyledComponents';
 
@@ -22,34 +23,39 @@ export default function Notes({ userId }) {
     const tags = useSelector(state => state.tags.tags);
     const originalFormattedNotes = sortByUpdatedAt(formatNotes(notes));
 
+    const search = useSelector(state => state.search);
+
+
     const [formattedNotes, setFormattedNotes] = useState(sortByUpdatedAt(formatNotes(notes)))
-    const [searchInput, setSearchInput] = useState('')
+    const [formattedTags, setFormattedTags] = useState(formatTags(tags))
+
+    const [searchInput, setSearchInput] = useState('');
 
 
     useEffect(() => {
-        dispatch(notesActions.loadNotesThunk(sessionUser.id))
-        dispatch(tagsActions.loadAllTagsThunk(sessionUser.id))
+        dispatch(notesActions.loadNotesThunk(sessionUser.id));
+        dispatch(tagsActions.loadAllTagsThunk(sessionUser.id));
+        dispatch(updateSearchThunk(''));
     }, [dispatch])
 
 
+    const handleSearch = (e) => {
+        setSearchInput(e.target.value)
+        if (e.target.value.length > 0) {
 
+            const noteIds = formattedTags.reduce((noteIds, tag) => {
+                if (tag.name.toLowerCase().includes(e.target.value.toLowerCase())) {
+                    noteIds.add(tag.noteId)
+                }
 
-    // let formattedNotes = sortByUpdatedAt(formatNotes(notes));
+                return noteIds;
+            }, new Set())
 
-    useEffect(() => {
-        if (searchInput === '') setFormattedNotes(originalFormattedNotes)
-
-        // setFormattedNotes(originalFormattedNotes)
-
-        const filtered = formattedNotes.filter(note => note.title.includes(searchInput))
-        if (filtered.length > 0) {
-            setFormattedNotes(filtered)
+            setFormattedNotes(originalFormattedNotes.filter(note => Array.from(noteIds).includes(note.id)))
         } else {
             setFormattedNotes(originalFormattedNotes)
         }
-        console.log('FORMATTED NOTES: ', formattedNotes);
-        console.log('ORIGINAL NOTES: ', originalFormattedNotes);
-    }, [searchInput])
+    }
 
     const newNote = async () => {
         const noteId = await dispatch(notesActions.createNoteThunk(userId))
@@ -58,7 +64,6 @@ export default function Notes({ userId }) {
     }
 
 
-    let formattedTags = formatTags(tags);
 
     const tagsElement = (noteId) => {
 
@@ -92,7 +97,7 @@ export default function Notes({ userId }) {
                             type='text'
                             value={searchInput}
                             placeholder='Search by tag...'
-                            onChange={(e) => setSearchInput(e.target.value)}
+                            onChange={(e) => handleSearch(e)}
                         />
                     </SC.SearchBar>
                 </SC.TopDiv>

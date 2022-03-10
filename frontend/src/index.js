@@ -13,7 +13,7 @@ import * as sessionActions from './store/session';
 import * as notesActions from "./store/notes";
 import * as notebooksActions from "./store/notebooks";
 import * as tagsActions from "./store/tags";
-
+import * as searchActions from './store/search'
 import { restoreCSRF, csrfFetch } from './store/csrf';
 
 const store = configureStore();
@@ -28,6 +28,7 @@ if (process.env.NODE_ENV !== 'production') {
   window.notesActions = notesActions;
   window.notebooksActions = notebooksActions;
   window.tagsActions = tagsActions;
+  window.searchActions = searchActions;
 
 }
 
