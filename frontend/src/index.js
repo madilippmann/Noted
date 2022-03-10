@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import configureStore from './store/index'
+
+import AutosaveProvider from './context/AutosaveContext';
 import * as sessionActions from './store/session';
 import * as notesActions from "./store/notes";
 import * as notebooksActions from "./store/notebooks";
@@ -33,9 +35,11 @@ if (process.env.NODE_ENV !== 'production') {
 function Root() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <AutosaveProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </AutosaveProvider>
     </Provider>
   );
 }

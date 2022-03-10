@@ -7,6 +7,8 @@ import NavigationContainer from './NavigationContainer';
 import RubberBand from '../Animations/RubberBand';
 import Slide from '../Animations/Slide';
 
+import { useAutosaveContext } from '../../context/AutosaveContext';
+
 import * as sessionActions from '../../store/session';
 import * as notesActions from '../../store/notes';
 
@@ -23,7 +25,7 @@ export default function Navigation() {
     const notes = useSelector(state => state.notes.notes)
     const history = useHistory();
     const [userDropdown, setUserDropdown] = useState(false);
-    const [autosave, setAutosave] = useState(localStorage.getItem('autosave-notes') || false)
+    const { autosave, setAutosave } = useAutosaveContext();
     const handleClick = async () => {
         const noteId = await dispatch(notesActions.createNoteThunk(sessionUser.id))
         history.push(`/notes/${noteId}`)
@@ -40,6 +42,8 @@ export default function Navigation() {
         setAutosave(!autosave);
         localStorage.setItem('autosave-notes', autosave);
     }
+
+
 
     return (
         <div className='sidebar'>

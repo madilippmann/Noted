@@ -8,6 +8,8 @@ import * as tagsActions from '../../store/tags';
 
 import * as SC from './StyledComponents'
 
+import { useAutosaveContext } from "../../context/AutosaveContext";
+
 import './Note.css';
 import { formatNotebooks, formatTags, sortByTitle, formattedDate, OuterDiv } from "../utils/utils";
 import { UilTimes, UilCheck, UilPlusCircle, UilArrowCircleLeft } from '@iconscout/react-unicons'
@@ -35,10 +37,13 @@ export default function Note({ userId }) {
     const [save, setSave] = useState(false);
     const [tagDelete, setTagDelete] = useState(null);
 
-    // useEffect(() => {
-    //     formattedTags = formatTags(tags).filter(tag => tag.noteId === note.id)
-    //     console.log("formattedTags: ", formattedTags);
-    // }, [dispatch])
+    // const [autosave, setAutosave] = useState(localStorage.getItem('autosave-notes'))
+
+    const { autosave, setAutosave } = useAutosaveContext();
+    useEffect(() => {
+
+        console.log("autosave: ", autosave);
+    }, [autosave])
 
     const tagsObj = formattedTags.reduce((tags, tag) => {
         tags[tag.id] = tag.name
@@ -71,9 +76,24 @@ export default function Note({ userId }) {
         }
     }, [save])
 
-    const saveNote = async (e) => {
-        e.preventDefault()
 
+    useEffect(() => {
+        console.log('Entered autosave')
+        const interval = setInterval(async () => {
+            if (autosave) {
+
+                console.log('Every 10 seconds');
+                saveNote()
+                console.log(interval)
+
+            }
+        }, 10000)
+        return () => clearInterval(interval)
+    }, [])
+
+    const saveNote = async (e) => {
+        // e.preventDefault()
+        console.log('saved');
         if (notebookId && notebookId !== null) {
             const noteData = {
                 title,
