@@ -238,7 +238,11 @@ export default function Note({ userId }) {
                                 </SC.ClickableIcon>
                             </Link>
 
-                            <p style={{ width: '100%', fontSize: '12px', flexGrow: '4', alignSelf: 'flex-end', margin: '0' }}><span style={{ fontWeight: '800' }}>Last Updated:</span> {formattedDate(note.updatedAt)}</p>
+                            {!autosave && <p style={{ width: '100%', fontSize: '12px', flexGrow: '4', alignSelf: 'flex-end', margin: '0' }}>
+                                <span style={{ fontWeight: '800' }}>
+                                    Last Updated:
+                                </span> {formattedDate(note.updatedAt)}
+                            </p>}
                         </div>
                         <SC.ButtonDiv2>
                             <div style={{ paddingRight: '10px' }}>

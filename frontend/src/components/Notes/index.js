@@ -29,7 +29,7 @@ export default function Notes({ userId }) {
     useEffect(() => {
         dispatch(notesActions.loadNotesThunk(sessionUser.id))
         dispatch(tagsActions.loadAllTagsThunk(sessionUser.id))
-
+        console.log('Entered');
     }, [dispatch])
 
 
@@ -106,7 +106,7 @@ export default function Notes({ userId }) {
                     </button>
 
 
-                    {formattedNotes.map(note => (
+                    {formattedNotes?.map(note => (
                         <Link to={`/notes/${note.id}`} >
                             <div key={note.id} className='square-card note-card'>
                                 <h3 className='note-card-title'>{note.title}</h3>
