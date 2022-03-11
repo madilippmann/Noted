@@ -1,6 +1,22 @@
 import styled from 'styled-components'
 
 export function formattedDate(date) {
+
+    let newDate = new Date(date)
+    let a = new Date().toUTCString()
+
+    newDate = newDate.toLocaleString();
+    // console.log(a)
+    // console.log(newDate);
+
+    // console.log('TEST: ', Date.parse(`${toParse}`));
+
+    // let a = new Date(newDate)
+    // // console.log(Date(newDate).toUTCString());
+    // // console.log(Date.parse(Date(newDate)));
+    return newDate
+
+    // console.log('DATE: ', newDate.toLocaleString());
     let yearMonthDay = date.split('T')[0].split('-');
     let year = yearMonthDay[0];
     let month = yearMonthDay[1];
@@ -10,6 +26,7 @@ export function formattedDate(date) {
 
     let ampm = '';
 
+    let second = time[2];
     let minute = time[1];
     let hour = time[0];
 
@@ -21,8 +38,7 @@ export function formattedDate(date) {
         ampm = 'AM';
     }
 
-    return `${month}-${day}-${year} ${hour}:${minute} ${ampm}`
-
+    return `${month}-${day}-${year} ${hour}:${minute}:${second} ${ampm}`
 }
 
 export function shortenedContent(content) {
@@ -40,12 +56,44 @@ export function shortenedContent(content) {
 
 
 export function sortByUpdatedAt(notes) {
+
+
     return notes.sort((a, b) => {
-        const dateA = Date.parse(a.updatedAt);
-        const dateB = Date.parse(b.updatedAt);
-        if (dateB > dateA) return 1
-        else if (dateB < dateA) return -1
-        else return 0;
+
+
+
+        // let b = new Date(newDate).toUTCString().split(', ').slice(1)[0];
+        // console.log(b);
+
+        // let toParse = b.
+        //     console.log(toParse);
+
+        // console.log(Date.parse(toParse));
+
+
+
+
+        // console.log("RAW: ", a.updatedAt, b.updatedAt);
+        // const dateA = Date.parse(a.updatedAt);
+
+        // console.log('DATE A: ', dateA);
+        // const dateB = Date.parse(b.updatedAt);
+        // console.log('DATE B: ', dateB);
+        const dateA = new Date(a.updatedAt).toUTCString().split(', ').slice(1)[0];
+        const dateB = new Date(b.updatedAt).toUTCString().split(', ').slice(1)[0];
+
+        if (Date.parse(dateB) > Date.parse(dateA)) {
+            // console.log('B is greater');
+            return 1
+        } else if (Date.parse(dateA) < Date.parse(dateB)) {
+            // console.log('A is greater');
+            return -1
+
+        } else {
+            // console.log('Same');
+
+            return 0
+        }
     })
 }
 
