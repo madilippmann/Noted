@@ -38,6 +38,9 @@ export default function Home() {
     let formattedNotebooks = sortByUpdatedAt(formatNotebooks(notebooks)).slice(0, 3);
     const formattedTags = formatTags(tags)
 
+    useEffect(() => { console.log('FORMATTED NOTES: ', formattedNotes) }, [formattedNotes])
+
+
     const addNote = async () => {
         const noteId = await dispatch(notesActions.createNoteThunk(sessionUser.id))
         history.push(`/notes/${noteId}`)
