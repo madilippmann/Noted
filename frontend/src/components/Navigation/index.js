@@ -177,7 +177,10 @@ export default function Navigation() {
                     {/* <NavigationContainer type='Notebooks' dropdown={true} /> */}
                     <div className='nav-sidebar-container'>
                         <div id='arrow-icon-container'>
-                            <button data-name='notebooks' onClick={() => setNotebooksDropdown(!notebooksDropdown)} className='arrow-right-button' type='button' >
+                            <button data-name='notebooks' onClick={(e) => {
+                                e.preventDefault();
+                                setNotebooksDropdown(!notebooksDropdown)
+                            }} className='arrow-right-button' type='button' >
                                 <UilAngleRight className={`arrow-right-icon ${notebooksDropdown}`} side='40' style={{ color: `black` }} />
                             </button>
                         </div>
@@ -214,7 +217,10 @@ export default function Navigation() {
 
                     <div className='nav-sidebar-container'>
                         <div id='arrow-icon-container'>
-                            <button onClick={() => setNotesDropdown(!notesDropdown)} className='arrow-right-button' type='button' >
+                            <button onClick={(e) => {
+                                e.preventDefault();
+                                setNotesDropdown(!notesDropdown)
+                            }} className='arrow-right-button' type='button' >
                                 <UilAngleRight className={`arrow-right-icon ${notesDropdown}`} side='40' style={{ color: `black` }} />
                             </button>
                         </div>
