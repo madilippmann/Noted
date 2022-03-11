@@ -39,11 +39,11 @@
 button.ellipsis {
     border: none;
     background-color: transparent;
-    color: black
+    color:rgb(124, 0, 249);
 }
 
 button.ellipsis:hover {
-    color:rgb(124, 0, 249);
+    color: black
 }
 
 #user-full-name {
@@ -74,7 +74,7 @@ button.ellipsis:hover {
 
 .user-full-name {
     font-size: 15px;
-    color: #5D2BC5;
+    /* color: #5D2BC5; */
 }
 
 

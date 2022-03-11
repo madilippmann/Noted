@@ -66,29 +66,15 @@ export default function Navigation() {
         localStorage.setItem('autosave-notes', autosave);
     }
 
-    // const toggleNav = (name) => {
-    //     console.log('BEFORE: ', openNav)
-    //     if (openNav.has(name)) {
-    //         setOpenNav((set) => {
-    //             set.delete(name)
-    //             return set
-    //         })
-    //     } else {
-    //         setOpenNav((set) => {
-    //             return set.add(name)
-    //         })
-    //     }
-    //     console.log('AFTER: ', openNav)
 
-    // }
 
     return (
         <div className='sidebar'>
 
             <div className='sidebar-img-container'>
-                <RubberBand>
-                    <img className='logo' src={logo} />
-                </RubberBand>
+                {/* <RubberBand> */}
+                <img className='logo' src={logo} />
+                {/* </RubberBand> */}
             </div>
 
             <div className='user-bar-container'>

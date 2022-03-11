@@ -100,7 +100,7 @@ const RoundedContainer = ({ userId, type }) => {
                                 <h4>Notebooks</h4>
                                 <div className='results'>
                                     {filteredNotebooks.length > 0 ? filteredNotebooks.map(notebook => (
-                                        <Link to={`/notebooks/${notebook.id}`}>
+                                        <Link key={notebook.id} to={`/notebooks/${notebook.id}`}>
                                             <p className='result-link' key={notebook.id}>{notebook.title}</p>
                                         </Link>
                                     )) : <p className='italicize'>No results</p>}
