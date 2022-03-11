@@ -40,12 +40,7 @@ export default function Note({ userId }) {
     const [save, setSave] = useState(false);
     const [tagDelete, setTagDelete] = useState(null);
 
-    // const [autosave, setAutosave] = useState(localStorage.getItem('autosave-notes'))
 
-    // useEffect(() => {
-
-    //     console.log("autosave: ", autosave);
-    // }, [autosave])
 
     const tagsObj = formattedTags.reduce((tags, tag) => {
         tags[tag.id] = tag.name

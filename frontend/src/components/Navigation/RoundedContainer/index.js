@@ -41,7 +41,6 @@ const RoundedContainer = ({ userId, type }) => {
 
     const handleSearch = (e) => {
         setSearchInput(e.target.value)
-        // console.log('NEW', formattedNotes);
         if (e.target.value.length > 0) {
 
             const filteredNotes = sortByTitle(formattedNotes.reduce((filteredNotes, note) => {
@@ -62,8 +61,6 @@ const RoundedContainer = ({ userId, type }) => {
 
             setFilteredNotes(filteredNotes);
             setFilteredNotebooks(filteredNotebooks);
-            console.log('Filtered Notes: ', filteredNotes);
-            console.log('Filtered Notebooks: ', filteredNotebooks);
 
         } else {
 

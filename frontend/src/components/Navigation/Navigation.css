@@ -266,3 +266,22 @@ div.autosave *:hover {
 .nav-sidebar-container h4:hover {
     font-weight: 900;
 }
+
+
+.arrow-right-icon.true {
+    transform: rotate(90deg);
+}
+
+.arrow-right-icon.false {
+    transform: rotate(0deg);
+}
+
+
+div.nav-dropdown-outer {
+    padding: 0 40px;
+}
+
+div.nav-dropdown {
+    padding-top: 5px;
+    padding-bottom: 20px;
+}

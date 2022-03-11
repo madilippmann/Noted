@@ -11,30 +11,53 @@ import { useAutosaveContext } from '../../context/AutosaveContext';
 
 import * as sessionActions from '../../store/session';
 import * as notesActions from '../../store/notes';
+import * as notebooksActions from '../../store/notebooks';
 
 import * as SC from './StyledComponents.js';
+import { sortByUpdatedAt, formatNotebooks, formatNotes } from '../utils/utils';
 
 import './Navigation.css';
 import logo from '../static/images/noted-logo.png';
 
-import { UilUserCircle, UilCheck, UilEllipsisH, UilSignout } from '@iconscout/react-unicons';
+import { UilUserCircle, UilCheck, UilEllipsisH, UilSignout, UilHome, UilBooks, UilAngleRight, UilFileAlt, UilTagAlt } from '@iconscout/react-unicons';
 
 export default function Navigation() {
     const dispatch = useDispatch();
+    const history = useHistory();
+
     const sessionUser = useSelector(state => state.session.user);
     const notes = useSelector(state => state.notes.notes)
-    const history = useHistory();
-    const [userDropdown, setUserDropdown] = useState(false);
+    const notebooks = useSelector(state => state.notebooks.notebooks)
+
     const { autosave, setAutosave } = useAutosaveContext();
+
+    const [userDropdown, setUserDropdown] = useState(false);
+
+    const [notesDropdown, setNotesDropdown] = useState(false);
+    const [notebooksDropdown, setNotebooksDropdown] = useState(false);
+
+    const [formattedNotes, setFormattedNotes] = useState([])
+    const [formattedNotebooks, setFormattedNotebooks] = useState([])
+
+
+    useEffect(() => {
+        dispatch(notesActions.loadNotesThunk(sessionUser.id))
+        dispatch(notebooksActions.loadNotebooksThunk(sessionUser.id))
+    }, [dispatch])
+
+
+    useEffect(() => {
+        setFormattedNotes(sortByUpdatedAt(formatNotes(notes)))
+        setFormattedNotebooks(sortByUpdatedAt(formatNotebooks(notebooks)))
+    }, [notes, notebooks])
+
+
     const handleClick = async () => {
         const noteId = await dispatch(notesActions.createNoteThunk(sessionUser.id))
         history.push(`/notes/${noteId}`)
         return <Redirect to={`/notes/${noteId}`} />
     }
 
-    useEffect(() => {
-        dispatch(notesActions.loadNotesThunk(sessionUser.id))
-    }, [dispatch])
 
 
 
@@ -43,7 +66,21 @@ export default function Navigation() {
         localStorage.setItem('autosave-notes', autosave);
     }
 
+    // const toggleNav = (name) => {
+    //     console.log('BEFORE: ', openNav)
+    //     if (openNav.has(name)) {
+    //         setOpenNav((set) => {
+    //             set.delete(name)
+    //             return set
+    //         })
+    //     } else {
+    //         setOpenNav((set) => {
+    //             return set.add(name)
+    //         })
+    //     }
+    //     console.log('AFTER: ', openNav)
 
+    // }
 
     return (
         <div className='sidebar'>
@@ -130,34 +167,94 @@ export default function Navigation() {
             </div>
 
             <nav className='nav-bars-container'>
+
+
                 <NavLink
                     className='main-nav-links'
                     exact to='/'
                     style={(isActive) => isActive ? { backgroundColor: `rgb(232, 220, 255)` } : { backgroundColor: `transparent` }}
                 >
-                    <NavigationContainer className='home-nav' type='Home' dropdown={false} />
+                    {/* <NavigationContainer className='home-nav' type='Home' dropdown={false} /> */}
+                    <div className='nav-sidebar-container'>
+                        <div className='filler'></div>
+                        <div className='nav-icon-container'><UilHome side='30' className='icon' /></div>
+                        <h4>Home</h4>
+                    </div>
                 </NavLink>
+
+
                 <NavLink
                     className='main-nav-links'
                     to='/notebooks'
                     style={(isActive) => isActive ? { backgroundColor: `rgb(232, 220, 255)` } : { backgroundColor: `transparent` }}
                 >
-                    <NavigationContainer type='Notebooks' dropdown={true} />
+                    {/* <NavigationContainer type='Notebooks' dropdown={true} /> */}
+                    <div className='nav-sidebar-container'>
+                        <div id='arrow-icon-container'>
+                            <button data-name='notebooks' onClick={() => setNotebooksDropdown(!notebooksDropdown)} className='arrow-right-button' type='button' >
+                                <UilAngleRight className={`arrow-right-icon ${notebooksDropdown}`} side='40' style={{ color: `black` }} />
+                            </button>
+                        </div>
+                        <div className='nav-icon-container'><UilBooks side='30' className='icon' /></div>
+                        <h4>Notebooks</h4>
+                    </div>
+
                 </NavLink>
+
+                {notebooksDropdown && <div className='results-outer-container nav-dropdown-outer'>
+                    <div className='results-container nav-dropdown'>
+                        <div className='results'>
+                            {formattedNotebooks?.map((notebook, i) => {
+                                if (i < 5) {
+                                    return (
+                                        <Link to={`/notes/${notebook.id}`}>
+                                            <p className='result-link' key={notebook.id}>‣ {notebook.title}</p>
+                                        </Link>
+                                    )
+                                }
+                            })}
+
+                        </div>
+
+                    </div>
+                </div>}
+
                 <NavLink
                     className='main-nav-links'
                     to='/notes'
                     style={(isActive) => isActive ? { backgroundColor: `rgb(232, 220, 255)` } : { backgroundColor: `transparent` }}
                 >
-                    <NavigationContainer type='Notes' dropdown={true} />
+                    {/* <NavigationContainer type='Notes' dropdown={true} /> */}
+
+                    <div className='nav-sidebar-container'>
+                        <div id='arrow-icon-container'>
+                            <button onClick={() => setNotesDropdown(!notesDropdown)} className='arrow-right-button' type='button' >
+                                <UilAngleRight className={`arrow-right-icon ${notesDropdown}`} side='40' style={{ color: `black` }} />
+                            </button>
+                        </div>
+                        <div className='nav-icon-container'><UilFileAlt side='30' className='icon' /></div>
+                        <h4>Notes</h4>
+                    </div>
                 </NavLink>
-                {/* <NavLink
-                    className='main-nav-links'
-                    to='/tags'
-                    style={(isActive) => isActive ? { backgroundColor: `rgb(232, 220, 255)` } : { backgroundColor: `transparent` }}
-                >
-                    <NavigationContainer type='Tags' dropdown={true} />
-                </NavLink> */}
+
+                {notesDropdown && <div className='results-outer-container nav-dropdown-outer'>
+                    <div className='results-container nav-dropdown'>
+                        <div className='results'>
+                            {formattedNotes?.map((note, i) => {
+                                if (i < 5) {
+                                    return (
+                                        <Link to={`/notes/${note.id}`}>
+                                            <p className='result-link' key={note.id}>‣ {note.title}</p>
+                                        </Link>
+                                    )
+                                }
+                            })}
+
+                        </div>
+
+                    </div>
+                </div>}
+
 
 
             </nav>
