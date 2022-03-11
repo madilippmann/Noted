@@ -16,11 +16,13 @@ export const Backdrop = styled.div`
     border-radius: 15px;
     padding: 10px;
     height: 50%;
+    min-height: 325px;
 
 `;
 
 export const NotesContainer = styled.div`
     width: 100%;
+    height: 80%;
     display: flex;
     flex-direction: row;
     overflow-y: auto;

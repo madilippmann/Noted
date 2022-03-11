@@ -6,8 +6,8 @@ export const MainDiv = styled.div`
     width: 95%;
     padding: 25px 50px;
 
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, .85);
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, .97);
 
     overflow-y: auto;
     &::-webkit-scrollbar {
@@ -153,4 +153,7 @@ export const H1 = styled.h1`
     display: flex;
     align-items: center;
     gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(205, 205, 205);
+
 `;

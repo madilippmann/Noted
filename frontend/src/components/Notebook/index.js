@@ -102,6 +102,8 @@ export default function Notebook() {
     return (
         <OuterDiv style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <SC.MainDiv>
+
+
                 <SC.H1><UilBook size='40' />{notebook?.title}</SC.H1>
 
                 <SC.UpperDiv>

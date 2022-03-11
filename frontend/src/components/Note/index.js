@@ -19,6 +19,7 @@ import Slide from "../Animations/Slide";
 export default function Note({ userId }) {
     const { noteId } = useParams();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const sessionUser = useSelector(state => state.session.user);
     const notebooks = useSelector(state => state.notebooks.notebooks);
@@ -199,14 +200,16 @@ export default function Note({ userId }) {
 
     }, [])
 
+
+
     return (
         // padding: '15px'
         <OuterDiv
             style={{
-                backgroundColor: 'rgba(251, 250, 255, .9)',
-                borderRadius: '10px',
-                width: '70%',
-                height: '90%',
+                borderRadius: '5px',
+                backgroundColor: 'rgba(255, 255, 255, .85)',
+                width: '76%',
+                height: '95%',
                 margin: 'auto'
             }}
         >
@@ -216,11 +219,13 @@ export default function Note({ userId }) {
                 <SC.CenteringDiv style={{ width: '100%', alignItems: 'flex-start' }}>
                     <SC.CenteringDiv style={{ flexDirection: 'row', paddingBottom: '10px', alignItems: 'flex-end' }}>
                         <div style={{ width: '100%' }}>
-                            <Link to='/notes'>
+                            {/* <Link to='/notes'> */}
+                            <button type='button' onClick={() => history.goBack()}>
                                 <SC.ClickableIcon>
                                     <UilArrowCircleLeft size='40' />
                                 </SC.ClickableIcon>
-                            </Link>
+                            </button>
+                            {/* </Link> */}
 
                             {!autosave && <p style={{ width: '100%', fontSize: '12px', flexGrow: '4', alignSelf: 'flex-end', margin: '0' }}>
                                 <span style={{ fontWeight: '800' }}>
