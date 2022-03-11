@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Link, useHistory, useParams } from 'react-router-dom';
 
-import { UilTimes, UilPlusCircle, UilEllipsisH, UilAngleRight, UilFileAlt, UilBook } from '@iconscout/react-unicons';
+import { UilTimes, UilPlus, UilEllipsisH, UilAngleRight, UilFileAlt, UilBook } from '@iconscout/react-unicons';
 import * as notesActions from '../../store/notes';
 import * as notebooksActions from '../../store/notebooks';
 
@@ -18,21 +18,28 @@ export default function Notebook() {
 
     const { notebookId } = useParams();
     const sessionUser = useSelector(state => state.session.user);
+    const allNotebooks = useSelector(state => state.notebooks.notebooks);
+
     const notebook = useSelector(state => state.notebooks.notebooks[notebookId]);
     let allNotes = useSelector(state => state.notes.notes);
 
-    let formattedNotes = sortByUpdatedAt(formatNotes(allNotes));
-    formattedNotes = formattedNotes.filter(note => note.notebookId === notebook?.id)
+    // let formattedNotes = sortByUpdatedAt(formatNotes(allNotes));
+    // formattedNotes = formattedNotes.filter(note => note.notebookId === notebook?.id)
 
+    const [formattedNotes, setFormattedNotes] = useState([]);
     const [noteSort, setNoteSort] = useState(localStorage.getItem('note-sort') || 'Updated At')
     const [sortNotes, setSortNotes] = useState(formattedNotes)
 
     const [noteModal, setNoteModal] = useState(null)
 
     useEffect(() => {
-        dispatch(notebooksActions.loadNotebooksThunk(sessionUser.id))
         dispatch(notesActions.loadNotesThunk(sessionUser.id))
+        dispatch(notebooksActions.loadNotebooksThunk(sessionUser.id))
     }, [dispatch])
+
+    useEffect(() => {
+        setFormattedNotes(sortByUpdatedAt(formatNotes(allNotes)).filter(note => note.notebookId === notebook?.id))
+    }, [notebook, allNotes])
 
 
     function removeNoteFromNotebook(id) {
@@ -56,11 +63,13 @@ export default function Notebook() {
 
         if (noteSort === 'Updated At') {
             localStorage.setItem('note-sort', 'Updated At');
-            formattedNotes = sortByUpdatedAt(formattedNotes)
+            // formattedNotes = sortByUpdatedAt(formattedNotes)
+            setFormattedNotes(sortByUpdatedAt(formattedNotes))
         }
         else if (noteSort === 'Title') {
             localStorage.setItem('note-sort', 'Title');
-            formattedNotes = sortByTitle(formattedNotes)
+            // formattedNotes = sortByTitle(formattedNotes)
+            setFormattedNotes(sortByTitle(formattedNotes))
         }
 
         let updatedSort = formattedNotes.map(note => (
@@ -96,13 +105,26 @@ export default function Notebook() {
     }, [noteSort, noteModal])
 
 
+    const newNote = async () => {
+        const noteId = await dispatch(notesActions.createNoteThunk(sessionUser.id))
+        console.log('NotebookId: ', notebookId, notebook.id);
+        console.log('New Note: ', allNotes, noteId, allNotes[noteId]);
+        const noteData = {
+            noteId,
+            title: 'Untitled',
+            content: '',
+            userId: sessionUser.id,
+            notebookId
+        }
 
+        await dispatch(notesActions.updateNoteThunk(noteData))
+        dispatch(notesActions.loadNotesThunk(sessionUser.id))
+    }
 
 
     return (
         <OuterDiv style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <SC.MainDiv>
-
 
                 <SC.H1><UilBook size='40' />{notebook?.title}</SC.H1>
 
@@ -118,6 +140,15 @@ export default function Notebook() {
                             <option>Title</option>
                         </select>
                     </div>
+
+                    <SC.Button
+                        onClick={newNote}
+                        buttonColor='#4fb06b'
+                        className='align-items-center'
+                    >
+                        <UilPlus size='20' />
+                        <span className='add-side-padding'>New Note</span>
+                    </SC.Button>
 
                 </SC.UpperDiv>
 
@@ -180,7 +211,9 @@ export default function Notebook() {
                                         onClick={() => removeNoteFromNotebook(note.id)}
                                         value={note.id}
                                     >
-                                        Remove from Notebook
+                                        <span className='smaller-text'>
+                                            Remove from Notebook
+                                        </span>
                                         {/* <UilEllipsisH size='25' /> */}
                                     </button>
 
