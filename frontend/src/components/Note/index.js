@@ -8,6 +8,7 @@ import * as tagsActions from '../../store/tags';
 
 import * as SC from './StyledComponents'
 
+import TextEditor from "../TextEditor";
 import { useAutosaveContext } from "../../context/AutosaveContext";
 
 import './Note.css';
@@ -303,11 +304,14 @@ export default function Note({ userId }) {
                 </SC.CenteringDiv>
 
                 <SC.CenteringDiv style={{ height: '100%', flexGrow: '2' }}>
-                    <SC.ContentTextarea
+                    {/* <SC.ContentTextarea
                         placeholder='Start writing...'
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
-                    />
+                    /> */}
+                    <SC.TextEditorContainer>
+                        <TextEditor />
+                    </SC.TextEditorContainer>
                     <SC.TagsOuterContainer>
                         <SC.TagsContainer>
                             <h4 id="tags-title">Tags:</h4>

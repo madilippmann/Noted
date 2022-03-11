@@ -1,9 +1,12 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { convertToRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToMarkdown from 'draftjs-to-markdown';
+import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
-export default function EditorConvertToMarkdown() {
+import './TextEditor.css';
+
+export default function TextEditor() {
 
     const [editorState, setEditorState] = useState();
     const [markdown, setMarkdown] = useState()
@@ -17,17 +20,17 @@ export default function EditorConvertToMarkdown() {
     }, [markdown])
 
     return (
-        <div>
-            <Editor
-                wrapperClassName="demo-wrapper"
-                editorClassName="demo-editor"
-                onEditorStateChange={setEditorState}
-                onChange={(e) => {
-                    console.log('CHANGE: ', e);
-                    setMarkdown(draftToMarkdown(convertToRaw(editorState.getCurrentContent())))
-                }}
-            />
-        </div>
+        <Editor
+            wrapperClassName="demo-wrapper"
+            editorClassName="demo-editor"
+            toolbarClassName="toolbar-class"
+            onEditorStateChange={setEditorState}
+            onChange={(e) => {
+                console.log('CHANGE: ', e);
+                setMarkdown(draftToMarkdown(convertToRaw(editorState.getCurrentContent())))
+            }}
+        />
+
     );
 
 }

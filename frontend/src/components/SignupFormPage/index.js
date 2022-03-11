@@ -55,7 +55,7 @@ export default function SignupFormPage() {
             <div className='login-container'>
                 <div className='img-container'>
                     <RubberBand>
-                        <img src={logo} />
+                        <img className='logo-image' src={logo} />
                     </RubberBand>
                 </div>
 

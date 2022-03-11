@@ -71,6 +71,7 @@ export const TitleInput = styled.input`
     justify-content: center;
     border-radius: 0px;
     border: none;
+    margin-bottom: 0;
     margin-bottom: 10px;
     &:focus {
         outline: none;
@@ -90,6 +91,17 @@ export const ContentTextarea = styled.textarea`
     }
 
 `;
+
+
+export const TextEditorContainer = styled.div`
+    width: 100%;
+    background-color: white;
+    height: 100%;
+    // display: flex;
+    // flex-direction: column;
+
+`;
+
 
 
 export const TagsOuterContainer = styled.div`
