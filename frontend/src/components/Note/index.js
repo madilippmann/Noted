@@ -16,9 +16,16 @@ import { UilTimes, UilCheck, UilPlusCircle, UilArrowCircleLeft } from '@iconscou
 
 import Slide from "../Animations/Slide";
 
+// const initialState = EditorState.createEmpty();
+
+//   const [editorState, setEditorState] = useState(initialState);
+
+
+
 export default function Note({ userId }) {
     const { noteId } = useParams();
     const dispatch = useDispatch();
+    const [editorState, setEditorState] = useState(initialState);
 
     const sessionUser = useSelector(state => state.session.user);
     const notebooks = useSelector(state => state.notebooks.notebooks);

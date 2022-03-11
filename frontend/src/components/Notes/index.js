@@ -12,7 +12,7 @@ import * as SC from './StyledComponents';
 import { formatNotes, formatTags, formatNotebooks, formattedDate, OuterDiv, shortenedContent, sortByUpdatedAt } from '../utils/utils.js';
 
 import './Notes.css';
-import Note from '../Note';
+
 
 export default function Notes({ userId }) {
     const dispatch = useDispatch();
