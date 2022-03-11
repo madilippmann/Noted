@@ -17,6 +17,7 @@ export const Backdrop = styled.div`
     padding: 10px;
     height: 50%;
     min-height: 325px;
+    min-width: 650px;
 
 `;
 
@@ -55,6 +56,7 @@ border-radius: 15px;
 padding: 10px;
 margin-right: 50px;
 width: calc(100% - 450px);
+min-width: 200px;
 height: 100%;
 `;
 
@@ -69,6 +71,7 @@ height: 50%;
 
 export const StickyNoteContainer = styled.div`
     width: 50%;
+    min-width: 400px;
     height: 100%;
     //   height: 400px;
       background-color: rgb(247, 257, 137);

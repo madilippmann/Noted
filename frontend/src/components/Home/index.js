@@ -78,7 +78,7 @@ export default function Home() {
 
 
     return (
-        <OuterDiv className='main' style={{ padding: '50px', display: 'flex', flexDirection: 'column' }}>
+        <OuterDiv className='main' style={{ minWidth: '800px', padding: '50px', display: 'flex', flexDirection: 'column' }}>
             <SC.Backdrop >
                 <SC.H1>Recent Notes</SC.H1>
                 <SC.NotesContainer>
