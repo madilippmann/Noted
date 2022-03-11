@@ -70,8 +70,8 @@ height: 50%;
 `;
 
 export const StickyNoteContainer = styled.div`
-    width: 50%;
-    min-width: 400px;
+    // width: 50%;
+    width: 400px;
     height: 100%;
     //   height: 400px;
       background-color: rgb(247, 257, 137);
