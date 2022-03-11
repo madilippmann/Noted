@@ -207,7 +207,7 @@ export default function Navigation() {
                             {formattedNotebooks?.map((notebook, i) => {
                                 if (i < 5) {
                                     return (
-                                        <Link to={`/notes/${notebook.id}`}>
+                                        <Link to={`/notebooks/${notebook.id}`}>
                                             <p className='result-link' key={notebook.id}>‣ {notebook.title}</p>
                                         </Link>
                                     )
