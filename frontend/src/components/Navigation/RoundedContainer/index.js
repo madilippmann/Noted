@@ -41,7 +41,6 @@ const RoundedContainer = ({ userId, type }) => {
 
     const handleSearch = (e) => {
         setSearchInput(e.target.value)
-        // console.log('NEW', formattedNotes);
         if (e.target.value.length > 0) {
 
             const filteredNotes = sortByTitle(formattedNotes.reduce((filteredNotes, note) => {
@@ -62,8 +61,6 @@ const RoundedContainer = ({ userId, type }) => {
 
             setFilteredNotes(filteredNotes);
             setFilteredNotebooks(filteredNotebooks);
-            console.log('Filtered Notes: ', filteredNotes);
-            console.log('Filtered Notebooks: ', filteredNotebooks);
 
         } else {
 
@@ -103,7 +100,7 @@ const RoundedContainer = ({ userId, type }) => {
                                 <h4>Notebooks</h4>
                                 <div className='results'>
                                     {filteredNotebooks.length > 0 ? filteredNotebooks.map(notebook => (
-                                        <Link to={`/notebooks/${notebook.id}`}>
+                                        <Link key={notebook.id} to={`/notebooks/${notebook.id}`}>
                                             <p className='result-link' key={notebook.id}>{notebook.title}</p>
                                         </Link>
                                     )) : <p className='italicize'>No results</p>}

@@ -16,11 +16,14 @@ export const Backdrop = styled.div`
     border-radius: 15px;
     padding: 10px;
     height: 50%;
+    min-height: 325px;
+    min-width: 650px;
 
 `;
 
 export const NotesContainer = styled.div`
     width: 100%;
+    height: 80%;
     display: flex;
     flex-direction: row;
     overflow-y: auto;
@@ -53,6 +56,7 @@ border-radius: 15px;
 padding: 10px;
 margin-right: 50px;
 width: calc(100% - 450px);
+min-width: 200px;
 height: 100%;
 `;
 
@@ -66,7 +70,8 @@ height: 50%;
 `;
 
 export const StickyNoteContainer = styled.div`
-    width: 50%;
+    // width: 50%;
+    width: 400px;
     height: 100%;
     //   height: 400px;
       background-color: rgb(247, 257, 137);

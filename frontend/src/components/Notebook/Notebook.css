@@ -5,3 +5,12 @@ button.red-hover {
 button.red-hover:hover {
     color: red
 }
+
+
+td button span.smaller-text {
+    font-size: 13px;
+}
+
+span.smaller-text:hover {
+    color: rgb(220, 55, 55);
+}

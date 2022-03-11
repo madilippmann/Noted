@@ -78,12 +78,12 @@ export default function Home() {
 
 
     return (
-        <OuterDiv className='main' style={{ padding: '50px', display: 'flex', flexDirection: 'column' }}>
+        <OuterDiv className='main' style={{ minWidth: '800px', padding: '50px', display: 'flex', flexDirection: 'column' }}>
             <SC.Backdrop >
                 <SC.H1>Recent Notes</SC.H1>
                 <SC.NotesContainer>
                     {formattedNotes.map(note => (
-                        <Link to={`/notes/${note.id}`} >
+                        <Link to={`/notes/${note.id}`} key={note.id}>
                             <div key={note.id} className='square-card note-card no-border'>
                                 <h3 className='note-card-title'>{note.title}</h3>
                                 <p className='note-card-content'>{note.content}</p>
@@ -107,7 +107,7 @@ export default function Home() {
                     <SC.H1>Recent Notebooks</SC.H1>
                     <SC.NotesContainer>
                         {formattedNotebooks.map(notebook => (
-                            <Link to={`/notebooks/${notebook.id}`} >
+                            <Link to={`/notebooks/${notebook.id}`} key={notebook.id}>
                                 <div key={notebook.id} id='notebook-card' className='square-card note-card'>
                                     <UilBook size='50' />
                                     <h3 className='notebook-title note-card-title'>{notebook.title}</h3>

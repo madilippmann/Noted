@@ -1,13 +1,41 @@
 import { UilHome, UilBooks, UilBook, UilFilePlusAlt, UilTagAlt, UilUsersAlt, UilAngleRight } from '@iconscout/react-unicons';
 import './NavigationContainer.css';
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import * as notesActions from '../../../store/notes';
+import * as notebooksActions from '../../../store/notebooks';
+import { sortByUpdatedAt, formatNotebooks, formatNotes } from '../../utils/utils';
+
 const NavigationContainer = ({ type, dropdown }) => {
-    const [openNav, setOpenNav] = useState('');
+    const dispatch = useDispatch();
+    const sessionUser = useSelector(state => state.session.user);
+    const notes = useSelector(state => state.notes.notes)
+    const notebooks = useSelector(state => state.notebooks.notebooks)
+
+
+    const [formattedNotes, setFormattedNotes] = useState([])
+    const [formattedNotebooks, setFormattedNotebooks] = useState([])
+
+    useEffect(() => {
+        setFormattedNotes(sortByUpdatedAt(formatNotes(notes)))
+        setFormattedNotebooks(sortByUpdatedAt(formatNotebooks(notebooks)))
+    }, [notes, notebooks])
+
+
+    const [openNav, setOpenNav] = useState(false);
     const [navArrowColor, setNavArrowColor] = useState('#5D2BC5')
 
+
+    useEffect(() => {
+        dispatch(notesActions.loadNotesThunk(sessionUser.id))
+        dispatch(notebooksActions.loadNotebooksThunk(sessionUser.id))
+    }, [dispatch])
+
+
+
     const toggleNav = () => {
-        if (openNav === 'open') setOpenNav('');
-        else setOpenNav('open');
+        setOpenNav(!openNav);
     }
 
     useEffect(() => {
