@@ -151,7 +151,9 @@ export default function Notebook() {
                                         onClick={() => removeNoteFromNotebook(note.id)}
                                         value={note.id}
                                     >
-                                        Remove from Notebook
+                                        <span className='smaller-text'>
+                                            Remove from Notebook
+                                        </span>
                                         {/* <UilEllipsisH size='25' /> */}
                                     </button>
 
