@@ -279,9 +279,9 @@ export default function Note({ userId }) {
                             >
                                 Delete Note
                             </SC.Button>
+                            {deleteNoteModal && <DeleteNoteModal note={note} setDeleteNoteModal={setDeleteNoteModal} />}
                         </SC.ButtonDiv2>
                     </SC.CenteringDiv>
-                    {deleteNoteModal && <DeleteNoteModal note={note} setDeleteNoteModal={setDeleteNoteModal} />}
                     <SC.CenteringDiv style={{ width: '100%' }}>
                         {errorMeesage && <SC.TitleError>Title must be between 1 and 100 characters long.</SC.TitleError>}
 
@@ -384,7 +384,7 @@ function DeleteNoteModal({ setDeleteNoteModal }) {
     return (
         <SC.Modal>
             <Slide direction='down'>
-                <SC.ModalDiv className='user-modal' style={{ top: '110px', right: '-690px' }}>
+                <SC.ModalDiv className='user-modal-relative1' >
                     <button
                         type='button'
                         onClick={() => setDeleteNoteModal(false)}
@@ -392,7 +392,7 @@ function DeleteNoteModal({ setDeleteNoteModal }) {
                         <UilTimes size='30' style={{ color: 'white' }} />
                     </button>
                     <SC.ModalInfo>
-                        <p style={{ marginTop: '0', fontSize: '13px', textAlign: 'center' }}>Select delete to permanently delete this note.</p>
+                        <p style={{ marginTop: '0', fontSize: '13px', textAlign: 'center' }}>Select delete to<br />permanently delete this note.</p>
                         <SC.ButtonDiv>
 
                             <SC.ModalButton

@@ -93,7 +93,7 @@ h5, h4 {
     padding: 5px;
 
     z-index: 1000;
-    position:absolute;
+    position: absolute;
     /* width: 275px;
     height: 135px; */
     width: 250px;
@@ -102,6 +102,29 @@ h5, h4 {
     box-shadow: 2px 4px 8px 1px rgba(26, 8, 80, 0.5);
     opacity: 92%;
 }
+
+
+.user-modal-relative1 {
+    color: white;
+    background-color: rgb(26, 8, 80);
+    border-radius: 10px;
+    padding: 5px 5px 15px 5px;
+
+    z-index: 1000;
+    position: relative;
+    /* width: 275px;
+    height: 135px; */
+    width: 235px;
+    height: fit-content;
+    top: 135px;
+    /* right: 5px; */
+
+    box-shadow: 2px 4px 8px 1px rgba(26, 8, 80, 0.5);
+    opacity: 92%;
+}
+
+
+
 
 
 .modal-user-info-container {
