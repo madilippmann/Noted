@@ -94,8 +94,10 @@ h5, h4 {
 
     z-index: 1000;
     position:absolute;
-    width: 275px;
-    height: 135px;
+    /* width: 275px;
+    height: 135px; */
+    width: 250px;
+    height: fit-content;
 
     box-shadow: 2px 4px 8px 1px rgba(26, 8, 80, 0.5);
     opacity: 92%;
@@ -119,7 +121,7 @@ h5, h4 {
     opacity: 90%;
 }
 
-.name-and-email-container > h5, .settings-and-sign-out-container * {
+.name-and-email-container > h5{
     opacity: 80%;
 }
 

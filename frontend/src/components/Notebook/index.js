@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Link, useHistory, useParams } from 'react-router-dom';
 
-import { UilTimes, UilPlus, UilEllipsisH, UilAngleRight, UilFileAlt, UilBook } from '@iconscout/react-unicons';
+import { UilTimes, UilArrowCircleLeft, UilPlus, UilEllipsisH, UilAngleRight, UilFileAlt, UilBook } from '@iconscout/react-unicons';
 import * as notesActions from '../../store/notes';
 import * as notebooksActions from '../../store/notebooks';
 
@@ -125,8 +125,15 @@ export default function Notebook() {
     return (
         <OuterDiv style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <SC.MainDiv>
+                <div className='flex-start-div'>
+                    <button type='button' onClick={() => history.goBack()}>
+                        <SC.ClickableIcon>
+                            <UilArrowCircleLeft size='40' />
+                        </SC.ClickableIcon>
+                    </button>
+                    <SC.H1><UilBook size='40' />{notebook?.title}</SC.H1>
+                </div>
 
-                <SC.H1><UilBook size='40' />{notebook?.title}</SC.H1>
 
                 <SC.UpperDiv>
                     <div className='flex-end'>

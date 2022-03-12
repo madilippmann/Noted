@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const P = styled.h6`
-    margin: 0 10px 0 0;
-    font-size: 14px;
+    margin: 0 20px 0 10px;
+    font-size: 16px;
     font-weight: 400;
 `;
 

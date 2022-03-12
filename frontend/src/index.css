@@ -24,7 +24,9 @@ body {
 
 button {
     cursor: pointer;
-
+}
+button:active {
+    outline: none;
 }
 
 /* button:hover {

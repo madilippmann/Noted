@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Link, useHistory } from 'react-router-dom';
 
-import { UilTimes, UilBooks, UilPlus, UilPlusCircle, UilEllipsisH, UilAngleRight, UilFileAlt, UilBook } from '@iconscout/react-unicons';
+import { UilTimes, UilArrowCircleLeft, UilBooks, UilPlus, UilPlusCircle, UilEllipsisH, UilAngleRight, UilFileAlt, UilBook } from '@iconscout/react-unicons';
 import * as notesActions from '../../store/notes';
 import * as notebooksActions from '../../store/notebooks';
 
@@ -74,6 +74,7 @@ export default function Notebooks() {
                         type='button'
                         onClick={() => toggleNotebookModal(notebook.id)}
                         value={notebook.id}
+                        className='purple-hover'
                     >
                         <UilEllipsisH size='25' />
                     </button>
@@ -95,7 +96,15 @@ export default function Notebooks() {
         <OuterDiv style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <SC.MainDiv>
                 {/* <div style={{ borderBottom: '1px solid rgba(255, 255, 255)' }}> */}
-                <SC.H1><UilBooks size='40' />Notebooks</SC.H1>
+
+                <div className='flex-start-div'>
+                    <button type='button' onClick={() => history.push('/')}>
+                        <SC.ClickableIcon>
+                            <UilArrowCircleLeft size='40' />
+                        </SC.ClickableIcon>
+                    </button>
+                    <SC.H1><UilBooks size='40' />Notebooks</SC.H1>
+                </div>
                 {/* </div> */}
                 <SC.UpperDiv>
                     <div className='flex-end'>

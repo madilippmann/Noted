@@ -11,14 +11,13 @@
 
 body {
     background: rgb(123,67,244);
+    background: linear-gradient(135deg, rgb(85, 87, 201) 25%, rgb(214, 205, 248) 95%);
     background: linear-gradient(135deg, rgb(105, 67, 244) 25%, rgb(210, 198, 252) 95%);
 
 }
 
 
-/* .home-page.square-card.note-card:hover, .home-page.square-card.create-note-card:hover {
-    border: none;
-} */
+
 
 div.blue-card {
     background-color: rgb(108, 211, 245);
@@ -31,17 +30,16 @@ div.blue-card:hover {
 }
 
 
-div.no-border:hover {
-    border: none;
-
-}
 
 
 div#notebook-card {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 10px;
+
 }
+
 
 
 h3.notebook-title {

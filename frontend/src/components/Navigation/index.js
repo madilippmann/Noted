@@ -101,7 +101,7 @@ export default function Navigation() {
 
 
                 {userDropdown &&
-                    <Slide direction='down'>
+                    <Slide direction='down' duration={.45}>
                         <div className='user-modal'>
                             <div className='modal-user-info-container'>
                                 <div className='check-container'>
