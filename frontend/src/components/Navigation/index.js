@@ -71,11 +71,13 @@ export default function Navigation() {
     return (
         <div className='sidebar'>
 
-            <div className='sidebar-img-container'>
-                {/* <RubberBand> */}
-                <img className='logo' src={logo} />
-                {/* </RubberBand> */}
-            </div>
+            <Link to='/'>
+                <div className='sidebar-img-container'>
+                    {/* <RubberBand> */}
+                    <img className='logo' src={logo} />
+                    {/* </RubberBand> */}
+                </div>
+            </Link>
 
             <div className='user-bar-container'>
                 <div className='user-bar'>

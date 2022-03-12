@@ -19,6 +19,7 @@ export const TagContainer = styled.div`
 
 export const SearchBar = styled.div`
     width: 250px;
+    margin-right: 25px;
  `
 
 
