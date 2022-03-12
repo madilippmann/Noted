@@ -8,8 +8,15 @@ import * as tagsActions from '../../store/tags';
 
 import * as SC from './StyledComponents'
 
-import TextEditor from "../TextEditor";
+// import TextEditor from "../TextEditor";
 import { useAutosaveContext } from "../../context/AutosaveContext";
+
+import { EditorState, convertToRaw, convertFromRaw, ContentState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+// import { draftToMarkdown, markdownToDraft } from 'draftjs-to-markdown';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
+import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 import './Note.css';
 import { formatNotebooks, formatTags, sortByTitle, formattedDate, OuterDiv } from "../utils/utils";
@@ -34,6 +41,7 @@ export default function Note({ userId }) {
     const note = useSelector(state => state.notes.notes[noteId]);
     const tags = useSelector(state => state.tags.tags);
 
+
     let formattedTags = formatTags(tags)
 
     const { autosave, setAutosave } = useAutosaveContext();
@@ -48,6 +56,21 @@ export default function Note({ userId }) {
     const [save, setSave] = useState(false);
     const [tagDelete, setTagDelete] = useState(null);
 
+    const [editorState, setEditorState] = useState();
+    const [html, setHtml] = useState()
+
+    useEffect(() => {
+
+        const blocksFromHtml = htmlToDraft(content);
+        console.log('Blocks: ', blocksFromHtml);
+        const { contentBlocks, entityMap } = blocksFromHtml;
+
+        const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+
+
+        setEditorState(EditorState.createWithContent(contentState))
+
+    }, [note])
 
 
     const tagsObj = formattedTags.reduce((tags, tag) => {
@@ -83,7 +106,7 @@ export default function Note({ userId }) {
     useEffect(async () => {
 
         if (!autosave) {
-            if ((title.length > 100 || title.length === 0 || /^\s*$/.test(title))) {
+            if ((title?.length > 100 || title.length === 0 || /^\s*$/.test(title))) {
                 setDisabled(true)
                 setErrorMessage(true)
 
@@ -97,7 +120,7 @@ export default function Note({ userId }) {
         else if (autosave) {
             setDisabled(true)
 
-            if ((title.length > 100 || title.length === 0 || /^\s*$/.test(title))) {
+            if ((title?.length > 100 || title.length === 0 || /^\s*$/.test(title))) {
                 setErrorMessage(true)
             } else {
                 setErrorMessage(false)
@@ -110,7 +133,7 @@ export default function Note({ userId }) {
             if (notebookId && notebookId !== null) {
                 const noteData = {
                     title,
-                    content,
+                    content: html,
                     notebookId,
                     noteId: note.id,
                     userId: note.userId
@@ -127,7 +150,7 @@ export default function Note({ userId }) {
 
                 const noteData = {
                     title,
-                    content,
+                    content: html,
                     noteId: note.id,
                     userId: note.userId
                 }
@@ -141,14 +164,14 @@ export default function Note({ userId }) {
 
 
         // return () => clearInterval(interval)
-    }, [autosave, title, content])
+    }, [autosave, title, content, html])
 
     const saveNote = async (e) => {
         e.preventDefault()
         if (notebookId && notebookId !== null) {
             const noteData = {
                 title,
-                content,
+                content: html,
                 notebookId,
                 noteId: note.id,
                 userId: note.userId
@@ -165,7 +188,7 @@ export default function Note({ userId }) {
 
             const noteData = {
                 title,
-                content,
+                content: html,
                 noteId: note.id,
                 userId: note.userId
             }
@@ -206,6 +229,10 @@ export default function Note({ userId }) {
 
 
     }, [])
+
+    useEffect(() => {
+        // console.log('Markdown: ', draftToMarkdown(convertToRaw(editorState.getCurrentContent())));
+    }, [html])
 
 
 
@@ -309,8 +336,20 @@ export default function Note({ userId }) {
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
                     /> */}
+                    {/* <TextEditor /> */}
                     <SC.TextEditorContainer>
-                        <TextEditor />
+                        <Editor
+                            editorState={editorState}
+                            wrapperClassName="demo-wrapper"
+                            editorClassName="demo-editor"
+                            toolbarClassName="toolbar-class"
+                            onEditorStateChange={setEditorState}
+                            onChange={(e) => {
+                                console.log('CHANGE: ', e);
+                                setHtml(draftToHtml(convertToRaw(editorState.getCurrentContent())))
+                            }}
+                        />
+
                     </SC.TextEditorContainer>
                     <SC.TagsOuterContainer>
                         <SC.TagsContainer>
