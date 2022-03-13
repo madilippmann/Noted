@@ -71,11 +71,13 @@ export default function Navigation() {
     return (
         <div className='sidebar'>
 
-            <div className='sidebar-img-container'>
-                {/* <RubberBand> */}
-                <img className='logo' src={logo} />
-                {/* </RubberBand> */}
-            </div>
+            <Link to='/'>
+                <div className='sidebar-img-container'>
+                    {/* <RubberBand> */}
+                    <img className='logo' src={logo} />
+                    {/* </RubberBand> */}
+                </div>
+            </Link>
 
             <div className='user-bar-container'>
                 <div className='user-bar'>
@@ -101,7 +103,7 @@ export default function Navigation() {
 
 
                 {userDropdown &&
-                    <Slide direction='down'>
+                    <Slide direction='down' duration={.45}>
                         <div className='user-modal'>
                             <div className='modal-user-info-container'>
                                 <div className='check-container'>

@@ -6,13 +6,15 @@
     padding: 10px;
     margin: 10px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: border .24s ease, box-shadow .24s ease, color .24s ease;
 
 }
 
 
 .square-card:hover {
     box-shadow: rgba(0, 0, 0, 0.45) 0px 3px 8px;
-    border: 1px solid rgba(63, 63, 63, 0.25);
+    /* border: 1px solid rgba(63, 63, 63, 0.25); */
+    border: 1px solid transparent;
 
 }
 
@@ -49,8 +51,15 @@ h1.notes-title {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    color: black;
+    transition: color .2s ease;
+}
 
 
+
+
+.note-card:hover {
+    color: rgb(99, 3, 216)
 }
 
 

@@ -14,3 +14,10 @@ td button span.smaller-text {
 span.smaller-text:hover {
     color: rgb(220, 55, 55);
 }
+
+
+.flex-start-div {
+    display: flex;
+    border-bottom: 1px solid rgb(205, 205, 205);
+    gap: 20px;
+}

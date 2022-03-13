@@ -81,3 +81,15 @@ table {
 .add-side-padding {
     padding: 0 5px;
 }
+
+
+
+
+.purple-hover:hover {
+    color: black;
+}
+
+
+.purple-hover {
+    color: rgb(113, 0, 248);
+}

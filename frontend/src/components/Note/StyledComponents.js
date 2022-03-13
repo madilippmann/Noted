@@ -172,7 +172,7 @@ export const Button = styled.button`
 
     &:hover {
         color: ${props => props.buttonColor};
-        background-color: #F3F3F3;
+        background-color: transparent;
         border: 2px solid ${props => props.buttonColor};
     }
     &:disabled {
