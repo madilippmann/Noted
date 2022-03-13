@@ -60,7 +60,7 @@ img.logo-image {
     height: 100px;
 }
 
-ul {
+ul.errors-display {
     list-style-type: none;
     display: flex;
     justify-content: center;
@@ -68,7 +68,7 @@ ul {
     padding: 5px 0;
 
 }
-li {
+li.list-errirs {
     font-size: 14px;
     color: rgb(192, 28, 28)
 }

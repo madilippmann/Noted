@@ -110,7 +110,8 @@ export const TagsOuterContainer = styled.div`
         background-color: white;
         display: flex;
         border-top: rgb(245, 245, 245);
-        padding: 10px 15px;
+        padding: 5px 15px;
+        margin-bottom: 25px
 
 `;
 

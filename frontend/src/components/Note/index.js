@@ -8,26 +8,19 @@ import * as tagsActions from '../../store/tags';
 
 import * as SC from './StyledComponents'
 
-// import TextEditor from "../TextEditor";
 import { useAutosaveContext } from "../../context/AutosaveContext";
 
-import { EditorState, convertToRaw, convertFromRaw, ContentState } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
-import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js';
-// import draftToHtml from 'draftjs-to-html';
-// import htmlToDraft from 'html-to-draftjs';
-import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+// CKEditor
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
+
 
 import './Note.css';
 import { formatNotebooks, formatTags, sortByTitle, formattedDate, OuterDiv } from "../utils/utils";
 import { UilTimes, UilCheck, UilPlusCircle, UilArrowCircleLeft } from '@iconscout/react-unicons'
 
 import Slide from "../Animations/Slide";
-
-// const initialState = EditorState.createEmpty();
-
-//   const [editorState, setEditorState] = useState(initialState);
-
 
 
 export default function Note({ userId }) {
@@ -40,7 +33,6 @@ export default function Note({ userId }) {
     const formattedNotebooks = sortByTitle(formatNotebooks(notebooks))
     const note = useSelector(state => state.notes.notes[noteId]);
     const tags = useSelector(state => state.tags.tags);
-
 
     let formattedTags = formatTags(tags)
 
@@ -56,23 +48,7 @@ export default function Note({ userId }) {
     const [save, setSave] = useState(false);
     const [tagDelete, setTagDelete] = useState(null);
 
-    const rawContent = markdownToDraft(note?.content);
-    console.log('Markdown to draft: ', rawContent);
-    const contentState = convertFromRaw(rawContent);
-    const newEditorState = EditorState.createWithContent(contentState);
-
-    const [editorState, setEditorState] = useState(newEditorState);
-    const [markdown, setMarkdown] = useState();
-    // const [html, setHtml] = useState()
-
-    // useEffect(() => {
-    //     const blocksFromHtml = htmlToDraft(content);
-    //     console.log('Blocks: ', blocksFromHtml);
-    //     const { contentBlocks, entityMap } = blocksFromHtml;
-    //     const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
-    //     setEditorState(EditorState.createWithContent(contentState))
-    // }, [note])
-
+    const [data, setData] = useState(note?.content);
 
     const tagsObj = formattedTags.reduce((tags, tag) => {
         tags[tag.id] = tag.name
@@ -132,10 +108,9 @@ export default function Note({ userId }) {
         if (autosave) {
 
             if (notebookId && notebookId !== null) {
-                console.log('Markdown: ', markdown);
                 const noteData = {
                     title,
-                    content: markdown,
+                    content: data,
                     notebookId,
                     noteId: note.id,
                     userId: note.userId
@@ -152,7 +127,7 @@ export default function Note({ userId }) {
 
                 const noteData = {
                     title,
-                    content: markdown,
+                    content: data,
                     noteId: note.id,
                     userId: note.userId
                 }
@@ -166,21 +141,21 @@ export default function Note({ userId }) {
 
 
         // return () => clearInterval(interval)
-    }, [autosave, title, markdown])
+    }, [autosave, title, data])
 
     const saveNote = async (e) => {
         e.preventDefault()
         if (notebookId && notebookId !== null) {
             const noteData = {
                 title,
-                content: markdown,
+                content: data,
                 notebookId,
                 noteId: note.id,
                 userId: note.userId
             }
 
             const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
-            console.log('RES: ', noteRes);
+
             const notebookRes = await dispatch(notebooksActions.updateNotebookThunk({
                 notebookId,
                 title: notebooks[notebookId].title,
@@ -190,7 +165,7 @@ export default function Note({ userId }) {
 
             const noteData = {
                 title,
-                content: markdown,
+                content: data,
                 noteId: note.id,
                 userId: note.userId
             }
@@ -320,30 +295,31 @@ export default function Note({ userId }) {
 
                 </SC.CenteringDiv>
 
-                <SC.CenteringDiv style={{ height: '100%', flexGrow: '2' }}>
-                    {/* <SC.ContentTextarea
-                        placeholder='Start writing...'
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                    /> */}
-                    {/* <TextEditor /> */}
-                    <SC.TextEditorContainer
-                        onClick={(e) => setMarkdown(draftToMarkdown(convertToRaw(editorState.getCurrentContent())))}
-                    >
-                        <Editor
-                            editorState={editorState}
-                            wrapperClassName="demo-wrapper"
-                            editorClassName="demo-editor"
-                            toolbarClassName="toolbar-class"
-                            onEditorStateChange={setEditorState}
-
-                            onChange={(e) => {
-                                console.log('CHANGE: ', e);
-                                setMarkdown(draftToMarkdown(convertToRaw(editorState.getCurrentContent())))
+                <SC.CenteringDiv>
+                    <SC.TextEditorContainer>
+                        <CKEditor
+                            className='editor'
+                            editor={ClassicEditor}
+                            data={data}
+                            onReady={editor => {
+                                // You can store the "editor" and use when it is needed.
+                                console.log('Editor is ready to use!', editor);
+                            }}
+                            onChange={(event, editor) => {
+                                const data = editor.getData();
+                                setData(() => data)
+                                // console.log({ event, editor, data });
+                            }}
+                            onBlur={(event, editor) => {
+                                // console.log('Blur.', editor);
+                            }}
+                            onFocus={(event, editor) => {
+                                // console.log('Focus.', editor);
                             }}
                         />
 
                     </SC.TextEditorContainer>
+
                     <SC.TagsOuterContainer>
                         <SC.TagsContainer>
                             <h4 id="tags-title">Tags:</h4>
