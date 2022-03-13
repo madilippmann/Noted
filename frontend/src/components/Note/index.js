@@ -13,9 +13,9 @@ import { useAutosaveContext } from "../../context/AutosaveContext";
 
 import { EditorState, convertToRaw, convertFromRaw, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
-// import { draftToMarkdown, markdownToDraft } from 'draftjs-to-markdown';
-import draftToHtml from 'draftjs-to-html';
-import htmlToDraft from 'html-to-draftjs';
+import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js';
+// import draftToHtml from 'draftjs-to-html';
+// import htmlToDraft from 'html-to-draftjs';
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 import './Note.css';
@@ -56,21 +56,22 @@ export default function Note({ userId }) {
     const [save, setSave] = useState(false);
     const [tagDelete, setTagDelete] = useState(null);
 
-    const [editorState, setEditorState] = useState();
-    const [html, setHtml] = useState()
+    const rawContent = markdownToDraft(note?.content);
+    console.log('Markdown to draft: ', rawContent);
+    const contentState = convertFromRaw(rawContent);
+    const newEditorState = EditorState.createWithContent(contentState);
 
-    useEffect(() => {
+    const [editorState, setEditorState] = useState(newEditorState);
+    const [markdown, setMarkdown] = useState();
+    // const [html, setHtml] = useState()
 
-        const blocksFromHtml = htmlToDraft(content);
-        console.log('Blocks: ', blocksFromHtml);
-        const { contentBlocks, entityMap } = blocksFromHtml;
-
-        const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
-
-
-        setEditorState(EditorState.createWithContent(contentState))
-
-    }, [note])
+    // useEffect(() => {
+    //     const blocksFromHtml = htmlToDraft(content);
+    //     console.log('Blocks: ', blocksFromHtml);
+    //     const { contentBlocks, entityMap } = blocksFromHtml;
+    //     const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+    //     setEditorState(EditorState.createWithContent(contentState))
+    // }, [note])
 
 
     const tagsObj = formattedTags.reduce((tags, tag) => {
@@ -131,9 +132,10 @@ export default function Note({ userId }) {
         if (autosave) {
 
             if (notebookId && notebookId !== null) {
+                console.log('Markdown: ', markdown);
                 const noteData = {
                     title,
-                    content: html,
+                    content: markdown,
                     notebookId,
                     noteId: note.id,
                     userId: note.userId
@@ -150,7 +152,7 @@ export default function Note({ userId }) {
 
                 const noteData = {
                     title,
-                    content: html,
+                    content: markdown,
                     noteId: note.id,
                     userId: note.userId
                 }
@@ -164,21 +166,21 @@ export default function Note({ userId }) {
 
 
         // return () => clearInterval(interval)
-    }, [autosave, title, content, html])
+    }, [autosave, title, markdown])
 
     const saveNote = async (e) => {
         e.preventDefault()
         if (notebookId && notebookId !== null) {
             const noteData = {
                 title,
-                content: html,
+                content: markdown,
                 notebookId,
                 noteId: note.id,
                 userId: note.userId
             }
 
             const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
-
+            console.log('RES: ', noteRes);
             const notebookRes = await dispatch(notebooksActions.updateNotebookThunk({
                 notebookId,
                 title: notebooks[notebookId].title,
@@ -188,7 +190,7 @@ export default function Note({ userId }) {
 
             const noteData = {
                 title,
-                content: html,
+                content: markdown,
                 noteId: note.id,
                 userId: note.userId
             }
@@ -221,18 +223,6 @@ export default function Note({ userId }) {
             // TODO FIGURE OUT HOW TO MAKE THE TAG RED
         }
     }
-
-
-
-    useEffect(() => {
-        const interval = setInterval(() => { }, 60000)
-
-
-    }, [])
-
-    useEffect(() => {
-        // console.log('Markdown: ', draftToMarkdown(convertToRaw(editorState.getCurrentContent())));
-    }, [html])
 
 
 
@@ -337,16 +327,19 @@ export default function Note({ userId }) {
                         onChange={(e) => setContent(e.target.value)}
                     /> */}
                     {/* <TextEditor /> */}
-                    <SC.TextEditorContainer>
+                    <SC.TextEditorContainer
+                        onClick={(e) => setMarkdown(draftToMarkdown(convertToRaw(editorState.getCurrentContent())))}
+                    >
                         <Editor
                             editorState={editorState}
                             wrapperClassName="demo-wrapper"
                             editorClassName="demo-editor"
                             toolbarClassName="toolbar-class"
                             onEditorStateChange={setEditorState}
+
                             onChange={(e) => {
                                 console.log('CHANGE: ', e);
-                                setHtml(draftToHtml(convertToRaw(editorState.getCurrentContent())))
+                                setMarkdown(draftToMarkdown(convertToRaw(editorState.getCurrentContent())))
                             }}
                         />
 
