@@ -14,6 +14,7 @@ import { useAutosaveContext } from "../../context/AutosaveContext";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
+import htmlToFormattedText from "html-to-formatted-text";
 
 
 import './Note.css';
@@ -109,7 +110,6 @@ export default function Note({ userId }) {
             let noteData;
             if (notebookId && notebookId !== null) {
 
-                console.log('Data: ', data.length, data);
                 if (data.length === 0) {
                     noteData = {
                         title,
@@ -119,6 +119,7 @@ export default function Note({ userId }) {
                         userId: note.userId
                     }
                 } else {
+                    console.log('Parsed: ', htmlToFormattedText(data).length, htmlToFormattedText(data));
                     noteData = {
                         title,
                         content: data,
@@ -136,7 +137,6 @@ export default function Note({ userId }) {
                     userId: note.userId,
                 }))
             } else {
-                console.log('Data: ', data.length, data);
 
                 if (data.length === 0) {
                     noteData = {
