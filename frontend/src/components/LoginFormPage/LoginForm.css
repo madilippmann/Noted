@@ -68,9 +68,9 @@ ul.errors-display {
     padding: 5px 0;
 
 }
-li.list-errirs {
+li.list-errors {
     font-size: 14px;
-    color: rgb(192, 28, 28)
+    color: rgb(192, 28, 28);
 }
 .img-container {
     padding-bottom: 30px;
