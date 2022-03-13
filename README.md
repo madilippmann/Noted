@@ -14,7 +14,7 @@
 
 ## Description
 
-Noted is a note-taking applications for users to create and organize their notes. Noted is a clone of [Evernote](https://evernote.com/). 
+Noted is a note-taking application for users to create and organize their notes. Noted is a clone of [Evernote](https://evernote.com/). 
 
 ## Index
 | [Features List](https://github.com/madilippmann/Noted/wiki/features-list) | [Database Schema](https://github.com/madilippmann/Noted/wiki/database-schema) | [Backend API Routes](https://github.com/madilippmann/Noted/wiki/backend-api-routes) | [Frontend Routes](https://github.com/madilippmann/Noted/wiki/frontend-routes) | [User Stories](https://github.com/madilippmann/Noted/wiki/user-stories) | [Wireframes](https://github.com/madilippmann/Noted/wiki/wireframes) |
