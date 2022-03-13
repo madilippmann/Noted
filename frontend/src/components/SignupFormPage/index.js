@@ -55,15 +55,15 @@ export default function SignupFormPage() {
             <div className='login-container'>
                 <div className='img-container'>
                     <RubberBand>
-                        <img src={logo} />
+                        <img className='logo-image' src={logo} />
                     </RubberBand>
                 </div>
 
                 <h1>Sign Up</h1>
 
                 <form onSubmit={handleSubmit}>
-                    <ul style={{ display: { errorsDisplay } }}>
-                        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    <ul className='errors-display' style={{ display: { errorsDisplay } }}>
+                        {errors.map((error, idx) => <li className='list-errors' key={idx}>{error}</li>)}
                     </ul>
                     <input
                         className='emailInput'

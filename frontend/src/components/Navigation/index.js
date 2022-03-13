@@ -40,6 +40,7 @@ export default function Navigation() {
     const [formattedNotebooks, setFormattedNotebooks] = useState([])
 
 
+
     useEffect(() => {
         dispatch(notesActions.loadNotesThunk(sessionUser.id))
         dispatch(notebooksActions.loadNotebooksThunk(sessionUser.id))
@@ -62,8 +63,14 @@ export default function Navigation() {
 
 
     const toggleAutosave = () => {
-        setAutosave(!autosave);
+        console.log('Before reset: ', autosave);
+        console.log('LocalStorage Before Reset: ', localStorage.getItem('autosave-notes'))
+
         localStorage.setItem('autosave-notes', autosave);
+        setAutosave(() => !autosave);
+
+        console.log('After reset: ', autosave);
+        // console.log('LocalStorage After Reset: ', localStorage.getItem('autosave-notes'))
     }
 
 

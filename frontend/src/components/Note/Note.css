@@ -13,3 +13,27 @@ button.delete-tag:hover {
 #tags-title {
     margin-right: 10px;
 }
+
+
+.editor {
+    overflow-y: auto;
+    height: 100%;
+}
+
+/*  */
+/* .ck.ck-editor , .ck-editor__main,  .ck-content{
+    height: 85%;
+} */
+
+/* .ck.ck-editor {
+    overflow-y: scroll;
+} */
+
+.ck-editor__main {
+    overflow-y: auto;
+}
+
+
+.ck-editor__editable_inline {
+    min-height: calc(100vh - 350px);
+}

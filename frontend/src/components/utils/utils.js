@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import htmlToFormattedText from "html-to-formatted-text";
 
 export function formattedDate(date) {
 
@@ -8,6 +9,8 @@ export function formattedDate(date) {
 }
 
 export function shortenedContent(content) {
+
+    content = htmlToFormattedText(content)
     if (content < 100) return content;
 
     let newContent = content;

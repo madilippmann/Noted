@@ -10,11 +10,17 @@ import * as SC from './StyledComponents'
 
 import { useAutosaveContext } from "../../context/AutosaveContext";
 
+// CKEditor
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
+
 import './Note.css';
 import { formatNotebooks, formatTags, sortByTitle, formattedDate, OuterDiv } from "../utils/utils";
 import { UilTimes, UilCheck, UilPlusCircle, UilArrowCircleLeft } from '@iconscout/react-unicons'
 
 import Slide from "../Animations/Slide";
+
 
 export default function Note({ userId }) {
     const { noteId } = useParams();
@@ -29,7 +35,7 @@ export default function Note({ userId }) {
 
     let formattedTags = formatTags(tags)
 
-    const { autosave, setAutosave } = useAutosaveContext();
+    const { autosave } = useAutosaveContext();
 
     const [title, setTitle] = useState(note?.title);
     const [content, setContent] = useState(note?.content);
@@ -41,7 +47,9 @@ export default function Note({ userId }) {
     const [save, setSave] = useState(false);
     const [tagDelete, setTagDelete] = useState(null);
 
-
+    const [initialData, setInitialData] = useState(note?.content);
+    const [data, setData] = useState(note?.content);
+    // FIX
 
     const tagsObj = formattedTags.reduce((tags, tag) => {
         tags[tag.id] = tag.name
@@ -76,12 +84,11 @@ export default function Note({ userId }) {
     useEffect(async () => {
 
         if (!autosave) {
-            if ((title.length > 100 || title.length === 0 || /^\s*$/.test(title))) {
+            if ((!title || title?.length > 100 || title.length === 0 || /^\s*$/.test(title))) {
                 setDisabled(true)
                 setErrorMessage(true)
 
-            }
-            else {
+            } else {
                 setDisabled(false)
                 setErrorMessage(false)
             }
@@ -90,7 +97,7 @@ export default function Note({ userId }) {
         else if (autosave) {
             setDisabled(true)
 
-            if ((title.length > 100 || title.length === 0 || /^\s*$/.test(title))) {
+            if ((!title || title?.length > 100 || title.length === 0 || /^\s*$/.test(title))) {
                 setErrorMessage(true)
             } else {
                 setErrorMessage(false)
@@ -98,15 +105,28 @@ export default function Note({ userId }) {
         }
 
         // const interval = setInterval(async () => {
+        console.log("\n\n\n\n\n\nAUTOAUTOAUTO: ", autosave, '\n\n\n\n');
         if (autosave) {
-
+            console.log('Entered AUTOSAVE');
+            let noteData;
             if (notebookId && notebookId !== null) {
-                const noteData = {
-                    title,
-                    content,
-                    notebookId,
-                    noteId: note.id,
-                    userId: note.userId
+
+                if (data.length === 0) {
+                    noteData = {
+                        title,
+                        content: '<p></p>',
+                        notebookId,
+                        noteId: note.id,
+                        userId: note.userId
+                    }
+                } else {
+                    noteData = {
+                        title,
+                        content: data,
+                        notebookId,
+                        noteId: note.id,
+                        userId: note.userId
+                    }
                 }
 
                 const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
@@ -118,11 +138,20 @@ export default function Note({ userId }) {
                 }))
             } else {
 
-                const noteData = {
-                    title,
-                    content,
-                    noteId: note.id,
-                    userId: note.userId
+                if (data.length === 0) {
+                    noteData = {
+                        title,
+                        content: '<p></p>',
+                        noteId: note.id,
+                        userId: note.userId
+                    }
+                } else {
+                    noteData = {
+                        title,
+                        content: data,
+                        noteId: note.id,
+                        userId: note.userId
+                    }
                 }
 
                 const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
@@ -134,17 +163,31 @@ export default function Note({ userId }) {
 
 
         // return () => clearInterval(interval)
-    }, [autosave, title, content])
+    }, [autosave, title, data])
 
     const saveNote = async (e) => {
         e.preventDefault()
+
+        let noteData;
+        console.log('Note ID: ', note.id);
         if (notebookId && notebookId !== null) {
-            const noteData = {
-                title,
-                content,
-                notebookId,
-                noteId: note.id,
-                userId: note.userId
+            if (data.length === 0) {
+                noteData = {
+                    title,
+                    content: '<p></p>',
+                    notebookId,
+                    noteId: note.id,
+                    userId: note.userId
+                }
+
+            } else {
+                noteData = {
+                    title,
+                    content: data,
+                    notebookId,
+                    noteId: note.id,
+                    userId: note.userId
+                }
             }
 
             const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
@@ -154,13 +197,23 @@ export default function Note({ userId }) {
                 title: notebooks[notebookId].title,
                 userId: note.userId,
             }))
-        } else {
 
-            const noteData = {
-                title,
-                content,
-                noteId: note.id,
-                userId: note.userId
+        } else {
+            if (data.length === 0) {
+                noteData = {
+                    title,
+                    content: '<p></p>',
+                    noteId: note.id,
+                    userId: note.userId
+                }
+
+            } else {
+                noteData = {
+                    title,
+                    content: data,
+                    noteId: note.id,
+                    userId: note.userId
+                }
             }
 
             const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
@@ -194,14 +247,6 @@ export default function Note({ userId }) {
 
 
 
-    useEffect(() => {
-        const interval = setInterval(() => { }, 60000)
-
-
-    }, [])
-
-
-
     return (
         // padding: '15px'
         <OuterDiv
@@ -214,13 +259,16 @@ export default function Note({ userId }) {
             }}
         >
             <SC.Form
-                onSubmit={saveNote}
+                onSubmit={(e) => {
+                    saveNote(e)
+                    console.log('entered save note')
+                }}
             >
                 <SC.CenteringDiv style={{ width: '100%', alignItems: 'flex-start' }}>
                     <SC.CenteringDiv style={{ flexDirection: 'row', paddingBottom: '10px', alignItems: 'flex-end' }}>
                         <div style={{ width: '100%' }}>
                             {/* <Link to='/notes'> */}
-                            <button type='button' onClick={() => history.goBack()}>
+                            <button type='button' onClick={() => history.push('/notes')}>
                                 <SC.ClickableIcon>
                                     <UilArrowCircleLeft size='40' />
                                 </SC.ClickableIcon>
@@ -265,6 +313,7 @@ export default function Note({ userId }) {
 
                             <SC.Button
                                 type='submit'
+                                // onClick={saveNote}
                                 disabled={disabled}
                                 buttonColor='#4fb06b'
                             >
@@ -296,12 +345,39 @@ export default function Note({ userId }) {
 
                 </SC.CenteringDiv>
 
-                <SC.CenteringDiv style={{ height: '100%', flexGrow: '2' }}>
-                    <SC.ContentTextarea
-                        placeholder='Start writing...'
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                    />
+                <SC.CenteringDiv>
+                    <SC.TextEditorContainer>
+                        <CKEditor
+                            config={{ height: '100%' }}
+                            className='editor'
+                            editor={ClassicEditor}
+                            data={data}
+                            onReady={editor => {
+                                // You can store the "editor" and use when it is needed.
+                                console.log('Editor is ready to use!', editor);
+                            }}
+                            onChange={(event, editor) => {
+                                const data = editor.getData();
+                                if (data.length === 0) {
+                                    console.log('no length')
+                                    setData(() => '')
+                                } else {
+                                    setData(() => data)
+                                }
+
+                                // console.log({ event, editor, data });
+                            }}
+                            onBlur={(event, editor) => {
+                                // console.log('Blur.', data, data.length);
+                            }}
+                            onFocus={(event, editor) => {
+
+                                // console.log('Focus.', data);
+                            }}
+                        />
+
+                    </SC.TextEditorContainer>
+
                     <SC.TagsOuterContainer>
                         <SC.TagsContainer>
                             <h4 id="tags-title">Tags:</h4>
