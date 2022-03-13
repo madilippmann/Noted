@@ -40,6 +40,7 @@ export default function Navigation() {
     const [formattedNotebooks, setFormattedNotebooks] = useState([])
 
 
+
     useEffect(() => {
         dispatch(notesActions.loadNotesThunk(sessionUser.id))
         dispatch(notebooksActions.loadNotebooksThunk(sessionUser.id))
@@ -62,8 +63,9 @@ export default function Navigation() {
 
 
     const toggleAutosave = () => {
-        setAutosave(!autosave);
+        setAutosave(() => !autosave);
         localStorage.setItem('autosave-notes', autosave);
+        console.log(localStorage.getItem('autosave-notes'))
     }
 
 

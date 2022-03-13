@@ -14,8 +14,6 @@ import { useAutosaveContext } from "../../context/AutosaveContext";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-import htmlToFormattedText from "html-to-formatted-text";
-
 
 import './Note.css';
 import { formatNotebooks, formatTags, sortByTitle, formattedDate, OuterDiv } from "../utils/utils";
@@ -37,7 +35,7 @@ export default function Note({ userId }) {
 
     let formattedTags = formatTags(tags)
 
-    const { autosave, setAutosave } = useAutosaveContext();
+    const { autosave } = useAutosaveContext();
 
     const [title, setTitle] = useState(note?.title);
     const [content, setContent] = useState(note?.content);
@@ -119,7 +117,6 @@ export default function Note({ userId }) {
                         userId: note.userId
                     }
                 } else {
-                    console.log('Parsed: ', htmlToFormattedText(data).length, htmlToFormattedText(data));
                     noteData = {
                         title,
                         content: data,
@@ -163,17 +160,30 @@ export default function Note({ userId }) {
 
 
         // return () => clearInterval(interval)
-    }, [autosave, title, data])
+    }, [autosave, title])
 
     const saveNote = async (e) => {
         e.preventDefault()
+        let noteData;
+        console.log('Note ID: ', note.id);
         if (notebookId && notebookId !== null) {
-            const noteData = {
-                title,
-                content: data,
-                notebookId,
-                noteId: note.id,
-                userId: note.userId
+            if (data.length === 0) {
+                noteData = {
+                    title,
+                    content: '<p></p>',
+                    notebookId,
+                    noteId: note.id,
+                    userId: note.userId
+                }
+
+            } else {
+                noteData = {
+                    title,
+                    content: data,
+                    notebookId,
+                    noteId: note.id,
+                    userId: note.userId
+                }
             }
 
             const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
@@ -183,13 +193,23 @@ export default function Note({ userId }) {
                 title: notebooks[notebookId].title,
                 userId: note.userId,
             }))
-        } else {
 
-            const noteData = {
-                title,
-                content: data,
-                noteId: note.id,
-                userId: note.userId
+        } else {
+            if (data.length === 0) {
+                noteData = {
+                    title,
+                    content: '<p></p>',
+                    noteId: note.id,
+                    userId: note.userId
+                }
+
+            } else {
+                noteData = {
+                    title,
+                    content: data,
+                    noteId: note.id,
+                    userId: note.userId
+                }
             }
 
             const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
@@ -235,7 +255,10 @@ export default function Note({ userId }) {
             }}
         >
             <SC.Form
-                onSubmit={saveNote}
+                onSubmit={(e) => {
+                    saveNote(e)
+                    console.log('entered save note')
+                }}
             >
                 <SC.CenteringDiv style={{ width: '100%', alignItems: 'flex-start' }}>
                     <SC.CenteringDiv style={{ flexDirection: 'row', paddingBottom: '10px', alignItems: 'flex-end' }}>
@@ -286,6 +309,7 @@ export default function Note({ userId }) {
 
                             <SC.Button
                                 type='submit'
+                                // onClick={saveNote}
                                 disabled={disabled}
                                 buttonColor='#4fb06b'
                             >
