@@ -47,7 +47,9 @@ export default function Note({ userId }) {
     const [save, setSave] = useState(false);
     const [tagDelete, setTagDelete] = useState(null);
 
+    const [initialData, setInitialData] = useState(note?.content);
     const [data, setData] = useState(note?.content);
+    // FIX
 
     const tagsObj = formattedTags.reduce((tags, tag) => {
         tags[tag.id] = tag.name
@@ -86,8 +88,7 @@ export default function Note({ userId }) {
                 setDisabled(true)
                 setErrorMessage(true)
 
-            }
-            else {
+            } else {
                 setDisabled(false)
                 setErrorMessage(false)
             }
@@ -104,7 +105,9 @@ export default function Note({ userId }) {
         }
 
         // const interval = setInterval(async () => {
+        console.log("\n\n\n\n\n\nAUTOAUTOAUTO: ", autosave, '\n\n\n\n');
         if (autosave) {
+            console.log('Entered AUTOSAVE');
             let noteData;
             if (notebookId && notebookId !== null) {
 
@@ -160,10 +163,11 @@ export default function Note({ userId }) {
 
 
         // return () => clearInterval(interval)
-    }, [autosave, title])
+    }, [autosave, title, data])
 
     const saveNote = async (e) => {
         e.preventDefault()
+
         let noteData;
         console.log('Note ID: ', note.id);
         if (notebookId && notebookId !== null) {
@@ -264,7 +268,7 @@ export default function Note({ userId }) {
                     <SC.CenteringDiv style={{ flexDirection: 'row', paddingBottom: '10px', alignItems: 'flex-end' }}>
                         <div style={{ width: '100%' }}>
                             {/* <Link to='/notes'> */}
-                            <button type='button' onClick={() => history.goBack()}>
+                            <button type='button' onClick={() => history.push('/notes')}>
                                 <SC.ClickableIcon>
                                     <UilArrowCircleLeft size='40' />
                                 </SC.ClickableIcon>
@@ -360,17 +364,14 @@ export default function Note({ userId }) {
                                 } else {
                                     setData(() => data)
                                 }
+
                                 // console.log({ event, editor, data });
                             }}
                             onBlur={(event, editor) => {
-                                const data = editor.getData();
-
-                                // setData(() => data)
                                 // console.log('Blur.', data, data.length);
                             }}
                             onFocus={(event, editor) => {
-                                // const data = editor.getData();
-                                // setData(() => data)
+
                                 // console.log('Focus.', data);
                             }}
                         />
