@@ -83,7 +83,7 @@ export default function Note({ userId }) {
     useEffect(async () => {
 
         if (!autosave) {
-            if ((title?.length > 100 || title.length === 0 || /^\s*$/.test(title))) {
+            if ((!title || title?.length > 100 || title.length === 0 || /^\s*$/.test(title))) {
                 setDisabled(true)
                 setErrorMessage(true)
 
@@ -97,7 +97,7 @@ export default function Note({ userId }) {
         else if (autosave) {
             setDisabled(true)
 
-            if ((title?.length > 100 || title.length === 0 || /^\s*$/.test(title))) {
+            if ((!title || title?.length > 100 || title.length === 0 || /^\s*$/.test(title))) {
                 setErrorMessage(true)
             } else {
                 setErrorMessage(false)
@@ -106,14 +106,26 @@ export default function Note({ userId }) {
 
         // const interval = setInterval(async () => {
         if (autosave) {
-
+            let noteData;
             if (notebookId && notebookId !== null) {
-                const noteData = {
-                    title,
-                    content: data,
-                    notebookId,
-                    noteId: note.id,
-                    userId: note.userId
+
+                console.log('Data: ', data.length, data);
+                if (data.length === 0) {
+                    noteData = {
+                        title,
+                        content: '<p></p>',
+                        notebookId,
+                        noteId: note.id,
+                        userId: note.userId
+                    }
+                } else {
+                    noteData = {
+                        title,
+                        content: data,
+                        notebookId,
+                        noteId: note.id,
+                        userId: note.userId
+                    }
                 }
 
                 const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
@@ -124,12 +136,22 @@ export default function Note({ userId }) {
                     userId: note.userId,
                 }))
             } else {
+                console.log('Data: ', data.length, data);
 
-                const noteData = {
-                    title,
-                    content: data,
-                    noteId: note.id,
-                    userId: note.userId
+                if (data.length === 0) {
+                    noteData = {
+                        title,
+                        content: '<p></p>',
+                        noteId: note.id,
+                        userId: note.userId
+                    }
+                } else {
+                    noteData = {
+                        title,
+                        content: data,
+                        noteId: note.id,
+                        userId: note.userId
+                    }
                 }
 
                 const noteRes = await dispatch(notesActions.updateNoteThunk(noteData));
@@ -298,6 +320,7 @@ export default function Note({ userId }) {
                 <SC.CenteringDiv>
                     <SC.TextEditorContainer>
                         <CKEditor
+                            config={{ height: '100%' }}
                             className='editor'
                             editor={ClassicEditor}
                             data={data}
@@ -307,14 +330,24 @@ export default function Note({ userId }) {
                             }}
                             onChange={(event, editor) => {
                                 const data = editor.getData();
-                                setData(() => data)
+                                if (data.length === 0) {
+                                    console.log('no length')
+                                    setData(() => '')
+                                } else {
+                                    setData(() => data)
+                                }
                                 // console.log({ event, editor, data });
                             }}
                             onBlur={(event, editor) => {
-                                // console.log('Blur.', editor);
+                                const data = editor.getData();
+
+                                // setData(() => data)
+                                // console.log('Blur.', data, data.length);
                             }}
                             onFocus={(event, editor) => {
-                                // console.log('Focus.', editor);
+                                // const data = editor.getData();
+                                // setData(() => data)
+                                // console.log('Focus.', data);
                             }}
                         />
 

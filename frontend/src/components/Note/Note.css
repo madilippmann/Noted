@@ -21,9 +21,9 @@ button.delete-tag:hover {
 }
 
 /*  */
-.ck.ck-editor , .ck-editor__main,  .ck-content{
+/* .ck.ck-editor , .ck-editor__main,  .ck-content{
     height: 85%;
-}
+} */
 
 /* .ck.ck-editor {
     overflow-y: scroll;
@@ -31,8 +31,4 @@ button.delete-tag:hover {
 
 .ck-editor__main {
     overflow-y: auto;
-}
-
-.ck-content:focus {
-    outline: none;
 }
