@@ -72,14 +72,13 @@ Noted was built using the following technologies:
     * `npm start`
 
 
-<!-- ## Demo
-### Demo User
-TODO -->
+## Demo
+<!-- ### Demo User -->
+<!-- TODO -->
 <!-- ![Demo User](/public/static/readme-files/demo-login.gif) -->
 
-<!-- ### Notes
-TODO -->
-<!-- ![](/public/static/readme-files/TODO) -->
+### Notes
+![Note](https://user-images.githubusercontent.com/66145354/158189536-b7ebf9cc-d228-4f13-a920-9c57ec9aacc0.gif)
 
 <!-- ### Notebooks
 TODO -->
