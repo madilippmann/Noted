@@ -5,7 +5,6 @@ import { Redirect, Link, useHistory } from 'react-router-dom';
 import { UilPlusCircle, UilSearchAlt } from '@iconscout/react-unicons';
 import * as notesActions from '../../store/notes';
 import * as tagsActions from '../../store/tags';
-import { loadSearchThunk, updateSearchThunk } from "../../store/search";
 
 import * as SC from './StyledComponents';
 

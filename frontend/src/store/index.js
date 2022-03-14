@@ -4,14 +4,12 @@ import sessionReducer from './session';
 import notesReducer from './notes';
 import notebooksReducer from './notebooks';
 import tagsReducer from './tags';
-import searchReducer from './search'
 
 const rootReducer = combineReducers({
     session: sessionReducer,
     notes: notesReducer,
     notebooks: notebooksReducer,
     tags: tagsReducer,
-    search: searchReducer
 });
 
 

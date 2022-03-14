@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { loadNotesThunk } from '../../store/notes';
 import { loadNotebooksThunk } from '../../store/notebooks';
 import { loadAllTagsThunk } from '../../store/tags';
-import { loadSearchThunk, updateSearchThunk } from "../../store/search";
 
 import { formatNotes, formatTags, formatNotebooks } from '../utils/utils.js'
 

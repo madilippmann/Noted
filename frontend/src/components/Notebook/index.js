@@ -107,8 +107,7 @@ export default function Notebook() {
 
     const newNote = async () => {
         const noteId = await dispatch(notesActions.createNoteThunk(sessionUser.id))
-        console.log('NotebookId: ', notebookId, notebook.id);
-        console.log('New Note: ', allNotes, noteId, allNotes[noteId]);
+
         const noteData = {
             noteId,
             title: 'Untitled',

@@ -63,14 +63,9 @@ export default function Navigation() {
 
 
     const toggleAutosave = () => {
-        console.log('Before reset: ', autosave);
-        console.log('LocalStorage Before Reset: ', localStorage.getItem('autosave-notes'))
-
         localStorage.setItem('autosave-notes', autosave);
         setAutosave(() => !autosave);
 
-        console.log('After reset: ', autosave);
-        // console.log('LocalStorage After Reset: ', localStorage.getItem('autosave-notes'))
     }
 
 

@@ -105,9 +105,7 @@ export default function Note({ userId }) {
         }
 
         // const interval = setInterval(async () => {
-        console.log("\n\n\n\n\n\nAUTOAUTOAUTO: ", autosave, '\n\n\n\n');
         if (autosave) {
-            console.log('Entered AUTOSAVE');
             let noteData;
             if (notebookId && notebookId !== null) {
 
@@ -169,7 +167,6 @@ export default function Note({ userId }) {
         e.preventDefault()
 
         let noteData;
-        console.log('Note ID: ', note.id);
         if (notebookId && notebookId !== null) {
             if (data.length === 0) {
                 noteData = {
@@ -261,7 +258,6 @@ export default function Note({ userId }) {
             <SC.Form
                 onSubmit={(e) => {
                     saveNote(e)
-                    console.log('entered save note')
                 }}
             >
                 <SC.CenteringDiv style={{ width: '100%', alignItems: 'flex-start' }}>
@@ -354,12 +350,10 @@ export default function Note({ userId }) {
                             data={data}
                             onReady={editor => {
                                 // You can store the "editor" and use when it is needed.
-                                console.log('Editor is ready to use!', editor);
                             }}
                             onChange={(event, editor) => {
                                 const data = editor.getData();
                                 if (data.length === 0) {
-                                    console.log('no length')
                                     setData(() => '')
                                 } else {
                                     setData(() => data)
