@@ -8,7 +8,7 @@ import * as tagsActions from '../../store/tags';
 
 import { formatNotebooks, formatNotes, formatTags, formattedDate, sortByUpdatedAt, shortenedContent } from '../utils/utils.js';
 
-import { UilPlusCircle, UilBook } from '@iconscout/react-unicons';
+import { UilPlusCircle, UilPlus, UilBook } from '@iconscout/react-unicons';
 
 
 import * as SC from './StyledComponents.js';
@@ -80,7 +80,17 @@ export default function Home() {
     return (
         <OuterDiv className='main' style={{ minWidth: '800px', padding: '50px', display: 'flex', flexDirection: 'column' }}>
             <SC.Backdrop >
-                <SC.H1>Recent Notes</SC.H1>
+                <SC.ContainerTopDiv>
+                    <SC.H1>Recent Notes</SC.H1>
+                    <SC.AddButton
+                        type='button'
+                        onClick={addNote}
+                        buttonColor='#65dba0'
+                    >
+                        <UilPlus size='25' />
+                        New Note
+                    </SC.AddButton>
+                </SC.ContainerTopDiv>
                 <SC.NotesContainer>
                     {formattedNotes.map(note => (
                         <Link to={`/notes/${note.id}`} key={note.id}>
@@ -92,19 +102,30 @@ export default function Home() {
                             </div>
                         </Link>
                     ))}
-                    <button type='button' onClick={addNote} style={{ border: 'none' }}>
+                    {/* <button type='button' onClick={addNote} style={{ border: 'none' }}>
                         <div className='create-note-card square-card home-page'>
                             <UilPlusCircle size='75' />
                             <h2 className='add-card-title'>New Note</h2>
                         </div>
-                    </button>
+                    </button> */}
                 </SC.NotesContainer>
             </SC.Backdrop>
 
             <SC.BottomDiv >
 
                 <SC.NotebooksContainer>
-                    <SC.H1>Recent Notebooks</SC.H1>
+                    <SC.ContainerTopDiv>
+                        <SC.H1>Recent Notebooks</SC.H1>
+                        <SC.AddButton
+                            type='button'
+                            onClick={addNotebook}
+                            // buttonColor='rgb(99, 204, 238)'
+                            buttonColor='#13c8cf'
+                        >
+                            <UilPlus size='25' />
+                            New Notebook
+                        </SC.AddButton>
+                    </SC.ContainerTopDiv>
                     <SC.NotesContainer>
                         {formattedNotebooks.map(notebook => (
                             <Link to={`/notebooks/${notebook.id}`} key={notebook.id}>
@@ -115,12 +136,12 @@ export default function Home() {
                                 </div>
                             </Link>
                         ))}
-                        <button type='button' onClick={addNotebook} style={{ border: 'none' }}>
+                        {/* <button type='button' onClick={addNotebook} style={{ border: 'none' }}>
                             <div className='create-note-card square-card home-page blue-card no-border'>
                                 <UilPlusCircle size='75' />
                                 <h2 className='add-card-title'>New Notebook</h2>
                             </div>
-                        </button>
+                        </button> */}
                     </SC.NotesContainer>
                 </SC.NotebooksContainer>
 

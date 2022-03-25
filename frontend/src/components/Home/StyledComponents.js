@@ -47,6 +47,8 @@ export const NotesContainer = styled.div`
 
 export const H1 = styled.h1`
     margin: 20px 20px 0 30px;
+    color: rgba(0, 0, 0, 0.9);
+
 `;
 
 
@@ -57,6 +59,8 @@ padding: 10px;
 margin-right: 50px;
 width: calc(100% - 450px);
 min-width: 200px;
+min-height: 325px;
+min-width: 400px;
 height: 100%;
 `;
 
@@ -132,3 +136,43 @@ export const TagContainer = styled.div`
     margin-top: 5px;
 
 `;
+
+
+export const ContainerTopDiv = styled.div`
+    display: flex;
+    justify-content: space-between;
+    // align-items:center;
+
+
+`
+
+export const AddButton = styled.button`
+    font-size: 16px;
+    padding: 5px;
+    color: white;
+    margin: 20px 10px 10px 0;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 5px;
+
+    padding: 5px 17px 5px 10px;
+    border-radius: 25px;
+    color: white;
+    font-weight: bold;
+    font-size: 17px;
+
+    background-color: ${props => props.buttonColor};
+    border: 2px solid ${props => props.buttonColor};
+    transition: background-color .24s ease, color .24s ease;
+
+    &:hover {
+        background-color: rgba(64, 0, 189, .7);
+        color: ${props => props.buttonColor};
+        background-color: transparent;
+
+
+    }
+    `
+
+    // background-color: ${props => props.buttonColor};

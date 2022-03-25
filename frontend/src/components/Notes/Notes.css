@@ -51,7 +51,7 @@ h1.notes-title {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    color: black;
+    color: rgba(0, 0, 0, 0.9);
     transition: color .2s ease;
 }
 
