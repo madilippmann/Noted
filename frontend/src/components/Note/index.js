@@ -12,8 +12,9 @@ import { OuterDiv } from "../StyledComponents";
 import { useAutosaveContext } from "../../context/AutosaveContext";
 
 // CKEditor
+import Editor from 'ckeditor5-custom-build/build/ckeditor'
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
 import './Note.css';
@@ -347,7 +348,7 @@ export default function Note({ userId }) {
                         <CKEditor
                             config={{ height: '100%' }}
                             className='editor'
-                            editor={ClassicEditor}
+                            editor={Editor}
                             data={data}
                             onReady={editor => {
                                 // You can store the "editor" and use when it is needed.
