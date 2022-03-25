@@ -7,8 +7,9 @@ import * as notesActions from '../../store/notes';
 import * as tagsActions from '../../store/tags';
 
 import * as SC from './StyledComponents';
+import { OuterDiv } from '../StyledComponents';
 
-import { formatNotes, formatTags, formatNotebooks, formattedDate, OuterDiv, shortenedContent, sortByUpdatedAt } from '../utils/utils.js';
+import { formatNotes, formatTags, formatNotebooks, formattedDate, shortenedContent, sortByUpdatedAt } from '../utils/utils.js';
 
 import './Notes.css';
 

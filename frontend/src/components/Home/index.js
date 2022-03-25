@@ -12,7 +12,7 @@ import { UilPlusCircle, UilBook } from '@iconscout/react-unicons';
 
 
 import * as SC from './StyledComponents.js';
-import { OuterDiv } from '../utils/utils.js'
+import { OuterDiv } from '../StyledComponents'
 import './Home.css'
 
 export default function Home() {

@@ -6,9 +6,11 @@ import { UilTimes, UilArrowCircleLeft, UilPlus, UilEllipsisH, UilAngleRight, Uil
 import * as notesActions from '../../store/notes';
 import * as notebooksActions from '../../store/notebooks';
 
-import { formattedDate, OuterDiv, formattedTags, shortenedContent, sortByUpdatedAt, sortByTitle, formatNotes, formatNotebooks } from '../utils/utils.js';
+import { formattedDate, formattedTags, shortenedContent, sortByUpdatedAt, sortByTitle, formatNotes, formatNotebooks } from '../utils/utils.js';
 
-import * as SC from './StyledComponents.js'
+import * as SC from './StyledComponents.js';
+import { OuterDiv } from '../StyledComponents';
+
 import './Notebook.css'
 import Slide from '../Animations/Slide';
 

@@ -59,9 +59,16 @@ export default function SignupFormPage() {
                     </RubberBand>
                 </div>
 
-                <h1>Sign Up</h1>
+                <h1
+                    className='splash-login-signup'
+                >
+                    Sign Up
+                </h1>
 
-                <form onSubmit={handleSubmit}>
+                <form
+                    onSubmit={handleSubmit}
+                    className='form'
+                >
                     <ul className='errors-display' style={{ display: { errorsDisplay } }}>
                         {errors.map((error, idx) => <li className='list-errors' key={idx}>{error}</li>)}
                     </ul>

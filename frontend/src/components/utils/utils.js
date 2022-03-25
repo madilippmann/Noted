@@ -1,4 +1,3 @@
-import styled from 'styled-components'
 import htmlToFormattedText from "html-to-formatted-text";
 
 export function formattedDate(date) {
@@ -99,13 +98,3 @@ export function formatTags(tags) {
 
     return formattedTags;
 }
-
-
-
-
-
-export const OuterDiv = styled.div`
-    width: calc(100% - 250px);
-    overflow: auto;
-
-`;

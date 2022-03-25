@@ -7,6 +7,7 @@ import * as notebooksActions from '../../store/notebooks';
 import * as tagsActions from '../../store/tags';
 
 import * as SC from './StyledComponents'
+import { OuterDiv } from "../StyledComponents";
 
 import { useAutosaveContext } from "../../context/AutosaveContext";
 
@@ -16,7 +17,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
 import './Note.css';
-import { formatNotebooks, formatTags, sortByTitle, formattedDate, OuterDiv } from "../utils/utils";
+import { formatNotebooks, formatTags, sortByTitle, formattedDate } from "../utils/utils";
 import { UilTimes, UilCheck, UilPlusCircle, UilArrowCircleLeft } from '@iconscout/react-unicons'
 
 import Slide from "../Animations/Slide";
