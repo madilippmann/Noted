@@ -37,13 +37,13 @@ function InfoModal() {
 }
 
 
-export default function InfoButton() {
+export default function InfoButton({ color }) {
     const [modalVisibility, setModalVisibility] = useState(false);
 
     return (
         <div className='button-and-modal-container'>
             <button className='info-button' onClick={() => setModalVisibility(!modalVisibility)} type='button'>
-                <UilInfoCircle className='info-icon' size='40' />
+                <UilInfoCircle className={`info-icon ${color}`} size='40' />
             </button>
             {modalVisibility &&
                 <Slide direction='right'>

@@ -19,7 +19,7 @@ import { sortByUpdatedAt, formatNotebooks, formatNotes } from '../utils/utils';
 import './Navigation.css';
 import logo from '../static/images/noted-logo.png';
 
-import { UilUserCircle, UilCheck, UilEllipsisH, UilSignout, UilHome, UilBooks, UilAngleRight, UilFileAlt, UilTagAlt } from '@iconscout/react-unicons';
+import { UilUserCircle, UilCheck, UilSetting, UilEllipsisH, UilSignout, UilHome, UilBooks, UilAngleRight, UilFileAlt, UilTagAlt } from '@iconscout/react-unicons';
 
 export default function Navigation() {
     const dispatch = useDispatch();
@@ -73,15 +73,15 @@ export default function Navigation() {
     return (
         <div className='sidebar'>
 
-            <Link to='/'>
+            {/* <Link to='/'>
                 <div className='sidebar-img-container'>
-                    {/* <RubberBand> */}
-                    <img className='logo' src={logo} />
-                    {/* </RubberBand> */}
+                    <RubberBand>
+                        <img className='logo' src={logo} />
+                    </RubberBand>
                 </div>
-            </Link>
+            </Link > */}
 
-            <div className='user-bar-container'>
+            <div className='user-bar-container' >
                 <div className='user-bar'>
                     <div className='left-justified'>
                         <div className='avatar-container'>
@@ -104,7 +104,8 @@ export default function Navigation() {
                 </div>
 
 
-                {userDropdown &&
+                {
+                    userDropdown &&
                     <Slide direction='down' duration={.45}>
                         <div className='user-modal'>
                             <div className='modal-user-info-container'>
@@ -123,9 +124,6 @@ export default function Navigation() {
                             </div>
 
                             <div className='settings-and-sign-out-container'>
-                                {/* <Link to={`users/${sessionUser.id}/settings`}>
-                                    <div className='settings'>Account settings</div>
-                                </Link> */}
 
                                 <div className='autosave no-hover'>
                                     <SC.P className='no-hover'>Autosave Notes </SC.P>
@@ -135,6 +133,13 @@ export default function Navigation() {
                                         </div>
                                     </button>
                                 </div>
+
+                                <Link to={`/settings`}>
+                                    <div className='settings-sign-out'>
+                                        <UilSetting size='25' />
+                                        Profile Settings
+                                    </div>
+                                </Link>
 
                                 <button type='button' onClick={() => dispatch(sessionActions.logout())} >
                                     <div className='settings-sign-out'>
@@ -147,7 +152,7 @@ export default function Navigation() {
                     </Slide>
                 }
 
-            </div>
+            </ div>
 
             <div className='search-and-create-bars-container'>
                 <RoundedContainer type='search' />
@@ -255,6 +260,6 @@ export default function Navigation() {
 
             </nav>
 
-        </div>
+        </div >
     );
 }

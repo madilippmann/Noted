@@ -43,8 +43,14 @@ button.info-button:hover {
     margin-left: 5px;
 }
 
-.info-icon {
-    color:rgba(24, 24, 24, 0.713)
+.info-icon.dark {
+    color:rgba(24, 24, 24, 0.713);
+    color: rgba(70, 39, 194, 0.507);
+}
+
+.info-icon.light {
+    color:rgba(24, 24, 24, 0.713);
+    color: rgba(255, 255, 255, 0.912);
 }
 
 .info-icon:hover {

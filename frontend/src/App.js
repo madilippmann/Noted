@@ -10,6 +10,7 @@ import Notes from './components/Notes';
 import Navigation from "./components/Navigation";
 import Note from "./components/Note";
 import Notebook from './components/Notebook';
+import Settings from './components/Settings'
 
 import * as sessionActions from "./store/session";
 import Notebooks from "./components/Notebooks";
@@ -52,8 +53,8 @@ function App() {
         </Route>
 
 
-        <Route exact path='/tags'>
-          {sessionUser ? <div>TAGS PAGE TODO</div> : <Redirect to='/login' />}
+        <Route exact path='/settings'>
+          {sessionUser ? <Settings /> : <Redirect to='/login' />}
         </Route>
 
         <Route path='/notebooks/:notebookId'>
@@ -69,7 +70,8 @@ function App() {
         </Route>
 
       </Switch>
-      <InfoButton className='info' />
+      {sessionUser ? <InfoButton color='dark' /> : <InfoButton color='light' />}
+
     </>
   );
 }
