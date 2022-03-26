@@ -150,7 +150,7 @@ export const AddButton = styled.button`
     font-size: 16px;
     padding: 5px;
     color: white;
-    margin: 20px 10px 10px 0;
+    margin: 20px 20px 10px 0;
     display: flex;
     flex-wrap: nowrap;
     align-items: center;

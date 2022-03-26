@@ -83,7 +83,7 @@ h1.notes-title {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    scrollbar-color: rebeccapurple;
+    /* scrollbar-color: rebeccapurple; */
     scrollbar-width: thin;
 }
 

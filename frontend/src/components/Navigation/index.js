@@ -33,18 +33,23 @@ export default function Navigation() {
 
     const [userDropdown, setUserDropdown] = useState(false);
 
-    const [notesDropdown, setNotesDropdown] = useState(false);
-    const [notebooksDropdown, setNotebooksDropdown] = useState(false);
+
+
+    const [notesDropdown, setNotesDropdown] = useState(localStorage.getItem('notes-dropdown') === 'true' ? true : false);
+    const [notebooksDropdown, setNotebooksDropdown] = useState(localStorage.getItem('notebooks-dropdown') === 'true' ? true : false);
 
     const [formattedNotes, setFormattedNotes] = useState([])
     const [formattedNotebooks, setFormattedNotebooks] = useState([])
 
 
+    console.log(notebooksDropdown);
+    console.log(notesDropdown);
 
     useEffect(() => {
         dispatch(notesActions.loadNotesThunk(sessionUser.id))
         dispatch(notebooksActions.loadNotebooksThunk(sessionUser.id))
     }, [dispatch])
+
 
 
     useEffect(() => {
@@ -67,8 +72,6 @@ export default function Navigation() {
         setAutosave(() => !autosave);
 
     }
-
-
 
     return (
         <div className='sidebar'>
@@ -188,7 +191,8 @@ export default function Navigation() {
                         <div id='arrow-icon-container'>
                             <button data-name='notebooks' onClick={(e) => {
                                 e.preventDefault();
-                                setNotebooksDropdown(!notebooksDropdown)
+                                localStorage.setItem('notebooks-dropdown', !notebooksDropdown)
+                                setNotebooksDropdown(() => !notebooksDropdown)
                             }} className='arrow-right-button' type='button' >
                                 <UilAngleRight className={`arrow-right-icon ${notebooksDropdown}`} side='40' style={{ color: `black` }} />
                             </button>
@@ -199,14 +203,14 @@ export default function Navigation() {
 
                 </NavLink>
 
-                {notebooksDropdown && <div className='results-outer-container nav-dropdown-outer'>
+                {notebooksDropdown === true && <div className='results-outer-container nav-dropdown-outer'>
                     <div className='results-container nav-dropdown'>
                         <div className='results'>
                             {formattedNotebooks?.map((notebook, i) => {
                                 if (i < 5) {
                                     return (
-                                        <Link to={`/notebooks/${notebook.id}`}>
-                                            <p className='result-link' key={notebook.id}>‣ {notebook.title}</p>
+                                        <Link key={notebook.id} to={`/notebooks/${notebook.id}`}>
+                                            <p className='result-link' >‣ {notebook.title}</p>
                                         </Link>
                                     )
                                 }
@@ -228,7 +232,8 @@ export default function Navigation() {
                         <div id='arrow-icon-container'>
                             <button onClick={(e) => {
                                 e.preventDefault();
-                                setNotesDropdown(!notesDropdown)
+                                localStorage.setItem('notes-dropdown', !notesDropdown)
+                                setNotesDropdown(() => !notesDropdown)
                             }} className='arrow-right-button' type='button' >
                                 <UilAngleRight className={`arrow-right-icon ${notesDropdown}`} side='40' style={{ color: `black` }} />
                             </button>
@@ -238,14 +243,14 @@ export default function Navigation() {
                     </div>
                 </NavLink>
 
-                {notesDropdown && <div className='results-outer-container nav-dropdown-outer'>
+                {notesDropdown === true && <div className='results-outer-container nav-dropdown-outer'>
                     <div className='results-container nav-dropdown'>
                         <div className='results'>
                             {formattedNotes?.map((note, i) => {
                                 if (i < 5) {
                                     return (
-                                        <Link to={`/notes/${note.id}`}>
-                                            <p className='result-link' key={note.id}>‣ {note.title}</p>
+                                        <Link key={note.id} to={`/notes/${note.id}`}>
+                                            <p className='result-link' >‣ {note.title}</p>
                                         </Link>
                                     )
                                 }

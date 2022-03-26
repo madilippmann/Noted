@@ -20,11 +20,13 @@ export const TagContainer = styled.div`
 export const SearchBar = styled.div`
     width: 250px;
     margin-right: 25px;
- `
+ `;
 
 
 export const TopDiv = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 4px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 4px solid rgba(230, 230, 230, 0.50);
  `;
