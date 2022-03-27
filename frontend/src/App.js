@@ -11,6 +11,7 @@ import Navigation from "./components/Navigation";
 import Note from "./components/Note";
 import Notebook from './components/Notebook';
 import Settings from './components/Settings'
+import PageNotFound from "./components/PageNotFound";
 
 import * as sessionActions from "./store/session";
 import Notebooks from "./components/Notebooks";
@@ -66,7 +67,7 @@ function App() {
         </Route>
 
         <Route >
-          {sessionUser ? <div>Page Not Found</div> : <Redirect to='/login' />}
+          {sessionUser ? <PageNotFound /> : <Redirect to='/login' />}
         </Route>
 
       </Switch>

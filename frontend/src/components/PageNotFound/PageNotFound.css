@@ -1,0 +1,14 @@
+.page-not-found {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #F3f3f3;
+    margin: auto;
+}
+
+
+.page-not-found-text {
+    border: 2px solid #f3f3f3;
+    padding: 50px;
+    border-radius: 20px;
+}
