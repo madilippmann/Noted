@@ -66,21 +66,13 @@ export default function Navigation() {
 
 
     const toggleAutosave = () => {
-        localStorage.setItem('autosave-notes', autosave);
+        localStorage.setItem('autosave-notes', !autosave);
         setAutosave(() => !autosave);
 
     }
 
     return (
         <div className='sidebar'>
-
-            {/* <Link to='/'>
-                <div className='sidebar-img-container'>
-                    <RubberBand>
-                        <img className='logo' src={logo} />
-                    </RubberBand>
-                </div>
-            </Link > */}
 
             <div className='user-bar-container' >
                 <div className='user-bar'>
