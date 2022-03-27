@@ -39,18 +39,23 @@
 }
 
 .new-note-container {
-    background-color: rgb(124, 0, 249);
+    /* background-color: rgb(124, 0, 249); */
+    /* border: 2px solid rgb(124, 0, 249); */
     color: #F3F3F3;
-    border: 2px solid rgb(124, 0, 249);
+    background-color: rgb(95, 66, 226);
+    border: 2px solid rgb(95, 66, 226);
+
     transition: background-color .24s ease, color .24s ease;
 }
 
 div.rounded-container.new-note-container:hover {
     /* background-color: rgb(112, 0, 225); */
     /* box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 8px; */
-    color: rgb(124, 0, 249);
+    /* color: rgb(124, 0, 249);
+    border: 2px solid rgb(124, 0, 249); */
     background-color: transparent;
-    border: 2px solid rgb(124, 0, 249);
+    color: rgb(95, 66, 226);
+    border: 2px solid rgb(95, 66, 226);
 
 }
 

@@ -33,8 +33,6 @@ export default function Navigation() {
 
     const [userDropdown, setUserDropdown] = useState(false);
 
-
-
     const [notesDropdown, setNotesDropdown] = useState(localStorage.getItem('notes-dropdown') === 'true' ? true : false);
     const [notebooksDropdown, setNotebooksDropdown] = useState(localStorage.getItem('notebooks-dropdown') === 'true' ? true : false);
 
@@ -165,14 +163,11 @@ export default function Navigation() {
             </div>
 
             <nav className='nav-bars-container'>
-
-
                 <NavLink
                     className='main-nav-links'
                     exact to='/'
                     style={(isActive) => isActive ? { backgroundColor: `rgb(232, 220, 255)` } : { backgroundColor: `transparent` }}
                 >
-                    {/* <NavigationContainer className='home-nav' type='Home' dropdown={false} /> */}
                     <div className='nav-sidebar-container'>
                         <div className='filler'></div>
                         <div className='nav-icon-container'><UilHome side='30' className='icon' /></div>
@@ -186,7 +181,6 @@ export default function Navigation() {
                     to='/notebooks'
                     style={(isActive) => isActive ? { backgroundColor: `rgb(232, 220, 255)` } : { backgroundColor: `transparent` }}
                 >
-                    {/* <NavigationContainer type='Notebooks' dropdown={true} /> */}
                     <div className='nav-sidebar-container'>
                         <div id='arrow-icon-container'>
                             <button data-name='notebooks' onClick={(e) => {
@@ -226,7 +220,6 @@ export default function Navigation() {
                     to='/notes'
                     style={(isActive) => isActive ? { backgroundColor: `rgb(232, 220, 255)` } : { backgroundColor: `transparent` }}
                 >
-                    {/* <NavigationContainer type='Notes' dropdown={true} /> */}
 
                     <div className='nav-sidebar-container'>
                         <div id='arrow-icon-container'>

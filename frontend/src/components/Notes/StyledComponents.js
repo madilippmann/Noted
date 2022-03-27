@@ -27,6 +27,6 @@ export const TopDiv = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 4px solid rgba(255, 255, 255, 0.2);
     border-bottom: 4px solid rgba(230, 230, 230, 0.50);
+    border-bottom: 4px solid rgba(255, 255, 255, 0.2);
  `;

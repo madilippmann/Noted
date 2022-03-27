@@ -8,7 +8,7 @@ import * as tagsActions from '../../store/tags';
 
 import { formatNotebooks, formatNotes, formatTags, formattedDate, sortByUpdatedAt, shortenedContent } from '../utils/utils.js';
 
-import { UilPlusCircle, UilPlus, UilBook } from '@iconscout/react-unicons';
+import { UilNotes, UilBooks, UilPlus, UilBook } from '@iconscout/react-unicons';
 
 
 import * as SC from './StyledComponents.js';
@@ -85,7 +85,9 @@ export default function Home() {
                     <SC.AddButton
                         type='button'
                         onClick={addNote}
-                        buttonColor='#65dba0'
+                        // buttonColor='#65dba0'
+                        buttonColor='rgb(121, 226, 156)'
+
                     >
                         <UilPlus size='25' />
                         New Note
@@ -102,12 +104,14 @@ export default function Home() {
                             </div>
                         </Link>
                     ))}
-                    {/* <button type='button' onClick={addNote} style={{ border: 'none' }}>
-                        <div className='create-note-card square-card home-page'>
-                            <UilPlusCircle size='75' />
-                            <h2 className='add-card-title'>New Note</h2>
+                    {/* <button type='button' onClick={addNote} style={{ border: 'none' }}> */}
+                    <Link to='/notes'>
+                        <div className='create-note-card square-card green-card home-page'>
+                            <UilNotes size='75' />
+                            <h2 className='add-card-title'>All Notes</h2>
                         </div>
-                    </button> */}
+                    </Link>
+                    {/* </button> */}
                 </SC.NotesContainer>
             </SC.Backdrop>
 
@@ -119,8 +123,8 @@ export default function Home() {
                         <SC.AddButton
                             type='button'
                             onClick={addNotebook}
-                            // buttonColor='rgb(99, 204, 238)'
-                            buttonColor='#13c8cf'
+                            buttonColor='rgb(108, 211, 245)'
+                        // buttonColor='#13c8cf'
                         >
                             <UilPlus size='25' />
                             New Notebook
@@ -136,12 +140,14 @@ export default function Home() {
                                 </div>
                             </Link>
                         ))}
-                        {/* <button type='button' onClick={addNotebook} style={{ border: 'none' }}>
+                        {/* <button type='button' onClick={addNotebook} style={{ border: 'none' }}> */}
+                        <Link to='/notesbooks'>
                             <div className='create-note-card square-card home-page blue-card no-border'>
-                                <UilPlusCircle size='75' />
-                                <h2 className='add-card-title'>New Notebook</h2>
+                                <UilBooks size='75' />
+                                <h2 className='add-card-title'>All Notebooks</h2>
                             </div>
-                        </button> */}
+                        </Link>
+                        {/* </button> */}
                     </SC.NotesContainer>
                 </SC.NotebooksContainer>
 
