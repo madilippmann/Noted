@@ -29,7 +29,9 @@ export default function LoginFormPage() {
     );
 
     const demoLogin = () => {
-        dispatch(sessionActions.login({ credential: 'demo@user.io', password: 'password' }))
+        // dispatch(sessionActions.login({ credential: 'demo@user.io', password: 'password' }))
+        dispatch(sessionActions.login({ credential: 'madi.lippmann@gmail.com', password: 'password' }))
+
     }
 
     const handleSubmit = async (e) => {
