@@ -127,12 +127,12 @@ export default function Navigation() {
                                     </button>
                                 </div>
 
-                                <Link to={`/settings`}>
+                                {/* <Link to={`/settings`}>
                                     <div className='settings-sign-out'>
                                         <UilSetting size='25' />
                                         Profile Settings
                                     </div>
-                                </Link>
+                                </Link> */}
 
                                 <button type='button' onClick={() => dispatch(sessionActions.logout())} >
                                     <div className='settings-sign-out'>
@@ -193,6 +193,7 @@ export default function Navigation() {
                     <div className='results-container nav-dropdown'>
                         <div className='results'>
                             {formattedNotebooks?.map((notebook, i) => {
+
                                 if (i < 5) {
                                     return (
                                         <Link key={notebook.id} to={`/notebooks/${notebook.id}`}>

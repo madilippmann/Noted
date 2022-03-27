@@ -141,7 +141,7 @@ export default function Home() {
                             </Link>
                         ))}
                         {/* <button type='button' onClick={addNotebook} style={{ border: 'none' }}> */}
-                        <Link to='/notesbooks'>
+                        <Link to='/notebooks'>
                             <div className='create-note-card square-card home-page blue-card no-border'>
                                 <UilBooks size='75' />
                                 <h2 className='add-card-title'>All Notebooks</h2>

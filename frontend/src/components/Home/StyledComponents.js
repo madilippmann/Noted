@@ -48,8 +48,9 @@ export const NotesContainer = styled.div`
 export const H1 = styled.h1`
     margin: 20px 20px 0 30px;
     color: rgba(0, 0, 0, 0.9);
+    font-size: 30px;
 
-`;
+    `;
 
 
 export const NotebooksContainer = styled.div`

@@ -53,10 +53,10 @@ function App() {
           {sessionUser ? <Notebooks /> : <Redirect to='/login' />}
         </Route>
 
-
+        {/*
         <Route exact path='/settings'>
           {sessionUser ? <Settings /> : <Redirect to='/login' />}
-        </Route>
+        </Route> */}
 
         <Route path='/notebooks/:notebookId'>
           {sessionUser ? <Notebook userId={sessionUser.id} /> : <Redirect to='/login' />}

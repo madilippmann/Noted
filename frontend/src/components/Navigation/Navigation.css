@@ -4,8 +4,28 @@
     max-width: 250px;
     height: 100%;
     padding: 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 
 }
+
+
+
+.sidebar::-webkit-scrollbar {
+    width: 0px;
+    height: 10px;
+
+}
+
+/* .sidebar::-webkit-scrollbar-track-piece {
+    background-color: transparent;
+
+} */
+
+/* .sidebar::-webkit-scrollbar-thumb {
+    background-color: rgb(255, 255, 255);
+    border-radius: 25px;
+  } */
 
 .sidebar-img-container {
     display: flex;
@@ -97,8 +117,7 @@ h5, h4 {
 
     z-index: 1000;
     position: absolute;
-    /* width: 275px;
-    height: 135px; */
+
     width: 250px;
     height: fit-content;
 
@@ -115,19 +134,14 @@ h5, h4 {
 
     z-index: 1000;
     position: relative;
-    /* width: 275px;
-    height: 135px; */
+
     width: 235px;
     height: fit-content;
     top: 135px;
-    /* right: 5px; */
 
     box-shadow: 2px 4px 8px 1px rgba(26, 8, 80, 0.5);
     opacity: 92%;
 }
-
-
-
 
 
 .modal-user-info-container {
@@ -137,11 +151,6 @@ h5, h4 {
     justify-content: flex-start;
 }
 
-/* .name-and-email-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-} */
 
 .name-and-email-container, .avatar-container {
     opacity: 90%;
@@ -162,7 +171,6 @@ h5, h4 {
 .user-modal h4 {
     font-size: 14px;
 }
-
 
 .settings-and-sign-out-container {
     padding: 10px;
@@ -186,11 +194,6 @@ h5, h4 {
 .autosave {
     display: flex;
 }
-/*
-div.autosave *:hover {
-    opacity: 100%;
-    padding: 0;
-} */
 
 .settings-sign-out {
     opacity: 100%;
@@ -208,10 +211,17 @@ div.autosave *:hover {
 }
 
 .nav-bars-container {
-    position: absolute;
-    left: 0px;
+    margin-left: -10px;
+}
+
+.nav-sidebar-container {
     width: 250px;
-    /* right: -270px; */
+}
+
+
+.main-nav-links.active {
+    width: 250px;
+
 }
 
 .home-nav {
@@ -219,23 +229,11 @@ div.autosave *:hover {
 }
 
 
-/* NavLink.main-nav-links {
-    position: relative;
-    left: -10px;
-    right: 10px;
-} */
-
 .nav-bars-container NavLink:active {
     background-color: rgb(232, 220, 255);
 }
 
 
-
-/* AUTOSAVE   */
-
-/* export const ToggleButton = styled.button`
-
-`; */
 
 
 .toggle-button {
@@ -259,12 +257,6 @@ div.autosave *:hover {
 .toggle-button.true {
     justify-content: flex-end;
 
-}
-
-/* export const ToggleCircle = styled.div`
-`; */
-
-#autosave-button {
 }
 
 
@@ -293,6 +285,7 @@ div.autosave *:hover {
 
 .nav-sidebar-container h4:hover {
     font-weight: 900;
+    width: 250px;
 }
 
 

@@ -137,5 +137,6 @@ p.note-card-date {
 .add-card-title {
     font-size: 22px;
     margin: 5px;
-    text-shadow: 2px 2px #dadada;
+    color: white;
+    /* text-shadow: 2px 2px #dadada; */
 }
