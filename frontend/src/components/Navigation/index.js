@@ -39,10 +39,6 @@ export default function Navigation() {
     const [formattedNotes, setFormattedNotes] = useState([])
     const [formattedNotebooks, setFormattedNotebooks] = useState([])
 
-
-    console.log(notebooksDropdown);
-    console.log(notesDropdown);
-
     useEffect(() => {
         dispatch(notesActions.loadNotesThunk(sessionUser.id))
         dispatch(notebooksActions.loadNotebooksThunk(sessionUser.id))
