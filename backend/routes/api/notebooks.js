@@ -78,13 +78,6 @@ router.delete(
         const { id } = req.body;
         const { userId } = req.params;
 
-        const notebook = await Notebook.findOne({
-            where: {
-                id,
-                userId
-            }
-        });
-
 
         const notes = await Note.findAll({
             where: {
@@ -96,9 +89,17 @@ router.delete(
         if (notes.length > 0) {
             notes.forEach(async note => {
                 await note.update({ notebookId: null })
+                await note.save()
             })
 
         }
+
+        const notebook = await Notebook.findOne({
+            where: {
+                id,
+                userId
+            }
+        });
 
         await notebook.destroy();
 
