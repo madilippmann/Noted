@@ -22,7 +22,7 @@ Noted is a note-taking application for users to create and organize their notes.
 
 ## Link to live site
 
-Hosted on Heroku: [Noted](https://lippmann-noted.herokuapp.com/)
+Hosted on Render: [Noted](https://lippmann-noted.onrender.com/)
 
 ## Technologies
 
@@ -40,7 +40,6 @@ Noted was built using the following technologies:
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain-wordmark.svg" style="width:75px;" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" style="width:75px;" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original-wordmark.svg" style="width:75px;" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/heroku/heroku-plain-wordmark.svg" style="width:75px;" />
 
 
 
